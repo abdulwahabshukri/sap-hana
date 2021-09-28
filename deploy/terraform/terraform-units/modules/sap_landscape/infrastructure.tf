@@ -99,7 +99,7 @@ data "azurerm_storage_account" "storage_bootdiag" {
 
 resource "azurerm_private_endpoint" "storage_bootdiag" {
   provider            = azurerm.main
-  count               = var.use_private_endpoint && local.sub_admin_defined ? 1 : 0
+  count               = var.use_private_endpoint && local.sub_admin_defined && (length(var.diagnostics_storage_account.arm_id) == 0) ? 1 : 0
   name                = format("%s%s", local.prefix, local.resource_suffixes.storage_private_link_diag)
   resource_group_name = local.rg_name
   location            = local.rg_exists ? data.azurerm_resource_group.resource_group[0].location : azurerm_resource_group.resource_group[0].location
@@ -175,7 +175,7 @@ data "azurerm_storage_account" "witness_storage" {
 
 resource "azurerm_private_endpoint" "witness_storage" {
   provider            = azurerm.main
-  count               = var.use_private_endpoint && local.sub_admin_defined ? 1 : 0
+  count               = var.use_private_endpoint && local.sub_admin_defined && (length(var.witness_storage_account.arm_id) == 0) ? 1 : 0
   name                = format("%s%s", local.prefix, local.resource_suffixes.storage_private_link_witness)
   resource_group_name = local.rg_name
   location            = local.rg_exists ? data.azurerm_resource_group.resource_group[0].location : azurerm_resource_group.resource_group[0].location
