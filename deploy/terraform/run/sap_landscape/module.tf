@@ -9,11 +9,11 @@ module "sap_landscape" {
     azurerm.deployer = azurerm.deployer
     azurerm.fencing  = azurerm.fencing
   }
-  source                             = "../../terraform-units/modules/sap_landscape"
-  infrastructure                     = local.infrastructure
-  options                            = local.options
-  authentication                     = local.authentication
-  custom_prefix                      = local.infrastructure.environment
+  source         = "../../terraform-units/modules/sap_landscape"
+  infrastructure = local.infrastructure
+  options        = local.options
+  authentication = local.authentication
+
   naming                             = module.sap_namegenerator.naming
   service_principal                  = local.use_spn ? local.service_principal : local.account
   key_vault                          = local.key_vault
@@ -31,8 +31,9 @@ module "sap_landscape" {
 }
 
 module "sap_namegenerator" {
-  source           = "../../../../../WORKSPACES/terraform/sap_namegenerator"
+  source             = "../../../../../WORKSPACES/terraform/sap_namegenerator"
   environment        = local.infrastructure.environment
+  custom_prefix      = local.infrastructure.environment
   location           = local.infrastructure.region
   iscsi_server_count = try(local.infrastructure.iscsi.iscsi_count, 0)
   codename           = lower(try(local.infrastructure.codename, ""))
