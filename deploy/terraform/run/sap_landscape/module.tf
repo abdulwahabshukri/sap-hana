@@ -13,6 +13,7 @@ module "sap_landscape" {
   infrastructure                     = local.infrastructure
   options                            = local.options
   authentication                     = local.authentication
+  custom_prefix                      = local.infrastructure.environment
   naming                             = module.sap_namegenerator.naming
   service_principal                  = local.use_spn ? local.service_principal : local.account
   key_vault                          = local.key_vault

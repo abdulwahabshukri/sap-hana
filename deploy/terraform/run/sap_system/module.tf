@@ -7,6 +7,7 @@
 module "sap_namegenerator" {
   source           = "../../../../../WORKSPACES/terraform/sap_namegenerator"
   environment      = local.infrastructure.environment
+  custom_prefix    = local.infrastructure.environment
   location         = local.infrastructure.region
   codename         = lower(try(local.infrastructure.codename, ""))
   random_id        = module.common_infrastructure.random_id
