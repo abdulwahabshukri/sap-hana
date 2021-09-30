@@ -51,7 +51,6 @@ prefix="$(awk '$1 == "secret_prefix:" {print $2}' ${sap_params_file})"
 pwsecretname=$prefix-sid-password
 
 pwsecret=$(az keyvault secret show --vault-name ${kv_name} --name ${pwsecretname} | jq -r .value)
-echo $pwsecret
 export ANSIBLE_PASSWORD=$pwsecret
 #
 # Ansible configuration settings.
