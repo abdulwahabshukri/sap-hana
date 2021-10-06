@@ -127,6 +127,7 @@ packages:
     - { tier: 'ha',    package: 'fence-agents-azure-arm',                                   state: 'present' }
   suse12:
     - { tier: 'os',    package: 'chrony',                                                   state: 'present' }
+    - { tier: 'os',    package: 'python3-jmespath',                                         state: 'present' }
     - { tier: 'os',    package: 'libyui-qt-pkg7',                                           state: 'present' }
     - { tier: 'os',    package: 'glibc',                                                    state: 'present' }
     - { tier: 'os',    package: 'systemd',                                                  state: 'present' }
