@@ -315,9 +315,9 @@ rel=$(lsb_release -a | grep Release | cut -d':' -f2 | xargs)
 # This package is outdated and not recommended. If this package is installed, remove the package
 if [ "$rel" == "20.04" ]; then
   echo "Removing Azure CLI"
-  sudo apt remove azure-cli -y 
-  sudo apt autoremove -y
-  sudo apt update -y
+#  sudo apt remove azure-cli -y 
+#  sudo apt autoremove -y
+#  sudo apt update -y
 fi
 #
 # Install az cli using provided scripting
