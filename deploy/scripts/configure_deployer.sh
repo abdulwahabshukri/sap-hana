@@ -424,20 +424,6 @@ sudo ${ansible_bin}/activate-global-python-argcomplete
 # fi
 
 
-az login --identity 2>error.log || :
-
-if [ ! -f error.log ]; then
-  az account show > az.json
-  client_id=$(jq --raw-output .id az.json)
-  tenant_id=$(jq --raw-output .tenantId az.json)
-  rm az.json
-else
-  client_id=''
-  tenant_id=''
-
-fi
-
-
 curl -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-02-01" | jq > vm.json
 
 rg_name=$(jq --raw-output .compute.resourceGroupName vm.json )
@@ -471,6 +457,28 @@ export ANSIBLE_COLLECTIONS_PATHS=${ansible_collections}
 # Set env for MSI
 export ARM_USE_MSI=true
 
+export ARM_SUBSCRIPTION_ID=${subscription_id}
+export DEPLOYMENT_REPO_PATH=$HOME/Azure_SAP_Automated_Deployment/sap-hana
+
+# Ensure that the user's account is logged in to Azure with specified creds
+az login --identity --output none
+'echo ${USER} account ready for use with Azure SAP Automated Deployment'
+
+
+az login --identity 2>error.log || :
+
+if [ ! -f error.log ]; then
+  az account show > az.json
+  client_id=$(jq --raw-output .id az.json)
+  tenant_id=$(jq --raw-output .tenantId az.json)
+  rm az.json
+else
+  client_id=''
+  tenant_id=''
+
+fi
+
+
 if [ ! -n "${client_id}" ]; then
   export ARM_CLIENT_ID=${client_id}
 fi
@@ -478,13 +486,6 @@ fi
 if [ ! -n "${tenant_id}" ]; then
   export ARM_TENANT_ID=${tenant_id}
 fi
-
-export ARM_SUBSCRIPTION_ID=${subscription_id}
-export DEPLOYMENT_REPO_PATH=$HOME/Azure_SAP_Automated_Deployment/sap-hana
-
-# Ensure that the user's account is logged in to Azure with specified creds
-az login --identity --output none
-'echo ${USER} account ready for use with Azure SAP Automated Deployment'
 
 
 #
