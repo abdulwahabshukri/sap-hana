@@ -461,14 +461,11 @@ export ARM_SUBSCRIPTION_ID=${subscription_id}
 export DEPLOYMENT_REPO_PATH=$HOME/Azure_SAP_Automated_Deployment/sap-hana
 
 # Ensure that the user's account is logged in to Azure with specified creds
-az login --identity --output none
-'echo ${USER} account ready for use with Azure SAP Automated Deployment'
 
-
-az login --identity 2>error.log || :
+/usr/bin/az login --identity 2>error.log || :
 
 if [ ! -f error.log ]; then
-  az account show > az.json
+  /usr/bin/az account show > az.json
   client_id=$(jq --raw-output .id az.json)
   tenant_id=$(jq --raw-output .tenantId az.json)
   rm az.json
