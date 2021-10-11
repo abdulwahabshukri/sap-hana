@@ -417,11 +417,11 @@ sudo -H ${ansible_venv_bin}/ansible-galaxy collection install azure.azcollection
 
 # Install the Python requirements associated with the Ansible Azure collection
 # that was just installed into the Ansible venv.
-azure_azcollection_version=$(jq -r '.collection_info.version' ${ansible_collections}/ansible_collections/azure/azcollection/MANIFEST.json)
-wget -nv -O /tmp/requirements-azure.txt https://raw.githubusercontent.com/ansible-collections/azure/v${azure_azcollection_version}/requirements-azure.txt  || :
-if [ -f /tmp/requirements-azure.txt ]; then
-  sudo ${ansible_venv_bin}/pip3 install  -r /tmp/requirements-azure.txt 
-fi
+# azure_azcollection_version=$(jq -r '.collection_info.version' ${ansible_collections}/ansible_collections/azure/azcollection/MANIFEST.json)
+# wget -nv -O /tmp/requirements-azure.txt https://raw.githubusercontent.com/ansible-collections/azure/v${azure_azcollection_version}/requirements-azure.txt  || :
+# if [ -f /tmp/requirements-azure.txt ]; then
+#   sudo ${ansible_venv_bin}/pip3 install  -r /tmp/requirements-azure.txt 
+# fi
 
 
 az login --identity 2>error.log || :
