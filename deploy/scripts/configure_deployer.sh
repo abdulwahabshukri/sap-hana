@@ -412,8 +412,8 @@ sudo ${ansible_bin}/activate-global-python-argcomplete
 
 
 # Install Ansible collections under the ANSIBLE_COLLECTIONS_PATHS for all users.
-sudo mkdir -p ${ansible_collections}
-sudo -H ${ansible_venv_bin}/ansible-galaxy collection install azure.azcollection --force --collections-path ${ansible_collections}
+# sudo mkdir -p ${ansible_collections}
+# sudo -H ${ansible_venv_bin}/ansible-galaxy collection install azure.azcollection --force --collections-path ${ansible_collections}
 
 # Install the Python requirements associated with the Ansible Azure collection
 # that was just installed into the Ansible venv.
