@@ -1,0 +1,29 @@
+---
+#
+name:    'SWPM20SP09_v0001ms'
+target:  'S/4 HANA 1909 SPS 03'
+version: 1
+
+materials:
+
+  media:
+  # Format:
+  #   - name:           any value                           (Not Used)
+  #     archive:        filename in library
+  #     filename:       filename when downloaded
+  #     permissions:    octal value quoted
+  #     extract:
+  #     extractDir:
+  #     creates:
+  #     url:            optional download url if known      (Not Used at this time)
+  #
+
+   # SWPM
+    - name:         "SWPM20SP09; OS: Linux on x86_64 64bit"
+      archive:      SWPM20SP09_6-80003424.SAR
+      extract:      true
+      extractDir:   SWPM
+      creates:      SIGNATURE.SMF
+      url:          https://softwaredownloads.sap.com/file/0020000001436152021
+
+...
