@@ -323,7 +323,7 @@ fi
 # Install az cli using provided scripting
 #
 
-curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash > /dev/null
+curl -sL https://www.aka.ms/InstallAzureCLIDeb | sudo bash > /dev/null
 
 # Ensure our package metadata cache is up to date
 pkg_mgr_refresh
