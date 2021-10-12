@@ -136,7 +136,6 @@ packages:
     - { tier: 'os',    package: 'systemd',                                                  state: 'present' }
     - { tier: 'os',    package: 'tuned',                                                    state: 'present' }
     - { tier: 'sapos', package: 'autofs',                                                   state: 'present' }
-    - { tier: 'sapos', package: 'jq',                                                       state: 'present' }
     - { tier: 'sapos', package: 'saptune',                                                  state: 'present' }
     - { tier: 'sapos', package: 'libgcc_s1',                                                state: 'present' }
     - { tier: 'sapos', package: 'libstdc++6',                                               state: 'present' }
