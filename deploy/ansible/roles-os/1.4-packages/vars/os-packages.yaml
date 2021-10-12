@@ -51,7 +51,6 @@ packages:
     - { tier: 'sapos', package: 'uuidd',                                                    state: 'present' }
     - { tier: 'sapos', package: 'csh',                                                      state: 'present' }
     # ------------------------- Begin - Packages required for Clustering ---------------------------------------8
-    - { tier: 'ha',    package: 'jq',                                                       state: 'present' }
     - { tier: 'ha',    package: 'pcs',                                                      state: 'present' }
     - { tier: 'ha',    package: 'pacemaker',                                                state: 'present' }
     - { tier: 'ha',    package: 'nmap-ncat',                                                state: 'present' }
@@ -114,7 +113,6 @@ packages:
     - { tier: 'sapos', package: 'uuidd',                                                    state: 'present' }
     - { tier: 'sapos', package: 'csh',                                                      state: 'present' }
     # ------------------------- Begin - Packages required for Clustering ---------------------------------------8
-    - { tier: 'ha',    package: 'jq',                                                       state: 'present' }
     - { tier: 'ha',    package: 'pcs',                                                      state: 'present' }
     - { tier: 'ha',    package: 'pacemaker',                                                state: 'present' }
     - { tier: 'ha',    package: 'nmap-ncat',                                                state: 'present' }
@@ -180,8 +178,6 @@ packages:
   # Assumption: Public_Cloud_Module_x86_64 already available
     - { tier: 'ha',    package: 'python3-azure-mgmt-compute=4.6.2',   node_tier: 'hana',    state: 'present' }
     - { tier: 'ha',    package: 'python3-azure-mgmt-compute=4.6.2',   node_tier: 'scs',     state: 'present' }
-    - { tier: 'ha',    package: 'jq',                                 node_tier: 'scs',     state: 'present' }
-    - { tier: 'ha',    package: 'jq',                                 node_tier: 'hana',    state: 'present' }
     - { tier: 'ha',    package: 'sap-suse-cluster-connector',         node_tier: 'scs',     state: 'present' }
   # ------------------------ End - packages required for Clustering --------------------------------------8
     # TODO(rtamalin): Ensure SLE 15 SP2 uses /usr/bin/python3 rather
