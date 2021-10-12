@@ -89,13 +89,20 @@
   register:                            vgscreated
   when:
     - tier == "sapos"
-  
+
+# Debug for testing
+- name:                                "Print vgcreated details"
+  ansible.builtin.debug:
+    var:
+      - vgcreated
+
 
 - name:                                "Filter the vg name from vgscreated results"
   ansible.builtin.set_fact:
     vgcreatedlist:                     "{{ vgscreated | json_query('results[*].item.vg') }}"
   when:
     - tier == "sapos"
+
 
 # Debug for testing
 - name:                                "Print vgcreated details"

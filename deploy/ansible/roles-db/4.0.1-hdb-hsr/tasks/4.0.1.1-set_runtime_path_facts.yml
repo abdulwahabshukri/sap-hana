@@ -16,6 +16,11 @@
   ansible.builtin.set_fact:
     hana_global_dir: "                 {{ global_path_status.stdout_lines[0] }}"
 
+- name:                                HSR - Ensure SAP global directory fact is set
+  ansible.builtin.debug:
+    var:                               hana_global_dir
+    verbosity:                         2
+
 - name:                                HSR - Ensure associated SAP global directory facts are set
   ansible.builtin.set_fact:
     path_global_ini:                   "{{ hana_global_dir }}/hdb/custom/config/global.ini"

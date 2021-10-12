@@ -24,13 +24,17 @@
       register:                        backup_exists_cmd_for_systemdb_result
       changed_when:                    false
 
+    - name:                            HSR - Check whether backup exists for SYSTEMDB database for System Identifier {{ db_sid }}
+      ansible.builtin.debug:
+        msg:                           backup_exists_cmd_for_systemdb_result
+
     - name:                            HSR - Ensure backup exists for SYSTEMDB database for System Identifier {{ db_sid }}
       ansible.builtin.shell: >
         . ~/.bashrc && {{ hdbsql_systemdb_command }} "{{ backup_cmd_for_systemdb }}"
-      vars:
+ #     vars:
         # Note. Conditional bare variables deprecation notice is supressed here by ansible.cfg
-        backup_required:               "('{{ backup_cmd_no_rows_found }}' in backup_exists_cmd_for_systemdb_result.stdout)"
-      when:                            backup_required
+ #       backup_required:               "{{ ('{{ backup_cmd_no_rows_found }}' in backup_exists_cmd_for_systemdb_result.stdout) }}" 
+      when:                             "( backup_cmd_no_rows_found in backup_exists_cmd_for_systemdb_result.stdout)  | bool"
 
     - name:                            HSR - Check if there is a tenant db needing backup
       block:
@@ -44,11 +48,11 @@
         - name:                        HSR - Ensure backup exists for tenant {{ hana_tenant_database_name }} database for System Identifier {{ db_sid }}
           ansible.builtin.shell: >
             . ~/.bashrc && {{ hdbsql_tenant_command }} "{{ backup_cmd_for_tenant }}"
-          vars:
+#          vars:
             # Note. Conditional bare variables deprecation notice is supressed here by ansible.cfg
-            backup_required:           "('{{ backup_cmd_no_rows_found }}' in backup_exists_cmd_for_tenant_result.stdout)"
+#            backup_required:           "{{ ('{{ backup_cmd_no_rows_found }}' in backup_exists_cmd_for_tenant_result.stdout) }}"
+            
+          when:                        " ( backup_cmd_no_rows_found in backup_exists_cmd_for_tenant_result.stdout ) | bool"
 
-          when: backup_required
-
-      when: hana_has_tenant_db
-  when: ansible_hostname == primary_instance_name and not hana_system_replication_enabled
+      when:                            hana_has_tenant_db
+  when:                                ansible_hostname == primary_instance_name and not hana_system_replication_enabled
