@@ -69,12 +69,16 @@
 - name:                                Load the disk configuration settings
   ansible.builtin.include_vars:        disks_config.yml
 
-- name:                                "Print unique disks and volume group details"
+- name:                                "Print unique disks"
   ansible.builtin.debug:
     var:
       - disktypes
+
+- name:                                "Volume group details"
+  ansible.builtin.debug:
+    var:
       - volume_groups
-    verbosity:                         2
+
 
 # CREATE VOLUME GROUPS BASED ON sap-parameters.yaml
 # -------------------------------------+---------------------------------------8
@@ -102,6 +106,7 @@
     vgcreatedlist:                     "{{ vgscreated | json_query('results[*].item.vg') }}"
   when:
     - tier == "sapos"
+    - vgcreated is defined
 
 
 # Debug for testing
