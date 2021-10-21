@@ -553,7 +553,7 @@ folder and do the following:
     appropariate details that you have collected in previous Tasks:
 
 > **${DEPLOYMENT_REPO_PATH}/deploy/scripts/install_workloadzone.sh
-> --parameterfile ./DEV-WEEU-SAP01-INFRASTRUCTURE.tfvars
+> --parameterfile ./DEV-XXXX-SAP01-INFRASTRUCTURE.tfvars
 > --deployer_environment MGMT --subscription \<subscription ID> --spn_id
 > \<SPN App ID> --spn_secret \<SPN Secret> --tenant_id \<Tenant ID>
 > --state_subscription \<subscription ID> --vault \<DEPLOYER resource
