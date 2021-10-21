@@ -1,4 +1,4 @@
-# ![SAP Deployment Automation Framework](/documentation/SAP_Automation_on_Azure/assets/images/UnicornSAPBlack64x64.png) **SAP Deployment Automation Framework** #
+# ![SAP Deployment Automation Framework](/documentation/SAP_Automation_on_Azure/assets/images/MicrosoftLovesSAP.png) **SAP Deployment Automation Framework** #
 
 Welcome to the [**SAP on Azure Deployment Automation Framework**](documentation/SAP_Automation_on_Azure/table_of_contents.md) repository.
 
