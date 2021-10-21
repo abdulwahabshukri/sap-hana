@@ -68,6 +68,10 @@
 #
 - name:                                Load the disk configuration settings
   ansible.builtin.include_vars:        disks_config.yml
+  
+
+
+
 
 - name:                                "Print unique disks"
   ansible.builtin.debug:
@@ -115,12 +119,8 @@
   when:
     - tier == "sapos"
 
-- name:                                "Print vgcreated details"
-  ansible.builtin.debug:
-    var:                               logical_volumes
-    verbosity:                         2
-  when:
-    - tier == "sapos"
+
+# Debug testing end of line 
 
 # Debug testing end of line
 
