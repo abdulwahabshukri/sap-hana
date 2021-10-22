@@ -7,11 +7,6 @@
 # +------------------------------------4---------------------------------------*|
 ---
 
-# /*---------------------------------------------------------------------------8
-# |                                                                            |
-# |                 Playbook for SAP Web Dispatcher Install                    |
-# |                                                                            |
-# +------------------------------------4--------------------------------------*/
 
 - hosts:                               localhost
   name:                                Get Secrets from KeyVault
@@ -60,35 +55,6 @@
 # |                                                                            |
 # +------------------------------------4--------------------------------------*/
 
-  - block:
-    - include_role:
-          name:     roles-os/1.16-services
-    tags:
-      - 1.16-services
-
-  - block:
-    - include_role:
-          name:     roles-os/1.11-accounts
-    tags:
-      - 1.11-accounts
-
-  - block:
-      - include_role:
-          name:     roles-os/1.17-generic-pacemaker                         # Configures the Pacemaker cluster with Azure fence agent 
-        when: db_high_availability == true          
-    tags:
-      - 1.17-generic-pacemaker
-
-- hosts:          "{{ sap_sid|upper }}_SCS  :
-                  {{ sap_sid|upper }}_ERS"  
-
-  name:           PACEMAKER - General - Config - Central Services
-  remote_user:    "{{ orchestration_ansible_user }}"                
-  become:         yes
-  become_user:    root
-  gather_facts:   true
-  vars_files:
-    - vars/ansible-input-api.yaml                               # API Input template with defaults
 
 # -------------------------------------+---------------------------------------8
 #
@@ -122,7 +88,7 @@
         - name:                        Include 1.3-repository role
           ansible.builtin.include_role:
             name:                      roles-os/1.3-repository
-          when: db_high_availability
+          when:                        db_high_availability
       tags:
         - 1.3-repository
 
@@ -130,7 +96,7 @@
         - name:                        Include 1.4-packages role
           ansible.builtin.include_role:
             name:                      roles-os/1.4-packages
-          when: db_high_availability
+          when:                        db_high_availability
       tags:
         - 1.4-packages
 
@@ -139,7 +105,7 @@
         - name:                        Include 1.9-kernelparameters role
           ansible.builtin.include_role:
             name:                      roles-os/1.9-kernelparameters
-          when: db_high_availability
+          when:                        db_high_availability
       tags:
         - 1.9-kernelparameters
 
@@ -147,7 +113,7 @@
         - name:                        Include 1.16-services role
           ansible.builtin.include_role:
             name:                      roles-os/1.16-services
-          when: db_high_availability
+          when:                        db_high_availability
       tags:
         - 1.16-services
 
@@ -155,7 +121,7 @@
         - name:                        Include 1.11-accounts role
           ansible.builtin.include_role:
             name:                      roles-os/1.11-accounts
-          when: db_high_availability
+          when:                        db_high_availability
       tags:
         - 1.11-accounts
 
@@ -172,6 +138,7 @@
 # |                 Playbook for Pacemaker Install SCS                         |
 # |                                                                            |
 # +------------------------------------4--------------------------------------*/
+
 
 
 - hosts:                               "{{ sap_sid|upper }}_SCS :
