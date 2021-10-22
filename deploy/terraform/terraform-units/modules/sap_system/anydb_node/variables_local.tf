@@ -114,8 +114,12 @@ locals {
   region    = var.infrastructure.region
   anydb_sid = (length(local.anydb_databases) > 0) ? try(local.anydb.instance.sid, lower(substr(local.anydb_platform, 0, 3))) : lower(substr(local.anydb_platform, 0, 3))
   sid       = length(var.sap_sid) > 0 ? var.sap_sid : local.anydb_sid
-  prefix    = try(var.infrastructure.resource_group.name, trimspace(var.naming.prefix.SDU))
-  rg_name   = try(var.infrastructure.resource_group.name, format("%s%s", local.prefix, local.resource_suffixes.sdu_rg))
+  prefix  = trimspace(var.naming.prefix.SDU)
+  rg_exists = length(try(var.infrastructure.resource_group.arm_id, "")) > 0
+  rg_name = local.rg_exists ? (
+    try(split("/", var.infrastructure.resource_group.arm_id)[4], "")) : (
+    coalesce(var.infrastructure.resource_group.name, format("%s%s", local.prefix, local.resource_suffixes.sdu_rg))
+  )
 
   //Allowing changing the base for indexing, default is zero-based indexing, if customers want the first disk to start with 1 they would change this
   offset = try(var.options.resource_offset, 0)

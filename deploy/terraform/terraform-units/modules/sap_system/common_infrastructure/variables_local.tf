@@ -3,6 +3,13 @@
   Define local variables
 */
 
+variable "custom_prefix" {
+  type        = string
+  description = "Custom prefix"
+  default     = ""
+}
+
+
 variable "is_single_node_hana" {
   description = "Checks if single node hana architecture scenario is being deployed"
   default     = false
@@ -77,12 +84,12 @@ locals {
   //Region and metadata
   region    = var.infrastructure.region
   sid       = upper(var.application.sid)
-  prefix    = length(try(var.infrastructure.resource_group.name, "")) > 0 ? var.infrastructure.resource_group.name : trimspace(var.naming.prefix.SDU)
+  prefix    = length(trimspace(var.custom_prefix)) > 0 ? trimspace(var.custom_prefix) : trimspace(var.naming.prefix.SDU)
   rg_exists = length(try(var.infrastructure.resource_group.arm_id, "")) > 0
   // Resource group
   rg_name = local.rg_exists ? (
     try(split("/", var.infrastructure.resource_group.arm_id)[4], "")) : (
-    length(try(var.infrastructure.resource_group.name, "")) > 0 ? var.infrastructure.resource_group.name : try(var.infrastructure.resource_group.name, format("%s%s", local.prefix, local.resource_suffixes.sdu_rg))
+    coalesce(var.infrastructure.resource_group.name, format("%s%s", local.prefix, local.resource_suffixes.sdu_rg))
 
   )
 

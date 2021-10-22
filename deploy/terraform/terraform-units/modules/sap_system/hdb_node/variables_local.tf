@@ -121,9 +121,12 @@ locals {
 
   region  = var.infrastructure.region
   sid     = upper(var.sap_sid)
-  prefix  = try(var.infrastructure.resource_group.name, trimspace(var.naming.prefix.SDU))
-  rg_name = try(var.infrastructure.resource_group.name, format("%s%s", local.prefix, local.resource_suffixes.sdu_rg))
-
+  prefix  = trimspace(var.naming.prefix.SDU)
+  rg_exists = length(try(var.infrastructure.resource_group.arm_id, "")) > 0
+  rg_name = local.rg_exists ? (
+    try(split("/", var.infrastructure.resource_group.arm_id)[4], "")) : (
+    coalesce(var.infrastructure.resource_group.name, format("%s%s", local.prefix, local.resource_suffixes.sdu_rg))
+  )
 
   hdb_list = [
     for db in var.databases : db

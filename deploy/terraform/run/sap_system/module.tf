@@ -25,6 +25,7 @@ module "sap_namegenerator" {
   web_zones        = local.web_zones
   db_zones         = local.db_zones
   resource_offset  = try(var.options.resource_offset, 0)
+  custom_prefix    = var.custom_prefix
 }
 
 module "common_infrastructure" {
@@ -52,7 +53,7 @@ module "common_infrastructure" {
   anf_transport_volume_size          = var.anf_transport_volume_size
   anf_sapmnt_volume_size             = var.anf_sapmnt_volume_size
   use_ANF                            = var.use_ANF
-
+  custom_prefix                      = var.custom_prefix
 
 }
 

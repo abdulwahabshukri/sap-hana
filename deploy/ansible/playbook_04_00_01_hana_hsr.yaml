@@ -57,6 +57,13 @@
         secondary_instance_name: "{{ ansible_play_hosts_all[1] }}"                # Setting up Secondary Instance Name
         main_password:      "{{ hostvars.localhost.sap_password }}"
 
+    - block:
+        - name:                        Include 1.4-packages role
+          ansible.builtin.include_role:
+            name:                      roles-os/1.4-packages
+          when: scs_high_availability
+      tags:
+        - 1.4-packages
 
     - block:
         - name: Run the db/hdb-hsr role

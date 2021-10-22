@@ -4,7 +4,9 @@ locals {
     [for idx in range(length(local.zones)) :
       format("-z%s%s", local.zones[idx], "-ppg")
     ]) : (
-    [format("%s", "-ppg")]
+    [
+      length(trimspace(var.custom_prefix)) == 0 ? format("%s%s", local.sdu_name, "-ppg") : format("%s", "-ppg")
+    ]
   )
 
   app_avset_names = local.zonal_deployment ? (

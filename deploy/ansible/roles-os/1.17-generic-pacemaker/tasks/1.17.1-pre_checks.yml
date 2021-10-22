@@ -44,6 +44,12 @@
   ansible.builtin.debug: 
     var: cluster_existence_check
 
+
+- name:                                "Show VM names"
+  ansible.builtin.debug:
+    msg:                               "{{ hostvars[primary_instance_name]['primary_vm_name'] }} {{ hostvars[secondary_instance_name]['secondary_vm_name'] }}"
+    verbosity:                         2
+
 ...
 
 

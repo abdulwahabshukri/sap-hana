@@ -3,7 +3,7 @@
 # | Playbook for PACEMAKER General Config                                       |
 # | This playbook will setup a generic pacemaker cluster on DB and SCS hosts    |
 # | The playbook user Azure fence Agent for node fencing. It gets the SPN       |
-# | credentions from Key Vault. These credentianls are used to create Stonith.  |
+# | credentials from Key Vault. These credentials are used to create Stonith.  |
 # +------------------------------------4---------------------------------------*|
 ---
 
@@ -18,8 +18,8 @@
   gather_facts:                        true
   vars_files:
     - vars/ansible-input-api.yaml                               # API Input template with defaults
+  
   tasks:
-
     - name:                            Set 'ha' tier facts
       ansible.builtin.set_fact:
         tier:                          fencing
@@ -45,7 +45,6 @@
 
 
 - hosts:                               "{{ sap_sid|upper }}_DB"
-
   name:                                PACEMAKER - General Config - Database
   remote_user:                         "{{ orchestration_ansible_user }}"
   become:                              true

@@ -12,7 +12,7 @@ location="westeurope"
 # The resource_group_name value is optional, it can be used to override the name of the resource group that will be provisioned
 # The resource_group_name arm_id is optional, it can be used to provide an existing resource group for the deployment
 #resource_group_name=""
-#resource_group_arm_id=""
+#resourcegroup_arm_id=""
 
 
 #resourcegroup_tags = {

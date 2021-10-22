@@ -6,6 +6,11 @@ output "landscape_key_vault_user_arm_id" {
   value = try(module.sap_landscape.kv_user, "")
 }
 
+output "workloadzone_kv_name" {
+  value = try(split("/", local.module.sap_landscape.kv_user)[8], "")
+}
+
+
 output "landscape_key_vault_private_arm_id" {
   value = try(module.sap_landscape.kv_prvt, "")
 }

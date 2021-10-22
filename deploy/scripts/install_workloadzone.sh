@@ -228,7 +228,7 @@ fi
 #Plugins
 if [ ! -d "$HOME/.terraform.d/plugin-cache" ]
 then
-    mkdir "$HOME/.terraform.d/plugin-cache"
+    mkdir -p "$HOME/.terraform.d/plugin-cache"
 fi
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 
@@ -608,7 +608,7 @@ new_deployment=false
 #Plugins
 if [ ! -d "$HOME/.terraform.d/plugin-cache" ]
 then
-    mkdir "$HOME/.terraform.d/plugin-cache"
+    mkdir -p "$HOME/.terraform.d/plugin-cache"
 fi
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 root_dirname=$(pwd)
@@ -834,6 +834,37 @@ save_config_var "landscape_tfstate_key" "${workload_config_information}"
 
 
 if [ 0 == $return_value ] ; then
+
+  workloadkeyvault=$(terraform -chdir="${terraform_module_directory}"  output workloadzone_kv_name | tr -d \")
+
+  return_value=-1
+  temp=$(echo "${workloadkeyvault}" | grep "Warning")
+  if [ -z "${temp}" ]
+  then
+      temp=$(echo "${workloadkeyvault}" | grep "Backend reinitialization required")
+      if [ -z "${temp}" ]
+      then
+  
+          printf -v val %-.20s "$workloadkeyvault"            
+  
+          echo ""
+          echo "#########################################################################################"
+          echo "#                                                                                       #"
+          echo -e "#                Keyvault to use for System details:$cyan $val $resetformatting                 #"
+          echo "#                                                                                       #"
+          echo "#########################################################################################"
+          echo ""
+  
+          save_config_var "workloadkeyvault" "${workload_config_information}"
+          return_value=0
+      else
+          return_value=-1
+      fi
+  fi
+  unset TF_DATA_DIR
+  exit $return_value
+
+
     if [ "$private_link_used" == "true" ]; then
         echo "#########################################################################################"
         echo "#                                                                                       #"

@@ -14,7 +14,6 @@
   block:
       
 
-
     - name:                            Ensure a list of package version is available for checking the SAPHanaSR package version
       ansible.builtin.package_facts:
 

@@ -46,7 +46,7 @@
 
 - name:                                HSR - Ensure current replication status is known
   ansible.builtin.set_fact:
-    hana_system_replication_enabled:   "{{ 'mode: none' in hana_replication_status.stdout }}"
+    hana_system_replication_enabled:   "{{ 'mode: secondary' in hana_replication_status.stdout }}"
   when:                                ansible_hostname == secondary_instance_name
 
 - name:                                HSR - Debug replication status 

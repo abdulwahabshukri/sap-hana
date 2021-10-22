@@ -138,13 +138,12 @@ locals {
   ])[0]), 2)
 
   sid    = upper(var.application.sid)
-  prefix = try(var.infrastructure.resource_group.name, trimspace(var.naming.prefix.SDU))
+  prefix = trimspace(var.naming.prefix.SDU)
   // Resource group
   rg_exists = length(try(var.infrastructure.resource_group.arm_id, "")) > 0
   rg_name = local.rg_exists ? (
     try(split("/", var.infrastructure.resource_group.arm_id)[4], "")) : (
-    try(var.infrastructure.resource_group.name, format("%s%s", local.prefix, local.resource_suffixes.sdu_rg))
-
+    coalesce(var.infrastructure.resource_group.name, format("%s%s", local.prefix, local.resource_suffixes.sdu_rg))
   )
 
   sid_auth_type        = upper(local.app_ostype) == "LINUX" ? try(var.application.authentication.type, "key") : "password"

@@ -8,6 +8,5 @@
 # Clustering commands are based on the Host OS
 - name:                                Cluster based on OS in VM
   include_tasks:                       "5.5.4.0-cluster-{{ ansible_os_family }}.yml"
-  when:                                not cluster_existence_check
 
 ...

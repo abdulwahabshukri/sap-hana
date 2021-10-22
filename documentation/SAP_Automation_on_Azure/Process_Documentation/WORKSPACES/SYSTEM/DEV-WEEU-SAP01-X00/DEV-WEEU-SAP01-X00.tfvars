@@ -3,7 +3,7 @@
 environment="DEV"
 location="westeurope"
 #resource_group_name=""
-#resource_group_arm_id=""
+#resourcegroup_arm_id=""
 #proximityplacementgroup_names=[]
 #proximityplacementgroup_arm_ids=[]
 #Anchor VM
