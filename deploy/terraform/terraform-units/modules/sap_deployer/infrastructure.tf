@@ -78,6 +78,12 @@ resource "azurerm_resource_group" "deployer" {
   location = local.region
   tags     = var.infrastructure.tags
 
+  lifecycle {
+    ignore_changes = [
+      tags
+    ]
+  }
+
 }
 
 data "azurerm_resource_group" "deployer" {

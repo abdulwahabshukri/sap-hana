@@ -640,6 +640,24 @@ if [ 4 == $step ]; then
     save_config_var "step" "${deployer_config_information}"
 fi
 
+load_config_vars "${deployer_config_information}" "keyvault"
+load_config_vars "${deployer_config_information}" "deployer_public_ip_address"
+load_config_vars "${deployer_config_information}" "REMOTE_STATE_SA"
+
+printf -v kvname '%-40s' "${keyvault}"
+printf -v dep_ip '%-40s' "${deployer_public_ip_address}"
+printf -v storage_account '%-40s' "${REMOTE_STATE_SA}"
+echo ""
+echo "#########################################################################################"
+echo "#                                                                                       #"
+echo -e "# $cyan Please save these values: $resetformatting                                                           #"
+echo "#     - Key Vault: "${kvname}"                                                #"
+echo "#     - Deployer IP: "${dep_ip}"                                                       #"
+echo "#     - Storage Account: "${REMOTE_STATE_SA}"                                             #"
+echo "#                                                                                       #"
+echo "#########################################################################################"
+
+
 if [ 5 == $step ]; then
     cd "${curdir}" || exit
     

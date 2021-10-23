@@ -905,6 +905,16 @@ if [ $ok_to_proceed ]; then
     
 fi
 
+
+if [ "${deployment_system}" == sap_deployer ]
+then
+    deployer_public_ip_address=$(terraform -chdir="${terraform_module_directory}" output deployer_public_ip_address | tr -d \")
+    echo $deployer_public_ip_address
+    save_config_vars "${system_config_information}" \
+    deployer_public_ip_address
+fi
+
+
 if [ "${deployment_system}" == sap_landscape ]
 then
     save_config_vars "${system_config_information}" \

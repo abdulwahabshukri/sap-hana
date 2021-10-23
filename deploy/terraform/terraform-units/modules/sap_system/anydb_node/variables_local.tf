@@ -118,7 +118,7 @@ locals {
   rg_exists = length(try(var.infrastructure.resource_group.arm_id, "")) > 0
   rg_name = local.rg_exists ? (
     try(split("/", var.infrastructure.resource_group.arm_id)[4], "")) : (
-    coalesce(var.infrastructure.resource_group.name, format("%s%s", local.prefix, local.resource_suffixes.sdu_rg))
+    coalesce(try(var.infrastructure.resource_group.name, ""), format("%s%s", local.prefix, local.resource_suffixes.sdu_rg))
   )
 
   //Allowing changing the base for indexing, default is zero-based indexing, if customers want the first disk to start with 1 they would change this

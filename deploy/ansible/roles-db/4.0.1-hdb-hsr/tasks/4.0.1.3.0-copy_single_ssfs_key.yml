@@ -27,17 +27,6 @@
         state:                         absent
   when:                                ansible_hostname != primary_instance_name
 
-# - name:                                "HSR - Check {{ ssfs_file_path }}"
-#   ansible.builtin.stat:
-#     path:                              "{{ ssfs_file_path }}"
-#   register:                            ssfs_result
-
-
-# - name:                                "HSR - Debug Check {{ ssfs_file_path }}"
-#   ansible.builtin.debug:
-#     var:                               ssfs_result
-
-
 - name:                                HSR - Ensure the primary node {{ ssfs_file_path }} file is placed on the secondary node
   block:
 
@@ -49,7 +38,7 @@
       become:                          true
       ansible.builtin.shell: >         
                                        export SSHPASS={{ main_password }};
-                                       sshpass -e scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no {{ db_sid | lower }}adm@{{ primary_instance_ip_db }}:{{ ssfs_file_path }} {{ ssfs_file_path }}
-      creates:                         "{{ ssfs_file_path }}"
+                                       sshpass -e scp -i ~/.ssh/id_rsa.pub -o StrictHostKeyChecking=no {{ db_sid | lower }}adm@{{ primary_instance_name }}:{{ ssfs_file_path }} {{ ssfs_file_path }}
     
   when:                                ansible_hostname == secondary_instance_name
+
