@@ -57,39 +57,16 @@
     state:                             absent
   when:                                reinstall
 
-- name:     "Create run flag directory"
-  ansible.builtin.file:
-    path:   /etc/sap_deployment_automation
-    state:  directory
-    mode:   0755
 
-- name:               "SAP ERS reset"
-  ansible.builtin.file: 
-    path: /etc/sap_deployment_automation/sap_deployment_ers.txt
-    state: absent
-  when: reinstall == true 
-
-- name:     "Create run flag directory"
-  ansible.builtin.file:
-    path:   /etc/sap_deployment_automation
-    state:  directory
-    mode:   0755
-
-- name:               "SAP ERS reset"
-  ansible.builtin.file: 
-    path: /etc/sap_deployment_automation/sap_deployment_ers.txt
-    state: absent
-  when: reinstall == true 
-
-- name: SAP ERS install variables
+- name:                                "ERS Install: install variables"
   debug:
-    msg: "{{ sap_inifile }}"
-    verbosity: 2
+    msg:                               "{{ sap_inifile }}"
+    verbosity:                         2
 
-- name: SAP ERS install variables
+- name:                                SAP ERS install variables
   debug:
-    msg: "{{ bom.product_ids.ers }}"
-    verbosity: 2
+    msg:                               "{{ bom.product_ids.ers }}"
+    verbosity:                         2
 
 
 
