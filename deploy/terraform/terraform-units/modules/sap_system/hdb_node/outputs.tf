@@ -50,7 +50,7 @@ output "dns_info_vms" {
 }
 
 output "dns_info_loadbalancers" {
-  value = local.enable_deployment ? (
+  value = local.enable_db_lb_deployment ? (
     zipmap([format("%s%s%s", local.prefix, var.naming.separator, local.resource_suffixes.db_alb)], [azurerm_lb.hdb[0].private_ip_addresses[0]])) : (
     null
   )

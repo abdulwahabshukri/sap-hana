@@ -15,7 +15,7 @@ cluster_quorum:
 # SAP SCS System, these may need to be adjusted if the operation takes longer than expected.
 cluster_SAPSCS_timeouts:
   start:          60s
-  stop:           60s 
+  stop:           60s
   monitor_master: 700
   monitor_slave: 700
   promote: 3600
@@ -33,11 +33,9 @@ cluster_name: db{{ sid | lower }}
 # storage_object: sbd{{ cluster_name }}
 # target: "{{ iscsi_object }}.{{ cluster_name }}.local:{{ cluster_name }}"
 
-# SAP ASCS/ERS Utility Commands 
+# SAP ASCS/ERS Utility Commands
 sapcontrolscs_command: "sapcontrol -nr {{ scs_instance_number }}"
 sapcontrolers_command: "sapcontrol -nr {{ ers_instance_number }}"
-
-
 
 #hana_stop_start_timeout_in_seconds: 2700
 #hana_stop_start_delay_in_seconds: 2

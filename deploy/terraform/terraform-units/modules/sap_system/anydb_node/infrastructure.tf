@@ -13,7 +13,7 @@ resource "azurerm_lb" "anydb" {
 
   frontend_ip_configuration {
     name      = format("%s%s%s", local.prefix, var.naming.separator, local.resource_suffixes.db_alb_feip)
-    subnet_id = var.db_subnet
+    subnet_id = var.db_subnet.id
 
     private_ip_address = local.use_DHCP ? (
       null) : (
@@ -26,14 +26,14 @@ resource "azurerm_lb" "anydb" {
 }
 
 resource "azurerm_lb_backend_address_pool" "anydb" {
-  count           = local.enable_deployment ? 1 : 0
+  count           = local.enable_db_lb_deployment ? 1 : 0
   name            = format("%s%s%s", local.prefix, var.naming.separator, local.resource_suffixes.db_alb_bepool)
   loadbalancer_id = azurerm_lb.anydb[count.index].id
 }
 
 resource "azurerm_lb_probe" "anydb" {
-  provider                  = azurerm.main
-  count               = local.enable_deployment ? 1 : 0
+  provider            = azurerm.main
+  count               = local.enable_db_lb_deployment ? 1 : 0
   name                = format("%s%s%s", local.prefix, var.naming.separator, local.resource_suffixes.db_alb_hp)
   resource_group_name = var.resource_group[0].name
   loadbalancer_id     = azurerm_lb.anydb[count.index].id
@@ -61,8 +61,8 @@ resource "azurerm_lb_rule" "anydb" {
 
 
 resource "azurerm_network_interface_backend_address_pool_association" "anydb" {
-  provider                  = azurerm.main
-  count                   = local.enable_deployment ? local.db_server_count : 0
+  provider                = azurerm.main
+  count                   = local.enable_db_lb_deployment ? local.db_server_count : 0
   network_interface_id    = azurerm_network_interface.anydb_db[count.index].id
   ip_configuration_name   = azurerm_network_interface.anydb_db[count.index].ip_configuration[0].name
   backend_address_pool_id = azurerm_lb_backend_address_pool.anydb[0].id
@@ -82,7 +82,7 @@ resource "azurerm_availability_set" "anydb" {
 }
 
 data "azurerm_availability_set" "anydb" {
-  provider                  = azurerm.main
+  provider            = azurerm.main
   count               = local.enable_deployment && local.use_avset && local.availabilitysets_exist ? max(length(local.zones), 1) : 0
   name                = split("/", local.availabilityset_arm_ids[count.index])[8]
   resource_group_name = split("/", local.availabilityset_arm_ids[count.index])[4]

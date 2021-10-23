@@ -7,7 +7,7 @@
 # [1] Configure cluster default properties
 # [1] Create a virtual IP resource and health-probe for the ASCS instance
 
-- name:                               "SCS - Cluster Configuration before Install "
+- name:                               "SCS - Cluster Configuration before Install"
   block:
     
     - name:                            "Configure cluster default properties"
@@ -19,7 +19,7 @@
       ansible.builtin.shell:           pcs node standby {{ secondary_instance_name }}
 
     - name:                            "SCS - Configure File system resources"
-      ansible.builtin.shell: >          
+      ansible.builtin.shell: >
                                        pcs resource create fs_{{ sap_sid }}_ASCS Filesystem \
                                        device='{{ sap_mnt }}/usrsap{{ sap_sid }}ascs{{ scs_instance_number }}' \
                                        directory='/usr/sap/{{ sap_sid }}/ASCS{{ scs_instance_number }}' fstype='nfs' force_unmount=safe options='sec=sys,vers=4.1' \
@@ -27,41 +27,45 @@
                                        op stop interval=0 timeout=120 \
                                        op monitor interval=200 timeout=40 \
                                        --group g-{{ sap_sid }}_ASCS
+      register:                        FSResource
+      failed_when:                     FSResource.rc > 1
 
     - name:                            "SCS - Create ASCS VIP - This is LB frontend ASCS/SCS IP"
       ansible.builtin.shell: >
                                        pcs resource create vip_{{ sap_sid }}_ASCS IPaddr2 \
                                        ip={{ scs_lb_ip }} cidr_netmask=24 \
                                        --group g-{{ sap_sid }}_ASCS
+      register:                        ASCSVIP
+      failed_when:                     ASCSVIP.rc > 1
 
     - name:                            "SCS - create Azure LB resource "
       ansible.builtin.shell: >
                                        pcs resource create nc_{{ sap_sid }}_ASCS azure-lb port=620{{ scs_instance_number }} \
                                        --group g-{{ sap_sid }}_ASCS
+      register:                        ASCSLB
+      failed_when:                     ASCSLB.rc > 1
 
   when: inventory_hostname == primary_instance_name
 
-# [1] Install SAP NetWeaver ASCS - this is where we call the SCS role  
+# [1] Install SAP NetWeaver ASCS - this is where we call the SCS role
 #- block:
      # - include_role:
      #     name:                         roles-sap/5.0.1-scs-ha-install
      #     when:                         inventory_hostname == primary_instance_name
 
 - name:                                 "SCS - Install SCS on Primary host"
-  include_role:                         
+  include_role:
     name:                               roles-sap/5.0.1-scs-ha-install
-  when: inventory_hostname == primary_instance_name         
-
-
+  when: inventory_hostname == primary_instance_name
 
 # [1] Create a virtual IP resource and health-probe for the ERS instance
 
 - name:                               "ERS - Cluster Configuration before Install "
   block:
-    
+
     - name:                            "Bring Secondary host online "
       ansible.builtin.shell:           pcs node unstandby {{ secondary_instance_name }}
-                                       
+
     - name:                            "Put Primary host on standby"
       ansible.builtin.shell:           pcs node standby {{ primary_instance_name }}
 
@@ -88,13 +92,10 @@
 
   when: inventory_hostname == primary_instance_name
 
-
-
-
 # [2] Install SAP NetWeaver ERS - Build a new role for ERS Installation - done
 
 - name:                                 "ERS - Install on Secondary host"
-  include_role:                         
+  include_role:
     name:                               roles-sap/5.0.2-ers-ha-install
   when: inventory_hostname == secondary_instance_name
 
@@ -102,29 +103,28 @@
 # [A] Add firewall rules for ASCS and ERS on both nodes Add the firewall rules for ASCS and ERS on both nodes.
 - name:                                 Add firewall rules for ASCS and ERS on both nodes
   ansible.builtin.firewalld:
-    zone: public
-    port: "{{item.port}}/tcp"
-    permanent: yes
-    state: enabled
+    zone:                               public
+    port:                               "{{ item.port }}/tcp"
+    permanent:                          true
+    state:                              enabled
   with_items:
-       - { port: "620{{ scs_instance_number }}" }
-       - { port: "32{{ scs_instance_number }}" }
-       - { port: "36{{ scs_instance_number }}" }
-       - { port: "39{{ scs_instance_number }}" }
-       - { port: "81{{ scs_instance_number }}" }
-       - { port: "5{{ scs_instance_number }}13" }
-       - { port: "5{{ scs_instance_number }}14" }
-       - { port: "5{{ scs_instance_number }}16" }
-       - { port: "621{{ ers_instance_number }}" }
-       - { port: "32{{ ers_instance_number }}" }
-       - { port: "36{{ ers_instance_number }}" }
-       - { port: "39{{ ers_instance_number }}" }
-       - { port: "81{{ ers_instance_number }}" }
-       - { port: "5{{ ers_instance_number }}13" }
-       - { port: "5{{ ers_instance_number }}14" }
-       - { port: "5{{ ers_instance_number }}16" }
+    - { port: "620{{ scs_instance_number }}" }
+    - { port: "32{{ scs_instance_number }}" }
+    - { port: "36{{ scs_instance_number }}" }
+    - { port: "39{{ scs_instance_number }}" }
+    - { port: "81{{ scs_instance_number }}" }
+    - { port: "5{{ scs_instance_number }}13" }
+    - { port: "5{{ scs_instance_number }}14" }
+    - { port: "5{{ scs_instance_number }}16" }
+    - { port: "621{{ ers_instance_number }}" }
+    - { port: "32{{ ers_instance_number }}" }
+    - { port: "36{{ ers_instance_number }}" }
+    - { port: "39{{ ers_instance_number }}" }
+    - { port: "81{{ ers_instance_number }}" }
+    - { port: "5{{ ers_instance_number }}13" }
+    - { port: "5{{ ers_instance_number }}14" }
+    - { port: "5{{ ers_instance_number }}16" }
 
-
-#End of Playbook. 
+# End of Playbook.
 
 ...

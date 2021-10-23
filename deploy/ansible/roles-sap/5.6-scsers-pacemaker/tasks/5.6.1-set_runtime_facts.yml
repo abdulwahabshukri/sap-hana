@@ -13,15 +13,15 @@
 
 - name:                                Set the primary intance nic and secondary instance nic IP
   ansible.builtin.set_fact:
-    primary_instance_ip:             "{{ hostvars[primary_instance_name]['ansible_eth0']['ipv4']['address'] }}"
-    secondary_instance_ip:           "{{ hostvars[secondary_instance_name]['ansible_eth0']['ipv4']['address'] }}"
+    primary_instance_ip:               "{{ hostvars[primary_instance_name]['ansible_eth0']['ipv4']['address'] }}"
+    secondary_instance_ip:             "{{ hostvars[secondary_instance_name]['ansible_eth0']['ipv4']['address'] }}"
 
-- name:                               Set the SCS and ERS Virtual Instance hostname
+- name:                                Set the SCS and ERS Virtual Instance hostname
   ansible.builtin.set_fact:
-    scs_virtual_hostname:            "{{ sap_sid | lower }}scsvir{{ scs_instance_number }}cl1"
-    ers_virtual_hostname:            "{{ sap_sid | lower }}ersvir{{ ers_instance_number }}cl2"
+    scs_virtual_hostname:              "{{ sap_sid | lower }}scsvir{{ scs_instance_number }}cl1"
+    ers_virtual_hostname:              "{{ sap_sid | lower }}ersvir{{ ers_instance_number }}cl2"
 
- 
+
 
 # /*---------------------------------------------------------------------------8
 # |                                   END                                     |
