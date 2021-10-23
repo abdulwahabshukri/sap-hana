@@ -59,14 +59,8 @@ output "disks" {
 
 }
 
-
 output "automation_version" {
   value = local.version_label
-}
-
-output "infrastructure" {
-  value = local.infrastructure
-
 }
 
 # output "app" {
@@ -90,6 +84,11 @@ output "infrastructure" {
 output "sapmnt_path" {
   value = module.common_infrastructure.sapmnt_path
 }
+
+output "saptransport_path" {
+  value = module.common_infrastructure.saptransport_path
+}
+
 
 # output "shared_path" {
 #   value = module.common_infrastructure.shared_path

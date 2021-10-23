@@ -82,7 +82,7 @@ resource "azurerm_key_vault" "kv_user" {
     bypass         = "AzureServices"
     default_action = "Allow"
     ip_rules = var.use_private_endpoint ? (
-      [length(local.deployer_public_ip_address) > 0 ? local.deployer_public_ip_address : null]
+      [length(local.deployer_public_ip_address) > 0 ? local.deployer_public_ip_address : ""]
       ) : (
       []
     )

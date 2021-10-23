@@ -304,3 +304,24 @@ resource "azurerm_subnet_route_table_association" "subnet_sap_web" {
   subnet_id      = azurerm_subnet.subnet_sap_web[0].id
   route_table_id = var.route_table_id
 }
+
+resource "azurerm_private_dns_a_record" "scs" {
+  provider            = azurerm.deployer
+  count               = local.enable_scs_lb_deployment && length(local.dns_label) > 0 ? 1 : 0
+  name                = lower(format("%sscsvir%scl1", local.sid, local.scs_instance_number))
+  resource_group_name = local.dns_resource_group_name
+  zone_name           = local.dns_label
+  ttl                 = 300
+  records             = [try(azurerm_lb.scs[0].frontend_ip_configuration[0].private_ip_address, "")]
+}
+
+resource "azurerm_private_dns_a_record" "ers" {
+  provider            = azurerm.deployer
+  count               = local.enable_scs_lb_deployment && local.scs_high_availability && length(local.dns_label) > 0 ? 1 : 0
+  name                = lower(format("%sersvir%scl2", local.sid, local.ers_instance_number))
+  resource_group_name = local.dns_resource_group_name
+  zone_name           = local.dns_label
+  ttl                 = 300
+  records             = [try(azurerm_lb.scs[0].frontend_ip_configuration[1].private_ip_address, "")]
+}
+

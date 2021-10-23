@@ -78,7 +78,6 @@
   ansible.builtin.shell: |
                                        set -o errexit
                                        set -o pipefail
-                                       export TMPDIR=/usr/sap/install
                                        ./sapinst SAPINST_INPUT_PARAMETERS_URL=/usr/sap/install/downloads/{{ sap_inifile }}     \
                                                  SAPINST_EXECUTE_PRODUCT_ID={{ bom.product_ids.ers }}                          \
                                                  SAPINST_SKIP_DIALOGS=true                                                     \
@@ -88,6 +87,8 @@
   args:
     chdir:                             /usr/sap/install/SWPM
     creates:                           /etc/sap_deployment_automation/sap_deployment_ers.txt
+  environment:
+    TMPDIR:                            /usr/sap/install
   tags:
     - skip_ansible_lint
   # Skip when TRUE (test mode)

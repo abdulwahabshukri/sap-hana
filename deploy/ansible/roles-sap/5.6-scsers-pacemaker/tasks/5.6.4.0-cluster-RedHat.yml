@@ -27,23 +27,23 @@
                                        op stop interval=0 timeout=120 \
                                        op monitor interval=200 timeout=40 \
                                        --group g-{{ sap_sid }}_ASCS
-      register:                        FSResource
-      failed_when:                     FSResource.rc > 1
+      register:                        SCSFSResource
+      failed_when:                     SCSFSResource.rc > 1
 
     - name:                            "SCS - Create ASCS VIP - This is LB frontend ASCS/SCS IP"
       ansible.builtin.shell: >
                                        pcs resource create vip_{{ sap_sid }}_ASCS IPaddr2 \
                                        ip={{ scs_lb_ip }} cidr_netmask=24 \
                                        --group g-{{ sap_sid }}_ASCS
-      register:                        ASCSVIP
-      failed_when:                     ASCSVIP.rc > 1
+      register:                        SCSASCSVIP
+      failed_when:                     SCSASCSVIP.rc > 1
 
     - name:                            "SCS - create Azure LB resource "
       ansible.builtin.shell: >
                                        pcs resource create nc_{{ sap_sid }}_ASCS azure-lb port=620{{ scs_instance_number }} \
                                        --group g-{{ sap_sid }}_ASCS
-      register:                        ASCSLB
-      failed_when:                     ASCSLB.rc > 1
+      register:                        SCSASCSLB
+      failed_when:                     SCSASCSLB.rc > 1
 
   when: inventory_hostname == primary_instance_name
 
@@ -78,17 +78,23 @@
                                        op stop interval=0 timeout=120 \
                                        op monitor interval=200 timeout=40 \
                                        --group g-{{ sap_sid }}_ERS
+      register:                        ERSFSResource
+      failed_when:                     ERSFSResource.rc > 1
 
     - name:                            "ERS - Create ERS VIP - This is LB frontend ERS IP"
       ansible.builtin.shell: >
                                        pcs resource create vip_{{ sap_sid }}_ERS IPaddr2 \
                                        ip={{ ers_lb_ip }} cidr_netmask=24 \
                                        --group g-{{ sap_sid }}_ERS
+      register:                        ERSVIP
+      failed_when:                     ERSVIP.rc > 1
 
     - name:                            "ERS - create Azure LB resource "
       ansible.builtin.shell: >
                                        pcs resource create nc_{{ sap_sid }}_ERS azure-lb port=620{{ ers_instance_number }} \
                                        --group g-{{ sap_sid }}_ERS
+      register:                        ERSALB
+      failed_when:                     ERSALB.rc > 1
 
   when: inventory_hostname == primary_instance_name
 

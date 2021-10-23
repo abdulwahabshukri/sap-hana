@@ -669,4 +669,7 @@ locals {
   web_no_ppg = var.application.web_no_ppg
 
 
+  dns_label               = try(var.landscape_tfstate.dns_label, "")
+  dns_resource_group_name = try(var.landscape_tfstate.dns_resource_group_name, "")
+
 }

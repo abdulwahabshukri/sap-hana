@@ -128,8 +128,8 @@ application_server_count = 3
 
 scs_server_count      = 1
 scs_high_availability = false
-scs_instance_number   = "01"
-ers_instance_number   = "02"
+scs_instance_number   = "00"
+ers_instance_number   = "01"
 #scs_server_app_nic_ips=[]
 #scs_server_app_admin_nic_ips=[]
 #scs_server_loadbalancer_ips=[]

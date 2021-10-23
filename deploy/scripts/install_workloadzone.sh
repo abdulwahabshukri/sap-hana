@@ -850,7 +850,7 @@ if [ 0 == $return_value ] ; then
           echo ""
           echo "#########################################################################################"
           echo "#                                                                                       #"
-          echo -e "#                Keyvault to use for System details:$cyan $val $resetformatting                 #"
+          echo -e "#                Keyvault to use for System details:$cyan $val $resetformatting               #"
           echo "#                                                                                       #"
           echo "#########################################################################################"
           echo ""

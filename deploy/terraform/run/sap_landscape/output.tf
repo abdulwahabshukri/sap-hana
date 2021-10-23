@@ -7,7 +7,7 @@ output "landscape_key_vault_user_arm_id" {
 }
 
 output "workloadzone_kv_name" {
-  value = try(split("/", local.module.sap_landscape.kv_user)[8], "")
+  value = try(split("/", module.sap_landscape.kv_user)[8], "")
 }
 
 
@@ -110,15 +110,15 @@ output "ANF_pool_settings" {
   value = module.sap_landscape.ANF_pool_settings
 }
 
-
 output "dns_label" {
   value = var.dns_label
 }
 
-output "spn_kv_id" {
-  value = local.spn_key_vault_arm_id
+output "dns_resource_group_name" {
+  value = length(var.dns_resource_group_name) > 0 ? var.dns_resource_group_name : local.saplib_resource_group_name
 }
 
-output "infra" {
-  value = local.infrastructure
+
+output "spn_kv_id" {
+  value = local.spn_key_vault_arm_id
 }

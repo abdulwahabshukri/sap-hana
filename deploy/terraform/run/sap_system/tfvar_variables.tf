@@ -492,11 +492,11 @@ variable "scs_high_availability" {
 }
 
 variable "scs_instance_number" {
-  default = "01"
+  default = "00"
 }
 
 variable "ers_instance_number" {
-  default = "02"
+  default = "01"
 }
 
 /* 

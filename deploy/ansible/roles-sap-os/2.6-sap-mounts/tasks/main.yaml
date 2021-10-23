@@ -35,11 +35,11 @@
   block:
     - name:                            Mount Filesystems when not using ANF (app & pas)
       ansible.builtin.mount:
-        src:                               "{{ item.src }}"
-        path:                              "{{ item.path }}"
-        fstype:                            "{{ item.type }}"
-        opts:                              defaults
-        state:                             mounted
+        src:                           "{{ item.src }}"
+        path:                          "{{ item.path }}"
+        fstype:                        "{{ item.type }}"
+        opts:                          defaults
+        state:                         mounted
       loop:
         - { type: 'nfs4',  src: '{{ nfs_server }}:/sapmnt/{{ sap_sid|upper }}',  path: '/sapmnt/{{ sap_sid|upper }}' }
       when:
@@ -52,11 +52,11 @@
         msg:                           "Trying to remount"               
     - name:                            Re-mount Filesystems when not using ANF (app & pas)
       ansible.builtin.mount:
-        src:                               "{{ item.src }}"
-        path:                              "{{ item.path }}"
-        fstype:                            "{{ item.type }}"
-        opts:                              defaults
-        state:                             remounted
+        src:                           "{{ item.src }}"
+        path:                          "{{ item.path }}"
+        fstype:                        "{{ item.type }}"
+        opts:                          defaults
+        state:                         remounted
       loop:
         - { type: 'nfs4',  src: '{{ nfs_server }}:/sapmnt/{{ sap_sid|upper }}',  path: '/sapmnt/{{ sap_sid|upper }}' }
       when:
@@ -69,11 +69,11 @@
   block:
     - name:                            Mount Filesystems when not using ANF (app & pas)
       ansible.builtin.mount:
-        src:                               "{{ item.src }}"
-        path:                              "{{ item.path }}"
-        fstype:                            "{{ item.type }}"
-        opts:                              defaults
-        state:                             remounted
+        src:                           "{{ item.src }}"
+        path:                          "{{ item.path }}"
+        fstype:                        "{{ item.type }}"
+        opts:                          defaults
+        state:                         remounted
       loop:
         - { type: 'nfs4',  src: '{{ nfs_server }}:/sapmnt/{{ sap_sid|upper }}',  path: '/sapmnt/{{ sap_sid|upper }}' }
       when:
@@ -86,11 +86,11 @@
         msg:                           "Trying to remount"               
     - name:                            Re-mount Filesystems when not using ANF (app & pas)
       ansible.builtin.mount:
-        src:                               "{{ item.src }}"
-        path:                              "{{ item.path }}"
-        fstype:                            "{{ item.type }}"
-        opts:                              defaults
-        state:                             remounted
+        src:                           "{{ item.src }}"
+        path:                          "{{ item.path }}"
+        fstype:                        "{{ item.type }}"
+        opts:                          defaults
+        state:                         remounted
       loop:
         - { type: 'nfs4',  src: '{{ nfs_server }}:/sapmnt/{{ sap_sid|upper }}',  path: '/sapmnt/{{ sap_sid|upper }}' }
       when:
