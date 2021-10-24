@@ -103,7 +103,7 @@ do
   case "$1" in
     -p | --parameterfile)                      parameterfile="$2"        ; shift 2 ;;
     -s | --subscription)                       subscription_id="$2"      ; shift 2 ;;
-    -a | --storage_account_name)                 storage_account_name="$2" ; shift 2 ;;
+    -a | --storage_account_name)               storage_account_name="$2" ; shift 2 ;;
     -k | --terraform_keyfile)                  key="$2"                  ; shift 2 ;;
     -t | --type)                               type="$2"                 ; shift 2 ;;
     -n | --tf_resource_name)                   moduleID="$2"             ; shift 2 ;;
