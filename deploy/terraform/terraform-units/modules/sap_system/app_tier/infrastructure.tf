@@ -70,8 +70,15 @@ resource "azurerm_lb_backend_address_pool" "scs" {
   count           = local.enable_scs_lb_deployment ? 1 : 0
   name            = format("%s%s%s", local.prefix, var.naming.separator, local.resource_suffixes.scs_alb_bepool)
   loadbalancer_id = azurerm_lb.scs[0].id
-
 }
+
+resource "azurerm_lb_backend_address_pool" "ers" {
+  provider        = azurerm.main
+  count           = local.enable_scs_lb_deployment ? 1 : 0
+  name            = format("%s%s%s", local.prefix, var.naming.separator, local.resource_suffixes.ers_alb_bepool)
+  loadbalancer_id = azurerm_lb.scs[0].id
+}
+
 
 resource "azurerm_lb_probe" "scs" {
   provider            = azurerm.main
@@ -124,6 +131,7 @@ resource "azurerm_lb_rule" "scs" {
   backend_address_pool_id        = azurerm_lb_backend_address_pool.scs[0].id
   probe_id                       = azurerm_lb_probe.scs[0].id
   enable_floating_ip             = true
+  enable_tcp_reset               = true
 }
 
 # Create the ERS Load balancer rules only in High Availability configurations
@@ -137,9 +145,10 @@ resource "azurerm_lb_rule" "ers" {
   frontend_port                  = 0
   backend_port                   = 0
   frontend_ip_configuration_name = format("%s%s%s", local.prefix, var.naming.separator, local.resource_suffixes.scs_ers_feip)
-  backend_address_pool_id        = azurerm_lb_backend_address_pool.scs[0].id
+  backend_address_pool_id        = azurerm_lb_backend_address_pool.ers[0].id
   probe_id                       = azurerm_lb_probe.scs[1].id
   enable_floating_ip             = true
+  enable_tcp_reset               = true
 }
 
 resource "azurerm_lb_rule" "clst" {

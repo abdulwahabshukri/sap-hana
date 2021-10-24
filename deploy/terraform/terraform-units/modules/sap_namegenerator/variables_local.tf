@@ -230,6 +230,7 @@ variable "resource_suffixes" {
     "deployer_subnet"              = "_deployment-subnet"
     "deployer_subnet_nsg"          = "_deployment-nsg"
     "dns_link"                     = "dns-link"
+    "ers_alb_bepool"               = "ersAlb-bePool"
     "fencing_agent_spn"            = "fencing-agent"
     "fencing_agent_id"             = "-fencing-spn-id"
     "fencing_agent_pwd"            = "-fencing-spn-pwd"
