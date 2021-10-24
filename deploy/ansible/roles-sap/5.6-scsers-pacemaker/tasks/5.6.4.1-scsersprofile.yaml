@@ -9,7 +9,7 @@
 - name:                                 Enqueue Server 2 Setup
   block:
     - name:                             "Set the variable for ENSA1"
-      become_user:                      "{{ sap_sid }}adm"
+      become_user:                      "{{ sap_sid | lower }}adm"
       ansible.builtin.shell:            "{{ sapcontrolscs_command }}  -function GetProcessList | grep enserver"
       register:                         enq_server1
       failed_when:                      enq_server1.stdout != 'enserver'
@@ -23,7 +23,7 @@
         var:                            ensa1
 
     - name:                             "Set the variable for ENSA2"
-      become_user:                      "{{ sap_sid }}adm"
+      become_user:                      "{{ sap_sid | lower }}adm"
       ansible.builtin.shell:            "{{ sapcontrolscs_command }}  -function GetProcessList | grep enq_server"
       register:                         enq_server2
       failed_when:                      enq_server2.stdout != 'enq_server'
