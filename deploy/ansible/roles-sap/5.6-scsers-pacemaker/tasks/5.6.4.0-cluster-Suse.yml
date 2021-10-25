@@ -102,6 +102,9 @@
 - name:                                 "ERS - Install on Secondary host"
   include_role:
     name:                               roles-sap/5.0.2-ers-ha-install
+  vars:
+    sap_scs_hostname:                   {{ ers_virtual_hostname }}
+  
   when: inventory_hostname == secondary_instance_name
 
 # END of playbook.

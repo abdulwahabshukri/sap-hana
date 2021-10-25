@@ -38,7 +38,7 @@
     sap_ciBtcWPNumber:
     sap_installSAPHostAgent:
     sap_profile_dir:
-    sap_scs_hostname:                  "{{ query('inventory_hostnames', '{{ sap_sid|upper }}_SCS') | first }}"
+    sap_scs_hostname:                  "{{ scs_virtual_hostname }}" # "{{ query('inventory_hostnames', '{{ sap_sid|upper }}_SCS') | first }}" 
     sap_db_hostname:
     sap_ciVirtualHostname:
     sap_appVirtualHostname:
@@ -81,7 +81,7 @@
                                                  SAPINST_EXECUTE_PRODUCT_ID={{ bom.product_ids.scs }}                          \
                                                  SAPINST_SKIP_DIALOGS=true                                                     \
                                                  SAPINST_START_GUISERVER=false                                                 \
-                                                 SAPINST_USE_HOSTNAME={{ scs_virtual_hostname }}
+                                                 SAPINST_USE_HOSTNAME={{ scs_virtual_hostname }}                                
                                        touch /etc/sap_deployment_automation/sap_deployment_scs.txt
   args:
     chdir:                             /usr/sap/install/SWPM

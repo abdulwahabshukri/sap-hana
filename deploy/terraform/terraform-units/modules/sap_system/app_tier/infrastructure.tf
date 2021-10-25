@@ -310,7 +310,7 @@ resource "azurerm_subnet_route_table_association" "subnet_sap_web" {
 resource "azurerm_private_dns_a_record" "scs" {
   provider            = azurerm.deployer
   count               = local.enable_scs_lb_deployment && length(local.dns_label) > 0 ? 1 : 0
-  name                = lower(format("%sscsvir%scl1", local.sid, local.scs_instance_number))
+  name                = lower(format("%sscs%scl1", local.sid, local.scs_instance_number))
   resource_group_name = local.dns_resource_group_name
   zone_name           = local.dns_label
   ttl                 = 300
@@ -320,7 +320,7 @@ resource "azurerm_private_dns_a_record" "scs" {
 resource "azurerm_private_dns_a_record" "ers" {
   provider            = azurerm.deployer
   count               = local.enable_scs_lb_deployment && local.scs_high_availability && length(local.dns_label) > 0 ? 1 : 0
-  name                = lower(format("%sersvir%scl2", local.sid, local.ers_instance_number))
+  name                = lower(format("%sers%scl2", local.sid, local.ers_instance_number))
   resource_group_name = local.dns_resource_group_name
   zone_name           = local.dns_label
   ttl                 = 300
