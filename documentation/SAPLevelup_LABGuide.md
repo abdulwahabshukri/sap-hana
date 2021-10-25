@@ -611,33 +611,27 @@ You will be able to utilize the following pre-staged storage accounts
 sap-parameters.yaml file. List of storage account details:
 
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  Region      Storage Account     sapbits-location-base-path
+  Region            Storage Account                               sapbits-location-base-path
   ----------- ------------------- ----------------------------------------------------------------------------------------------------------------------------------
-  Australia   mgmtaueasaplib515   [[https://mgmtaueasaplib515.blob.core.windows.net/sapbits]{.underline}](https://mgmtaueasaplib515.blob.core.windows.net/sapbits)
-  East                            
+  Australia East   mgmtaueasaplib515   [https://mgmtaueasaplib515.blob.core.windows.net/sapbits](https://mgmtaueasaplib515.blob.core.windows.net/sapbits)
+                              
+  Canada Central     mgmtcacesaplib3a0   [https://mgmtcacesaplib3a0.blob.core.windows.net/sapbits](https://mgmtcacesaplib3a0.blob.core.windows.net/sapbits)
+                           
+  Central US  mgmtceussaplib542   [https://mgmtceussaplib542.blob.core.windows.net/sapbits](https://mgmtceussaplib542.blob.core.windows.net/sapbits)
 
-  Canada      mgmtcacesaplib3a0   [[https://mgmtcacesaplib3a0.blob.core.windows.net/sapbits]{.underline}](https://mgmtcacesaplib3a0.blob.core.windows.net/sapbits)
-  Central                         
+  East US     mgmteaussaplib87c   [https://mgmteaussaplib87c.blob.core.windows.net/sapbits](https://mgmteaussaplib87c.blob.core.windows.net/sapbits)
 
-  Central US  mgmtceussaplib542   [[https://mgmtceussaplib542.blob.core.windows.net/sapbits]{.underline}](https://mgmtceussaplib542.blob.core.windows.net/sapbits)
+  North Europe     mgmtnoeusaplib83e   [https://mgmtnoeusaplib83e.blob.core.windows.net/sapbits](https://mgmtnoeusaplib83e.blob.core.windows.net/sapbits)
+                            
+  South Africa North     mgmtsanosaplib13c   [https://mgmtsanosaplib13c.blob.core.windows.net/sapbits](https://mgmtsanosaplib13c.blob.core.windows.net/sapbits)
+                            
+  SouthEast Asia  mgmtsoeasaplib0c5   [https://mgmtsoeasaplib0c5.blob.core.windows.net/sapbits](https://mgmtsoeasaplib0c5.blob.core.windows.net/sapbits)
+                              
+  UK South    mgmtuksosaplib0b0   [https://mgmtuksosaplib0b0.blob.core.windows.net/sapbits](https://mgmtuksosaplib0b0.blob.core.windows.net/sapbits)
 
-  East US     mgmteaussaplib87c   [[https://mgmteaussaplib87c.blob.core.windows.net/sapbits]{.underline}](https://mgmteaussaplib87c.blob.core.windows.net/sapbits)
+  West Europe mgmtweeusaplib783   [https://mgmtweeusaplib783.blob.core.windows.net/sapbits](https://mgmtweeusaplib783.blob.core.windows.net/sapbits)
 
-  North       mgmtnoeusaplib83e   [[https://mgmtnoeusaplib83e.blob.core.windows.net/sapbits]{.underline}](https://mgmtnoeusaplib83e.blob.core.windows.net/sapbits)
-  Europe                          
-
-  South       mgmtsanosaplib13c   [[https://mgmtsanosaplib13c.blob.core.windows.net/sapbits]{.underline}](https://mgmtsanosaplib13c.blob.core.windows.net/sapbits)
-  Africa                          
-  North                           
-
-  SouthEast   mgmtsoeasaplib0c5   [[https://mgmtsoeasaplib0c5.blob.core.windows.net/sapbits]{.underline}](https://mgmtsoeasaplib0c5.blob.core.windows.net/sapbits)
-  Asia                            
-
-  UK South    mgmtuksosaplib0b0   [[https://mgmtuksosaplib0b0.blob.core.windows.net/sapbits]{.underline}](https://mgmtuksosaplib0b0.blob.core.windows.net/sapbits)
-
-  West Europe mgmtweeusaplib783   [[https://mgmtweeusaplib783.blob.core.windows.net/sapbits]{.underline}](https://mgmtweeusaplib783.blob.core.windows.net/sapbits)
-
-  West US2    mgmtwus2saplibb32   [[https://mgmtwus2saplibb32.blob.core.windows.net/sapbits]{.underline}](https://mgmtwus2saplibb32.blob.core.windows.net/sapbits)
+  West US2    mgmtwus2saplibb32   [https://mgmtwus2saplibb32.blob.core.windows.net/sapbits](https://mgmtwus2saplibb32.blob.core.windows.net/sapbits)
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Navigate to the \~/**Azure_SAP_Automated_Deployment/WORKSPACES/BOMS**
