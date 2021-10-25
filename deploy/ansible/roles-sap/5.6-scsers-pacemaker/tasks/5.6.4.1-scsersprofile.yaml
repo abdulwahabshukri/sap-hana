@@ -46,31 +46,31 @@
      # execute the following tasks only when using ENSA1
      # SAP introduced support for enqueue server 2, including replication, as of SAP NW 7.52.
      # Starting with ABAP Platform 1809, enqueue server 2 is installed by default
-    - name:                                 "ASCS Profile - Comment Restart_Program_01 If Using ENSA1"
+    - name:                            "ASCS Profile - Comment Restart_Program_01 If Using ENSA1"
       ansible.builtin.replace:
-        path: /sapmnt/{{ sap_sid }}/profile/{{ sap_sid }}_ASCS{{ scs_instance_number }}_{{ scs_virtual_hostname }}
-        regexp: '^Restart_Program_01'
-        replace: '#Restart_Program_01'
+        path:                          /sapmnt/{{ sap_sid }}/profile/{{ sap_sid }}_ASCS{{ scs_instance_number }}_{{ scs_virtual_hostname }}
+        regexp:                        '^Restart_Program_01'
+        replace:                       '#Restart_Program_01'
       tags:
         - ascscomment
 
-    - name:                                 "ASCS Profile- Add the right Start command to ASCS profile If Using ENSA1"
+    - name:                            "ASCS Profile- Add the right Start command to ASCS profile If Using ENSA1"
       lineinfile:
-        path: /sapmnt/{{ sap_sid }}/profile/{{ sap_sid }}_ASCS{{ scs_instance_number }}_{{ scs_virtual_hostname }}
-        line: Start_Program_01 = local $(_EN) pf=$(_PF)
-        insertafter: Restart_Program_01
+        path:                          /sapmnt/{{ sap_sid }}/profile/{{ sap_sid }}_ASCS{{ scs_instance_number }}_{{ scs_virtual_hostname }}
+        line:                          Start_Program_01 = local $(_EN) pf=$(_PF)
+        insertafter:                   Restart_Program_01
       tags:
         - ascspara
 
-    - name:                                "ERS Profile - Comment Restart_Program_00 in ERS Profile if using ENSA1"
+    - name:                            "ERS Profile - Comment Restart_Program_00 in ERS Profile if using ENSA1"
       ansible.builtin.replace:
-        path: /sapmnt/{{ sap_sid }}/profile/{{ sap_sid }}_ERS{{ ers_instance_number }}_{{ ers_virtual_hostname }}
-        regexp: '^Restart_Program_00'
-        replace: '#Restart_Program_00'
+        path:                          /sapmnt/{{ sap_sid }}/profile/{{ sap_sid }}_ERS{{ ers_instance_number }}_{{ ers_virtual_hostname }}
+        regexp:                        '^Restart_Program_00'
+        replace:                       '#Restart_Program_00'
       tags:
         - erscomment
 
-    - name:                                "ERS Profile - Change the restart command to a start command if using ENSA1"
+    - name:                            "ERS Profile - Change the restart command to a start command if using ENSA1"
       lineinfile:
         path: /sapmnt/{{ sap_sid }}/profile/{{ sap_sid }}_ERS{{ ers_instance_number }}_{{ ers_virtual_hostname }}
         line: Start_Program_00 = local $(_ER) pf=$(_PFL) NR=$(SCSID)
