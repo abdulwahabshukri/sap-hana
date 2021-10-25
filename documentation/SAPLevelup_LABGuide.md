@@ -1,4 +1,4 @@
-**Module 1: Enterprise Scale for SAP Automation Framework Deployment**
+# Module 1: Enterprise Scale for SAP Automation Framework Deployment
 
 ## Scenario 
 
@@ -632,6 +632,7 @@ sap-parameters.yaml file. List of storage account details:
   West Europe mgmtweeusaplib783   [https://mgmtweeusaplib783.blob.core.windows.net/sapbits](https://mgmtweeusaplib783.blob.core.windows.net/sapbits)
 
   West US2    mgmtwus2saplibb32   [https://mgmtwus2saplibb32.blob.core.windows.net/sapbits](https://mgmtwus2saplibb32.blob.core.windows.net/sapbits)
+
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Navigate to the \~/**Azure_SAP_Automated_Deployment/WORKSPACES/BOMS**
