@@ -1,8 +1,36 @@
-# **Module 1: Enterprise Scale for SAP Automation Framework Deployment**
+# Few Things before we start
 
->**Note:** You may have to type commands in this document in manually or paste to another file editor rather than copy/paste into the VS Code terminal from this document. Each parameter for the automation commands will begin with a double dash ("--"). Ensure that there are no special characters when typing/pasting in the commands
+1.  We will record this call & Moderators will be recording the breakout
+    > rooms sessions
 
-## Scenario
+2.  Break Out Rooms -- will be closed 2 hours each ,Every session will
+    > start with a quick discussion on what will be build and we move to
+    > break out rooms.
+
+3.  Timelines for each module
+
+4.  Please all of you chime in to proceed with the steps
+
+5.  Group Assignment, Lab setup and 2 modules
+
+6.  We have a packed agenda so I would ask that you type your questions
+    > in the chat so the presenter can follow up or address during
+    > planned Q&A
+
+7.  We have planned breaks but if you need to step out for a few minutes
+    > no worries.
+
+8.  We are hoping you have completed prerequisites
+
+9.  Provide feedback pre and post session à Links will be pasted in the
+    > Teams chat
+
+10. Teams channel Link à
+    > <https://teams.microsoft.com/l/team/19%3aiH0OECo4EtoMCHj96ZbEjA-WeQ1hstibPihfwUa3dLM1%40thread.tacv2/conversations?groupId=d5aeafae-2779-44b6-b1eb-45a4b71f6e24&tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47>
+
+**Module 1: Enterprise Scale for SAP Automation Framework Deployment**
+
+## Scenario 
 
 For this workshop we will be using the Cloud Shell in the portal to
 deploy the Control Plane infrastructure. Then, we will be using the
@@ -20,14 +48,16 @@ lab is currently based on SAP HANA 1909. Below we will describe the
 general hierarchy and different phases of the deployment. There are
 several workflows to deploying the deployment automation, we will be
 focusing on one workflow for ease of deployment with a large audience:
-**a SAP-HANA standalone environment deployed using bash. <u>Ensure that
-you execute the pre-requisite tasks</u>**
+**a SAP-HANA standalone environment deployed using bash. [Ensure that
+you execute the pre-requisite tasks]{.underline}**
+
+![](./images//media/image1.emf)
 
 **Environment Overview**
 
-<img src="./media/image1.png" style="width:6.44668in;height:4in" />
+![](./images//media/image2.png){width="6.3125in" height="4.28125in"}
 
-**<u>Management Zone:</u>** The management zone houses the
+**[Management Zone:]{.underline}** The management zone houses the
 infrastructure from which other environments will be deployed. Once the
 management zone is deployed, it rarely needs to be redeployed, if ever.
 
@@ -47,10 +77,10 @@ This deployment consists of the storage accounts for the Terraform state
 files as well as the storage account for the SAP bits that will be
 deployed to the System deployment.
 
-**<u>Workload Zone</u>**: The Workload Zone contains the VMs for the SAP
-application, including Web VMs, Central Services VMs, and the HANA
-database machines. It also deploys the requisite infrastructure such as
-the virtual network and the NSGs/Route Table.
+**[Workload Zone]{.underline}**: The Workload Zone contains the VMs for
+the SAP application, including Web VMs, Central Services VMs, and the
+HANA database machines. It also deploys the requisite infrastructure
+such as the virtual network and the NSGs/Route Table.
 
 **Landscape**
 
@@ -64,36 +94,59 @@ Test, Prod)
 The system deployment consists of the virtual machines that will be
 running the SAP application, including the web, app and database tiers.
 
-| **Step** | **Action Plan**                                            | **Installation time** | **Time required for each step** |
-|----------|------------------------------------------------------------|-----------------------|---------------------------------|
-| 1        | Introduction and Session Walkthrough                       | NA                    | 10 min                          |
-| 2        | Repository Overview                                        | NA                    | 5 min                           |
-| 3        | Management Zone Deployment Overview (Deployer and Library) | 15-30 mins            | Preconfigured                   |
-| 4        | Deploy the Workload Zone Walkthrough                       | 15-30 mins            |                                 |
-| 5        | System Deployment                                          |  20-30 mins           |                                 |
-| 6        | Break                                                      | 10 mins               |                                 |
-| 7        | Talk about naming conventions                              | 20 mins               |                                 |
-| 8        | SAP Installation                                           | 60 mins               |                                 |
-| 9        | SAP Installation Cleanup                                   | 30 mins               |                                 |
-|          |                                                            |                       |                                 |
-|          |                                                            |                       |                                 |
-|          |                                                            |                       |                                 |
-|          |                                                            |                       |                                 |
-|          |                                                            |                       |                                 |
-|          |                                                            |                       |                                 |
+  -----------------------------------------------------------------------------------------
+  **Step**   **Action Plan**                                **Installation   **Time
+                                                            time**           required for
+                                                                             each step**
+  ---------- ---------------------------------------------- ---------------- --------------
+  1          Introduction and Session Walkthrough           NA               10 min
 
-**<u>Tasks 0 – 5 are PRE-REQUISITES to the Level Up</u>**
+  2          Repository Overview                            NA               5 min
+
+  3          Management Zone Deployment Overview (Deployer  15-30 mins       Prerequisite
+             and Library)                                                    
+
+  4          Deploy the Workload Zone Walkthrough           15-30 mins       
+
+  5          System Deployment                               20-30 mins      
+
+  6          Break                                          10 mins          
+
+  7          Talk about naming conventions                  20 mins          
+
+  8          SAP Installation                               60 mins          
+
+  9          SAP Installation Cleanup\[To save the          30 mins          
+             credits\]                                                       
+
+                                                                             
+
+                                                                             
+
+                                                                             
+
+                                                                             
+
+                                                                             
+
+                                                                             
+  -----------------------------------------------------------------------------------------
+
+# Tasks 0 -- 5 are PRE-REQUISITES to the Level Up
 
 ## Task 0: Repository, Downloads and Tooling
 
 The GitHub repository can be found at the link below:
 
 [Azure/sap-hana: Tools to create, monitor and maintain SAP landscapes in
-Azure. (github.com)](https://github.com/Azure/sap-hana)’’’
+Azure. (github.com)](https://github.com/Azure/sap-hana)'''
 
 Be sure to change the branch from master to **sap-level-up**:
 
-<img src="./media/image2.png" style="width:6.26806in;height:1.37639in" alt="Graphical user interface, text, application, email Description automatically generated" />
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image3.png){width="6.268055555555556in"
+height="1.3763888888888889in"}
 
 We strongly recommend familiarizing yourself with the documentation
 ahead of time to get an idea of how the SAP Automation Framework works.
@@ -103,63 +156,98 @@ recommend using
 [**Putty**](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html).
 Use any SSH client that you feel comfortable with.
 
-### Review the Azure Subscription Quota
+Review the Azure Subscription Quota
 
 As part of SAP Level Up, please ensure Microsoft Subscription has a
-sufficient Quota of a minimum of 50 for compute sku DDSV4 & ESDV4 in the
+sufficient Quota of a minimum of 50 for compute sku DDSV4 & EDSV4 in the
 assigned region.
+
+  -----------------------------------------------------------------------
+  Region Name                                    Region Code
+  ---------------------------------------------- ------------------------
+  Australia East                                 AUEA
+
+  Canada Central                                 CACE
+
+  Central US                                     CEUS
+
+  East US                                        EAUS
+
+  North Europe                                   NOEU
+
+  South Africa North                             SANO
+
+  Southeast Asia                                 SOEA
+
+  UK South                                       UKSO
+
+  West Europe                                    WEEU
+
+  West US 2                                      WES2
+  -----------------------------------------------------------------------
 
 **Let us begin the pre-requisite portion of the lab**
 
 ## **Task 1: Cloud Shell Setup**
 
-- Go to **shell.cloud.com
+-   Go to **shell.cloud.com
     (<https://ms.portal.azure.com/#cloudshell/>)**
 
+```{=html}
 <!-- -->
+```
+-   Run the following commands:
 
-- Run the following commands:
+> **az login**
 
-    ```az login```
+Follow the instructions displayed in order to authenticate. You should
+see the following screen upon successful authentication:
 
-    Follow the instructions displayed in order to authenticate. You should see the following screen upon successful authentication:
-<img src="./media/image3.png" style="width:5.75in;height:4.25in" alt="Text Description automatically generated" />
+![Text Description automatically
+generated](./images//media/image4.png){width="5.75in" height="4.25in"}
 
-    ```shell
-    az account set -s <SubscriptionID>
-    ```
+> **az account set -s \<your subscription ID>**
+>
+> **az account list -o table \| grep True**
+>
+> Above command helps you to view your subscriptions and [get the
+> subscription ID]{.underline} of the one you wish to use.
+>
+> **mkdir Azure_SAP_Automated_Deployment**
+>
+> **cd Azure_SAP_Automated_Deployment**
+>
+> **git clone <https://github.com/Azure/sap-hana.git>**
+>
+> **cd sap-hana**
+>
+> **git checkout sap-level-up (ONLY work from this branch during the
+> lab)**
+>
+> ![](./images//media/image5.png){width="5.0in" height="1.78125in"}
+>
+> cd util
+>
+> Execute the command **./check_workstation.sh**
+>
+> ![](./images//media/image6.png){width="5.0in"
+> height="0.9270833333333334in"}
 
-    View your subscriptions and get the subscription ID of the one you wish to use
+-   The below versions are supported for the automation:
 
-    ```az account list -o table | grep True```
+> **az = 2.28.0**
+>
+> **terraform = 1.0.8**
+>
+> **ansible = 2.10.2**
+>
+> **jq = 1.5**![Text Description automatically
+> generated](./images//media/image7.png){width="5.4941447944007in"
+> height="1.1145330271216098in"}
 
-    ```shell
-    mkdir Azure_SAP_Automated_Deployment
-    cd Azure_SAP_Automated_Deployment
-    git clone https://github.com/Azure/sap-hana.git
-    cd sap-hana
-    git checkout sap-level-up
-    ```
-
-    *Only work from the sap-level-up branch during the lab*
-
-    <img src="./media/image4.png" style="width:5in;height:1.78125in" />
-
-    ```cd util```
-
-    Execute the command ```./check_workstation.sh```
-
-    <img src="./media/image5.png" style="width:5in;height:0.92708in" />
-
-  - The below versions are supported for the automation:
-    - az = 2.28.0
-    - terraform = 1.0.8
-    - ansible = 2.10.2
-    - jq = 1.5
-
-    <img src="./media/image6.png" style="width:5.49414in;height:1.11453in" alt="Text Description automatically generated" />
-
-    If you do not have at least version 1.0.8 for Terraform, please upgrade using the instructions [here](https://www.terraform.io/upgrade-guides/0-12.html)
+If you do not have at least version 0.14.7 for Terraform, please upgrade
+using the instructions
+[here](https://staticsint.teams.cdn.office.net/evergreen-assets/safelinks/1/atp-safelinks.html?url=https%3A%2F%2Fdocs.microsoft.com%2Fen-us%2Fazure%2Fdeveloper%2Fterraform%2Fget-started-cloud-shell-bash%3Ftabs%3Dbash%233-install-latest-version-of-terraform-in-azure-cloud-shell&locale=en-us&dest=https%3A%2F%2Fteams.microsoft.com%2Fapi%2Fmt%2Fpart%2Fmsft%2Fbeta%2Fatpsafelinks%2Fgeturlreputationsitev2%2F&pc=h5IGXkXPK4uYjva%252foinlhdhyiJfAq1znA%252bGUn4pcjY21Vux%252buUncbgcXJcwiPk77Ib1no%252f0lL1%252beHGFWqMLlI%252bkCwByWZaeZwjm%252fegaAQ5HOXRc5KV2YHXr5D%252fM0Sgjze61HICKwkTPR%252b6p5Lfi8uQO9zE1kMiJp2ekSpqSRlohbmUUX9fk5SGcxRbiUIiD0IiQZ69h%252f3H4nBhww%252fTKaO%252bjljQqBGX96OWQaz5kBv1ZLNruKlicFNKSWVeDJEiQnADTqzafrYyIM%252bjyrlfN4xB3bxULqKN7OhU9vQUgID0YCYYs%252bWI8rpyLviLB2IpMnaWnau4apDScz1n%252fANYdb%252fis5YHvbxDZwQEWL%252b3Rx1sxJk%252fvACR66%252bposC0bMtyHZ55Fv8C6iAceR5kQfasVxcgB5UyLzt2PIo8D4%252fR9fuvdqz9sEH7uFKqUHDkVsWjUuImNUD5PXPlYa619iDChUpM3rvbYuYA87WD7fTNgI8df3MUDqnAWp4n7ITQCV5O6OE0fdhWtBVc4tzRIO1IJVsNo2YDrAoByPNUPNybivCZFE%252fcYWcXWDWYS14XY0EGTIOdjpEU915FWby2ZaAFp28WjIvXA%252bIqoINemcQegLVFK55PH3L7J61qdxlse5IVidfVuYrnc%252bPib4V4BZXH3ki3oFD9Llk1XAO3hLbBN6OtJozDrkdyfrh4qP9WSNUt1eLcMrYMzh94VhPLhe%252b326Yv2xfY8uvFk8%252b%252bzSL%252b5jrTmqPRKLa2Ej1KkKrmpsSnXzGD%252f%252bQHZaKI6mU7tVlNh5hTUKLiuqbD8tmkL2up2GiAaNq3uI9XEO%252fcYmzw50TzUFK4RQ%252frBhKN%252bCtHzYUxchUj%252bHt0SXNX89N8Mrm01idoUpmqv8lPc9qez1aBuv9OjNZAD5pA6a5jceqfKEqqoFNA%253d%253d%3B%20expires%3DFri%2C%2022%20Oct%202021%2021%3A10%3A05%20GMT%3B%20path%3D%2F&wau=https%3A%2F%2Fnam06.safelinks.protection.outlook.com%2FGetUrlReputation&si=https%3A%2F%2Fteams.microsoft.com%2Fmulti-window%2F%3Fagent%3Delectron%26version%3D21092203715&sd=%7BconvId%3A%2019%3Ameeting_Zjg5MzI0YzctYTUwNS00NDgzLWFmYTQtN2ExNGQyM2JhNTcw%40thread.v2%2C%20messageId%3A%201634918084953%7D&ce=prod&cv=27%2F21092203715&ssid=32689ba9-8f5b-2d87-0876-1dcc93b67a72&ring=ring3_9)
 
 ## **Task 2: SPN Creation**
 
@@ -167,107 +255,140 @@ assigned region.
 this task. Ask your proctor for help if you need assistance with the
 following.**
 
-- The Automation Framework requires the creation of an SPN. Please create one in the Cloud Shell using the following commands:
+-   The Automation Framework requires the creation of an SPN. Please
+    create one in the Cloud Shell using the following commands:
 
 > **When choosing the name for your service principal, ensure that the
-> name is <u>unique within your Azure tenant</u>**
+> name is [unique within your Azure tenant]{.underline}**
+>
+> **az ad sp create-for-rbac \--role=\"Contributor\"
+> \--scopes=\"/subscriptions/\<Your subscription ID>\"
+> \--name=\"LevelUP-SAP-Deployment-\<Your alias>\"**
 
-```shell
--az ad sp create-for-rbac --role="Contributor"
---scopes="/subscriptions/\<Your subscription ID>"
---name="LevelUP-SAP-Deployment-\<Your alias>"
-```
+-   After running this command, you will have output that is populated
+    with actual values, like the following:
 
-- After running this command, you will have output that is populated with actual values, like the following:
+> **{**
+>
+> **\"appId\": \"\<AppID>\",**
+>
+> **\"displayName\": \" \[Yourname\]-Deployment-Account \",**
+>
+> **\"name\": \"\<AppID>,**
+>
+> **\"password\": \"\<AppID Secret>\",**
+>
+> **\"tenant\": \"\<Tenant ID>\"**
+>
+> **}**
 
-    ```json
-    {
-    "appId": "AppID",
-    "displayName": "[Yourname]-Deployment-Account",
-    "name": "AppID",
-    "password": "<AppID Secret>",
-    "tenant": "<Tenant ID>"
-    }
-    ```
+-   Copy the details to a notepad/similar as these details are key for
+    the next steps. The pertinent fields are**:**
 
-- Copy the details to a notepad/similar as these details are key for the next steps. The pertinent fields are**:**
-  - appId
-  - password
-  - Tenant
+    -   **appId**
 
-    *For your reference, here is the mapping between the output above and the parameters that you will need to populate later for the automation commands:*
+    -   **password**
 
-    | **Parameter Input name** | **Output from above** |
-    |--------------------------|-----------------------|
-    | **spn_id**               | **“appId"**           |
-    | **spn_secret**           | **"password":**       |
-    | **tenant_id**            | **"tenant":**         |
+    -   **Tenant**
 
-- Finally, assign the “User Access Administrator” role to the SPN by running the following command:
+> **For your reference, here is the mapping between the output above and
+> the parameters that you will need to populate later for the automation
+> commands:**
 
-    ```az role assignment create --assignee <appId> --role "User Access Administrator"```
+  -----------------------------------------------------------------------
+  **Parameter Input name**            **Output from above**
+  ----------------------------------- -----------------------------------
+  **spn_id**                          **"appId\"**
+
+  **spn_secret**                      **\"password\":**
+
+  **tenant_id**                       **\"tenant\":**
+  -----------------------------------------------------------------------
+
+-   Finally, assign the "User Access Administrator" role to the SPN by
+    running the following command:
+
+> **az role assignment create \--assignee \<appId> \--role \"User Access
+> Administrator\"**
 
 ## **Task 3: View Configuration Files and Collect Parameter Values**
 
-- In the Cloud Shell, type the following commands:
+**Note that you may have to type this command in manually or paste to
+another file editor rather than copy/paste into the VS Code terminal
+from this document. Each parameter for the automation commands will
+begin with a double dash ("\--"). Ensure that there are no special
+characters when typing/pasting in the commands**
 
-    ```shell
-        cd \~/Azure_SAP_Automated_Deployment**
-        cp -Rp ./sap-hana/deploy/samples/WORKSPACES ./
-    ```
+-   In the Cloud Shell, type the following commands:
 
-    Please run ```ls``` and verify that WORKSPACES folder is available
+> **cd \~/Azure_SAP_Automated_Deployment**
+>
+> **cp -Rp ./sap-hana/deploy/samples/WORKSPACES ./**
+>
+> **Please run "ls" and verify that WORKSPACES folder is available**
+>
+> ![](./images//media/image8.png){width="5.0in" height="0.71875in"}
+>
+> **"code ." (Note: There is a period at the end of the command: code
+> +** **space + .)**
+>
+> ![](./images//media/image9.png){width="4.75in" height="5.0in"}
 
-    <img src="./media/image7.png" style="width:5in;height:0.71875in" />
-
-    ```code . ```
-    *Note:* There is a period at the end of the command: "code + space + ."
-
-    <img src="./media/image8.png" style="width:4.75in;height:5in" />
-
-- Expand the **WORKSPACES** directory – you will see 5 sub folders:
+-   Expand the **WORKSPACES** directory -- you will see 5 sub folders:
     **DEPLOYER**, **LANDSCAPE**, **LIBRARY**, **SYSTEM** and **BOMS.**
     Expand each of these folders to find regional deployment
     configuration files similar to the below screenshot:
 
-> <img src="./media/image9.png" style="width:5in;height:2.41667in" />
+> ![](./images//media/image10.png){width="5.0in"
+> height="2.4166666666666665in"}
 >
 > **Note: Only use the regional folder associated with your group. Do
 > not use the West Europe (WEEU) folders as this is a busy customer
 > region.**
 
-- We have mapped different Azure region with 4-character code (Upper
+-   We have mapped different Azure region with 4-character code (Upper
     Case) and subsequent folders inside WORKSPACES folder has been
     created to represent deployment in those respective regions. Please
     find the below table for reference
 
-| Region Name        | Region Code |
-|--------------------|-------------|
-| Australia East     | AUEA        |
-| Canada Central     | CACE        |
-| Central US         | CEUS        |
-| East US            | EAUS        |
-| North Europe       | NOEU        |
-| South Africa North | SANO        |
-| Southeast Asia     | SOEA        |
-| UK South           | UKSO        |
-| West Europe        | WEEU        |
-| West US 2          | WES2        |
+  -----------------------------------------------------------------------
+  Region Name                                    Region Code
+  ---------------------------------------------- ------------------------
+  Australia East                                 AUEA
 
-- If you drill down into each regional sub folder, you will see the
+  Canada Central                                 CACE
+
+  Central US                                     CEUS
+
+  East US                                        EAUS
+
+  North Europe                                   NOEU
+
+  South Africa North                             SANO
+
+  Southeast Asia                                 SOEA
+
+  UK South                                       UKSO
+
+  West Europe                                    WEEU
+
+  West US 2                                      WES2
+  -----------------------------------------------------------------------
+
+-   If you drill down into each regional sub folder, you will see the
     Terraform variable files that are used for configuration. Snippet of
     the **DEPLOYER** Terraform variable file below.
-    <img src="./media/image10.png" style="width:5in;height:2.4375in" />
+    ![](./images//media/image11.png){width="5.0in" height="2.4375in"}
 
-- There are no edits necessary for the Terraform variable files – this
-    is informational only so that you can view them and know where to
-    make edits for future deployments.
+-   There are no edits necessary for the Terraform variable files --
+    this is informational only so that you can view them and know where
+    to make edits for future deployments.
 
 ## **Task 4: Export variables and run the prepare_region.sh script**
 
-  - We will use the **prepare_region** script in order to deploy the
-        Deployer and Library. These deployment pieces make up the
-        “Automation Region”
+-   We will use the **prepare_region** script in order to deploy the
+    Deployer and Library. These deployment pieces make up the
+    "Automation Region"
 
 > **az login**
 >
@@ -275,44 +396,49 @@ following.**
 > **with your normal account, not the service principal you** **created
 > earlier**
 >
-> **az account set –s \<subscription name or ID>**
+> **az account set --s \<subscription name or ID>**
 >
 > **export
 > DEPLOYMENT_REPO_PATH=\~/Azure_SAP_Automated_Deployment/sap-hana/**
 >
 > **export ARM_SUBSCRIPTION_ID=\<YOUR SUBSCRIPTION ID>**
 >
-> <img src="./media/image11.png" style="width:5in;height:0.40625in" />
+> ![](./images//media/image12.png){width="5.0in" height="0.40625in"}
 >
 > Empty output means it has executed as expected. Proceed to next steps
 
-- Navigate to the **WORKSPACES** folder and deploy the Automation
+-   Navigate to the **WORKSPACES** folder and deploy the Automation
     Region and run the following commands:
 
 > **cd \~/Azure_SAP_Automated_Deployment/WORKSPACES**
 >
-> **${DEPLOYMENT_REPO_PATH}deploy/scripts/prepare_region.sh
-> --deployer_parameter_file
-> DEPLOYER/MGMT-\<Region>-DEP00-INFRASTRUCTURE/MGMT-\<Region>-DEP00-INFRASTRUCTURE.tfvars.tfvars
-> --library_parameter_file
+> **\${DEPLOYMENT_REPO_PATH}deploy/scripts/prepare_region.sh
+> \--deployer_parameter_file
+> DEPLOYER/MGMT-\<Region>-DEP00-INFRASTRUCTURE/MGMT-\<Region>-DEP00-INFRASTRUCTURE.tfvars
+> \--library_parameter_file
 > LIBRARY/MGMT-\<Region>-SAP_LIBRARY/MGMT-\<Region>-SAP_LIBRARY.tfvars
-> --subscription \<subscription ID> --spn_id \<App ID> --spn_secret
-> \<SPN password> --tenant_id \<tenant ID> --auto-approve**
+> \--subscription \<subscription ID> \--spn_id \<App ID> \--spn_secret
+> \<SPN password> \--tenant_id \<tenant ID> \--auto-approve**
 >
 > **If you get the following error for the Deployer module deployment,
 > ensure that you have navigated to the WORKSPACES directory:**
 >
-> <img src="./media/image12.png" style="width:5in;height:0.82292in" />
+> ![](./images//media/image13.png){width="5.0in"
+> height="0.8229166666666666in"}
 >
 > The Automation will run the Terraform Initialize and Plan operations.
 >
-> <img src="./media/image13.png" style="width:5in;height:2.15625in" alt="Text Description automatically generated" />
+> ![Text Description automatically
+> generated](./images//media/image14.png){width="5.0in"
+> height="2.15625in"}
 >
 > This deployer may run between 15 and 20 min.
 >
 > You should see the progress of the deployment such as below:
 >
-> <img src="./media/image14.png" style="width:5in;height:2.51042in" alt="Text Description automatically generated" />
+> ![Text Description automatically
+> generated](./images//media/image15.png){width="5.0in"
+> height="2.5104166666666665in"}
 >
 > The deployment will go through cycles of deploying the infrastructure,
 > refreshing the state, and uploading the Terraform state files to the
@@ -321,7 +447,9 @@ following.**
 > **If you get the following error for the Deployer deployment, this is
 > transient, and you can simply rerun the exact same command:**
 >
-> <img src="./media/image15.png" style="width:5.02083in;height:2.08853in" alt="Text Description automatically generated" />
+> ![Text Description automatically
+> generated](./images//media/image16.png){width="5.020830052493438in"
+> height="2.0885323709536308in"}
 >
 > **If you run into authentication issues directly after running the
 > prepare_region script, please execute:**
@@ -334,151 +462,191 @@ following.**
 > where you created the SPN. If you execute az logout, then you must
 > export your session variables again.**
 
-- When the entire deployment is complete and you see that your
+-   When the entire deployment is complete and you see that your
     Terminal has stopped, go to the Azure portal and go to the Deployer
-    Infrastructure **(MGMT-\[region\]-DEP00-INFRASTRUCTURE)** resource
+    Infrastructure **(MGMT-\<region>-DEP00-INFRASTRUCTURE)** resource
     group. You should see the following resource types
 
 > Deployer Infrastructure resource group:
 >
-> <img src="./media/image16.png" style="width:5in;height:1.77083in" />
+> ![](./images//media/image17.png){width="5.0in"
+> height="1.7708333333333333in"}
 >
-> LIBRARY resource group
+> LIBRARY resource group (**MGMT-\<region>-SAP_LIBRARY**)
 >
-> <img src="./media/image17.png" style="width:5in;height:0.61458in" />
+> ![](./images//media/image18.png){width="5.0in"
+> height="0.6145833333333334in"}
 >
 > Inside the state file storage account and inside the tfstate
 > container, you should see the Deployer and Library state files:
 >
-> <img src="./media/image18.png" style="width:5in;height:0.57292in" />
+> ![](./images//media/image19.png){width="5.0in"
+> height="0.5729166666666666in"}
 
-- Collect the following information in a text editor of your choice.
+-   Collect the following information in a text editor of your choice.
     We will use these details as parameter inputs for the remainder of
     the commands in Module One:
 
-  - The name of the Terraform state file storage account in the
-        Library resource group. Deployer resource group -> state storage
-        account > containers -> tfstate -> Copy the **name** of the
-        Deployer state file
+    -   The name of the Terraform state file storage account in the
+        Library resource group. Deployer resource group -\> state
+        storage account \> containers -\> tfstate -\> Copy the **name**
+        of the Deployer state file
 
-> <img src="./media/image19.png" style="width:5in;height:2.84375in" />
+> ![](./images//media/image20.png){width="5.0in" height="2.84375in"}
 >
-> <img src="./media/image20.png" style="width:5in;height:1.45833in" />
+> ![](./images//media/image21.png){width="5.0in"
+> height="1.4583333333333333in"}
 
-- The private ssh secret for the Deployer VM.
+-   The private ssh secret for the Deployer VM.
 
-Deployer Resource Group -> **MGMT\<region>DEP00userXXX -> \<Key Vault>
-->** Click on Secret -> Click on current version -> Copy the secret
-
-<img src="./media/image21.png" style="width:5in;height:3.3125in" />
-
-<img src="./media/image22.png" style="width:5in;height:1.96875in" />
-
-<img src="./media/image23.png" style="width:3.88542in;height:5.86133in" alt="Graphical user interface, text, application, chat or text message, email Description automatically generated" />
-
-Open Notepad or a similar editor and paste the contents of the secret
-value. We will use it in the next step.
-
-- The name of the Deployer resource group key vault
-
-<img src="./media/image24.png" style="width:4.71875in;height:5in" />
-
-- The Public IP address of the Deployer VM
-
-> Deployer resource group -> Deployer VM -> copy Public IP Address
+> Deployer Resource Group -\> **MGMT\<region>DEP00userXXX -\> \<Key
+> Vault> -\>** Click on Secret -\> Click on current version -\> Copy the
+> secret
 >
-> <img src="./media/image25.png" style="width:6.01042in;height:2.82292in" />
+> ![](./images//media/image22.png){width="5.0in" height="3.3125in"}
+>
+> ![](./images//media/image23.png){width="5.0in" height="1.96875in"}
+>
+> ![Graphical user interface, text, application, chat or text message,
+> email Description automatically
+> generated](./images//media/image24.png){width="3.8854166666666665in"
+> height="5.861334208223972in"}
+>
+> Open Notepad or a similar editor and paste the contents of the secret
+> value. We will use it in the next step.
+
+-   The name of the Deployer resource group key vault
+
+> ![](./images//media/image25.png){width="4.71875in" height="5.0in"}
+
+-   The Public IP address of the Deployer VM
+
+> Deployer resource group -\> Deployer VM -\> copy Public IP Address
+>
+> ![](./images//media/image26.png){width="6.010415573053368in"
+> height="2.8229166666666665in"}
 
 ## **Task 5: Connect to the Deployer - The rest of Module One will be completed on the Deployer VM**
 
-**<u>Ensure that you can connect to your deployer machine as we will be
+**[Ensure that you can connect to your deployer machine as we will be
 deploying the rest of the infrastructure from that machine. If you need
-assistance, please reach out in the Level Up teams channel</u>**
+assistance, please reach out in the Level Up teams
+channel]{.underline}**
 
-- Open Notepad or and editor of your choice and copy the ssh key
-    collected in the previous task. Copy the file to “C:\\Users\\\[your
-    alias\]\\.ssh. Name the file “deployer_ssh” and save as the type
-    “All Files”
+-   Open Notepad or and editor of your choice and copy the ssh key
+    collected in the previous task. Copy the file to "C:\\Users\\\[your
+    alias\]\\.ssh. Name the file "deployer_ssh" and save as the type
+    "All Files"
 
-> <img src="./media/image26.png" style="width:6.26806in;height:0.49931in" />
+> ![](./images//media/image27.png){width="6.268055555555556in"
+> height="0.49930555555555556in"}
 >
 > **Note: File name should not have .txt extension**
 >
-> <img src="./media/image27.png" style="width:5in;height:2.53125in" />
+> ![](./images//media/image28.png){width="5.0in" height="2.53125in"}
 
-- **Open PuttyGen (do this by opening a command window and typing
-    *puttygen.exe*), then click on “Load”**
+-   **Open PuttyGen (do this by opening a command window and typing
+    *puttygen.exe*), then click on "Load"**
 
-> <img src="./media/image28.png" style="width:6.26806in;height:4.74306in" alt="Graphical user interface, text, application Description automatically generated" />
+> ![Graphical user interface, text, application Description
+> automatically
+> generated](./images//media/image29.png){width="6.268055555555556in"
+> height="4.743055555555555in"}
 
-- **Load the SSH
-    key**<img src="./media/image29.png" style="width:6.01042in;height:3.60985in" alt="Graphical user interface, text, application Description automatically generated" />
+-   **Load the SSH key**![Graphical user interface, text, application
+    Description automatically
+    generated](./images//media/image30.png){width="6.010416666666667in"
+    height="3.609846894138233in"}
 
-- Save the private the key with name **\<Region>-deployer_ssh**
+-   Save the private the key with name **\<Region>-deployer_ssh**
 
-> <img src="./media/image30.png" style="width:6.26806in;height:4.85417in" alt="Graphical user interface, text, application, email Description automatically generated" />
+> ![Graphical user interface, text, application, email Description
+> automatically
+> generated](./images//media/image31.png){width="6.268055555555556in"
+> height="4.854166666666667in"}
 
-- **Connecting the Deployer VM using PuTTY:**
+-   **Connecting the Deployer VM using PuTTY:**
 
+```{=html}
 <!-- -->
+```
+-   Open Putty
 
-- Open Putty
+-   Host Name: azureadm@\<Deployer Public IP Address>
 
-- Host Name: azureadm@\<Deployer Public IP Address>
+-   Connection Name in Saved Sessions:
+    > MGMT-**\<Region>**-SSHConnectivity"
 
-- Connection Name in Saved Sessions:
-    > MGMT-**\<Region>**-SSHConnectivity”
-
-> <img src="./media/image31.png" style="width:4.05556in;height:3.83333in" alt="Graphical user interface, text, application Description automatically generated" />
+> ![Graphical user interface, text, application Description
+> automatically
+> generated](./images//media/image32.png){width="4.055555555555555in"
+> height="3.8333333333333335in"}
 >
 >  
 
-- In the Navigation bar expand “SSH” --> Auth setting and add the path
-    to the SSH key file browse to “C:\\Users\\\[your
-    alias\]\\.ssh\\\<Region>-deployer.ppk” saved
+ 
 
-> <img src="./media/image32.png" style="width:4.09722in;height:3.67442in" alt="Graphical user interface, text, application, email Description automatically generated" />
+-   In the Navigation bar expand "SSH" \--\> Auth setting and add the
+    path to the SSH key file browse to "C:\\Users\\\[your
+    alias\]\\.ssh\\\<Region>-deployer.ppk" saved
 
-- Click on Open to open the connection to the Deployer:
+> ![Graphical user interface, text, application, email Description
+> automatically
+> generated](./images//media/image33.png){width="4.097222222222222in"
+> height="3.6744181977252843in"} 
 
-> <img src="./media/image33.png" style="width:6.26806in;height:3.52431in" alt="Graphical user interface, text, application Description automatically generated" />
+-   Click on Open to open the connection to the Deployer:
+
+> ![Graphical user interface, text, application Description
+> automatically
+> generated](./images//media/image34.png){width="6.268055555555556in"
+> height="3.5243055555555554in"}
 >
-> <img src="./media/image34.png" style="width:4.59722in;height:2.90278in" alt="Text Description automatically generated" />
+> ![Text Description automatically
+> generated](./images//media/image35.png){width="4.597222222222222in"
+> height="2.9027777777777777in"} 
 
 **This completes the pre-requisite portion of the lab. Perform the
 remaining tasks in Module One on the Deployer VM**
 
-## **Task 7: Get the WORKSPACES folder and set the branch**
+## **Task 6: Get the WORKSPACES folder and set the branch**
 
-- Navigate to the **\~/Azure_SAP_Automated_Deployment** folder and
+-   Navigate to the **\~/Azure_SAP_Automated_Deployment** folder and
     remove the existing WORKSPACES folder
 
-> **rm –rf WORKSPACES**
+> **rm -Rf WORKSPACES**
 
-- Navigate to the **\~/Azure_SAP_Automated_Deployment** **/sap-hana**
+-   Navigate to the **\~/Azure_SAP_Automated_Deployment/sap-hana**
     folder and checkout the sap-level-up branch.
 
 > **git checkout sap-level-up**
 >
-> <img src="./media/image35.png" style="width:5.30233in;height:0.84021in" alt="Graphical user interface, text Description automatically generated" />
+> ![Graphical user interface, text Description automatically
+> generated](./images//media/image36.png){width="5.302325021872266in"
+> height="0.8402143482064742in"}
 
-- Go back to the root deployment folder and copy the repository
+-   Go back to the root deployment folder and copy the repository
     WORKSPACES folder
 
-**cd \~/Azure_SAP_Automated_Deployment**
-
+> **cd \~/Azure_SAP_Automated_Deployment**
+>
 > **cp -Rp ./sap-hana/deploy/samples/WORKSPACES ./**
 >
-> <img src="./media/image36.png" style="width:5.15095in;height:0.94097in" alt="A screenshot of a computer Description automatically generated" />
+> ![A screenshot of a computer Description automatically
+> generated](./images//media/image37.png){width="5.150949256342957in"
+> height="0.9409722222222222in"}
 
-## **Task 6: BOM Details**
+## **Task 7: BOM Details**
 
 The Automation Framework gives you tools to download the SAP Bill Of
 Materials (BOM). The downloaded files will be stored in the sapbits
 storage account in the SAP Library. The idea is that the sap library
 will act as the archive for all sap media requirements for a project.
 
-<img src="./media/image37.png" style="width:6.26042in;height:1.41494in" alt="Graphical user interface, text, application, email Description automatically generated" />
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image38.png){width="6.260416666666667in"
+height="1.4149398512685913in"}
 
 The BOM itself mimics the SAP maintenance planner in that we have the
 relevant product ids and the package download URLs. Once the BOM is
@@ -488,31 +656,50 @@ Installation.
 
 A sample extract of a BOM file is provided below:
 
-<img src="./media/image38.png" style="width:6.26042in;height:5.01888in" alt="Text Description automatically generated" />
+![Text Description automatically
+generated](./images//media/image39.png){width="6.260416666666667in"
+height="5.018875765529309in"}
 
 You will be able to utilize the following pre-staged storage accounts
 (storage accounts with the SAP binaries) to fill in the
 sap-parameters.yaml file. List of storage account details:
 
-| Region             | Storage Account   | sapbits-location-base-path                                                                                                |
-|--------------------|-------------------|---------------------------------------------------------------------------------------------------------------------------|
-| Australia East     | mgmtaueasaplib515 | [<u>https://mgmtaueasaplib515.blob.core.windows.net/sapbits</u>](https://mgmtaueasaplib515.blob.core.windows.net/sapbits) |
-| Canada Central     | mgmtcacesaplib3a0 | [<u>https://mgmtcacesaplib3a0.blob.core.windows.net/sapbits</u>](https://mgmtcacesaplib3a0.blob.core.windows.net/sapbits) |
-| Central US         | mgmtceussaplib542 | [<u>https://mgmtceussaplib542.blob.core.windows.net/sapbits</u>](https://mgmtceussaplib542.blob.core.windows.net/sapbits) |
-| East US            | mgmteaussaplib87c | [<u>https://mgmteaussaplib87c.blob.core.windows.net/sapbits</u>](https://mgmteaussaplib87c.blob.core.windows.net/sapbits) |
-| North Europe       | mgmtnoeusaplib83e | [<u>https://mgmtnoeusaplib83e.blob.core.windows.net/sapbits</u>](https://mgmtnoeusaplib83e.blob.core.windows.net/sapbits) |
-| South Africa North | mgmtsanosaplib13c | [<u>https://mgmtsanosaplib13c.blob.core.windows.net/sapbits</u>](https://mgmtsanosaplib13c.blob.core.windows.net/sapbits) |
-| SouthEast Asia     | mgmtsoeasaplib0c5 | [<u>https://mgmtsoeasaplib0c5.blob.core.windows.net/sapbits</u>](https://mgmtsoeasaplib0c5.blob.core.windows.net/sapbits) |
-| UK South           | mgmtuksosaplib0b0 | [<u>https://mgmtuksosaplib0b0.blob.core.windows.net/sapbits</u>](https://mgmtuksosaplib0b0.blob.core.windows.net/sapbits) |
-| West Europe        | mgmtweeusaplib783 | [<u>https://mgmtweeusaplib783.blob.core.windows.net/sapbits</u>](https://mgmtweeusaplib783.blob.core.windows.net/sapbits) |
-| West US2           | mgmtwus2saplibb32 | [<u>https://mgmtwus2saplibb32.blob.core.windows.net/sapbits</u>](https://mgmtwus2saplibb32.blob.core.windows.net/sapbits) |
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  Region      Storage Account     sapbits-location-base-path
+  ----------- ------------------- ----------------------------------------------------------------------------------------------------------------------------------
+  Australia   mgmtaueasaplib515   [[https://mgmtaueasaplib515.blob.core.windows.net/sapbits]{.underline}](https://mgmtaueasaplib515.blob.core.windows.net/sapbits)
+  East                            
+
+  Canada      mgmtcacesaplib3a0   [[https://mgmtcacesaplib3a0.blob.core.windows.net/sapbits]{.underline}](https://mgmtcacesaplib3a0.blob.core.windows.net/sapbits)
+  Central                         
+
+  Central US  mgmtceussaplib542   [[https://mgmtceussaplib542.blob.core.windows.net/sapbits]{.underline}](https://mgmtceussaplib542.blob.core.windows.net/sapbits)
+
+  East US     mgmteaussaplib87c   [[https://mgmteaussaplib87c.blob.core.windows.net/sapbits]{.underline}](https://mgmteaussaplib87c.blob.core.windows.net/sapbits)
+
+  North       mgmtnoeusaplib83e   [[https://mgmtnoeusaplib83e.blob.core.windows.net/sapbits]{.underline}](https://mgmtnoeusaplib83e.blob.core.windows.net/sapbits)
+  Europe                          
+
+  South       mgmtsanosaplib13c   [[https://mgmtsanosaplib13c.blob.core.windows.net/sapbits]{.underline}](https://mgmtsanosaplib13c.blob.core.windows.net/sapbits)
+  Africa                          
+  North                           
+
+  SouthEast   mgmtsoeasaplib0c5   [[https://mgmtsoeasaplib0c5.blob.core.windows.net/sapbits]{.underline}](https://mgmtsoeasaplib0c5.blob.core.windows.net/sapbits)
+  Asia                            
+
+  UK South    mgmtuksosaplib0b0   [[https://mgmtuksosaplib0b0.blob.core.windows.net/sapbits]{.underline}](https://mgmtuksosaplib0b0.blob.core.windows.net/sapbits)
+
+  West Europe mgmtweeusaplib783   [[https://mgmtweeusaplib783.blob.core.windows.net/sapbits]{.underline}](https://mgmtweeusaplib783.blob.core.windows.net/sapbits)
+
+  West US2    mgmtwus2saplibb32   [[https://mgmtwus2saplibb32.blob.core.windows.net/sapbits]{.underline}](https://mgmtwus2saplibb32.blob.core.windows.net/sapbits)
+  ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Navigate to the \~/**Azure_SAP_Automated_Deployment/WORKSPACES/BOMS**
 folder and do the following:
 
 > Run **nano sap-parameters.yaml**
 >
-> <img src="./media/image39.png" style="width:5in;height:0.5625in" />
+> ![](./images//media/image40.png){width="5.0in" height="0.5625in"}
 >
 > Change **\<storage_account_name \_for_sapbit>** to the name of the
 > storage account for your region from the table above
@@ -520,12 +707,14 @@ folder and do the following:
 > Change **\<MGMT KeyVault Name>** to the name of the Deployer resource
 > group key vault
 >
-> On your keyboard enter: **CTRL + X \>** press “**Y” \>** press
+> On your keyboard enter: **CTRL + X \>** press "**Y" \>** press
 > **Enter** to save the file
 >
 > Your file should look similar to this:
 >
-> <img src="./media/image40.png" style="width:6.26042in;height:1.06329in" alt="Text Description automatically generated" />
+> ![Text Description automatically
+> generated](./images//media/image41.png){width="6.260416666666667in"
+> height="1.063286307961505in"}
 >
 > We will provide the SAS token during the Level Up session. We will be
 > executing the following commands:
@@ -533,69 +722,87 @@ folder and do the following:
 > **sapbits_base_path=\<sapbits_location_base_path from sap-parameters
 > ile>**
 >
-> **sas=\<to be given in Level Up>**
+> **sas="\<to be given in Level Up>"**
 >
-> **az keyvault secret set --name "sapbits-location-base-path"
-> --vault-name "Your_MGMT_KeyVault_Name" --value "$sapbits_base_path";**
+> **az keyvault secret set \--name \"sapbits-location-base-path\"
+> \--vault-name \"Your_MGMT_KeyVault_Name\" \--value
+> \"\$sapbits_base_path\";**
 >
-> **az keyvault secret set --name "sapbits-sas-token" --vault-name
-> "Your_MGMT_KeyVault_Name" --value "$sas";**
+> Note: In a previous version o of the doc,"sapbits-location-base-path"
+> was highlighted. Don't change anything in string
+> \"sapbits-location-base-path\". Use this as-is. Keep vault name in
+> """, that is \"Your_MGMT_KeyVault_Name\".
+>
+> **az keyvault secret set \--name \"sapbits-sas-token\" \--vault-name
+> \"Your_MGMT_KeyVault_Name\" \--value \"\$sas\";**
 
 ## **Task 8: Deploy the Workload Zone**
 
-- On the Deployer VM, navigate directly to the regional Workload zone
+-   On the Deployer VM, navigate directly to the regional Workload zone
     folder:
 
 > **cd
 > \~/Azure_SAP_Automated_Deployment/WORKSPACES/LANDSCAPE/DEV-\<region>-SAP01-INFRASTRUCTURE**
 
-- Run the following command. Replace all parameters with the
+-   Run the following command. Replace all parameters with the
     appropariate details that you have collected in previous Tasks:
 
-> **${DEPLOYMENT_REPO_PATH}/deploy/scripts/install_workloadzone.sh
-> --parameterfile ./DEV-XXXX-SAP01-INFRASTRUCTURE.tfvars
-> --deployer_environment MGMT --subscription \<subscription ID> --spn_id
-> \<SPN App ID> --spn_secret \<SPN Secret> --tenant_id \<Tenant ID>
-> --state_subscription \<subscription ID> --vault \<DEPLOYER resource
-> group key vault> --storageaccountname \<state file storage account
-> name> --deployer_tfstate_key \<name of the deployer state file>
-> --auto-approve**
+> **\${DEPLOYMENT_REPO_PATH}/deploy/scripts/install_workloadzone.sh
+> \--parameterfile ./DEV-\<region>-SAP01-INFRASTRUCTURE.tfvars
+> \--deployer_environment MGMT \--subscription \<subscription ID>
+> \--spn_id \<SPN App ID> \--spn_secret \<SPN Secret> \--tenant_id
+> \<Tenant ID> \--state_subscription \<subscription ID> \--vault
+> \<DEPLOYER resource group key vault> \--storageaccountname \<state
+> file storage account name> \--deployer_tfstate_key \<name of the
+> deployer state file> \--auto-approve**
+>
+> ![Text Description automatically
+> generated](./images//media/image42.png){width="6.268055555555556in"
+> height="3.8833333333333333in"}
 
-<img src="./media/image41.png" style="width:6.26806in;height:3.88333in" alt="Text Description automatically generated" />
+-   You should start to see the landscape module deploy:
 
-- You should start to see the landscape module deploy:
-
-<img src="./media/image42.png" style="width:6.26806in;height:0.94583in" alt="Graphical user interface, text Description automatically generated" />
+> ![Graphical user interface, text Description automatically
+> generated](./images//media/image43.png){width="6.268055555555556in"
+> height="0.9458333333333333in"}
 
 Similarly, once the Landscape is complete, you can deploy the system
 resources using the following commands:
 
-- **cd
+-   **cd
     \~/Azure_SAP_Automated_Deployment/WORKSPACES/SYSTEM/DEV-\<region>-SAP01-X00**
 
+```{=html}
 <!-- -->
+```
+-   **\${DEPLOYMENT_REPO_PATH}/deploy/scripts/installer.sh
+    \--parameterfile DEV-\<region>-SAP01-X00.tfvars \--type sap_system
+    \--auto-approve**
 
-- **${DEPLOYMENT_REPO_PATH}/deploy/scripts/installer.sh
-    --parameterfile DEV-\<region>-SAP01-X00.tfvars --type sap_system
-    --auto-approve**
+-   You should have two more resource groups
 
-- You should have two more resource groups
-
+```{=html}
 <!-- -->
+```
+-   Landscape Resource Group example:
 
-- Landscape Resource Group example:
+> ![Graphical user interface, application Description automatically
+> generated with medium
+> confidence](./images//media/image44.png){width="5.593022747156605in"
+> height="1.964932195975503in"}
 
-<img src="./media/image43.png" style="width:5.59302in;height:1.96493in" alt="Graphical user interface, application Description automatically generated with medium confidence" />
-
-- System Resource Group (Abridged):  
-    <img src="./media/image44.png" style="width:6.26806in;height:3.64931in" alt="Graphical user interface, text, table, email Description automatically generated" />
+-   System Resource Group (Abridged):\
+    ![Graphical user interface, text, table, email Description
+    automatically
+    generated](./images//media/image45.png){width="6.268055555555556in"
+    height="3.6493055555555554in"}
 
 ## **Task 9: Naming Conventions**
 
-- Please see the information on changing the naming convention
+-   Please see the information on changing the naming convention
     [here](https://github.com/jhajduk-microsoft/sap-hana/blob/master/documentation/SAP_Automation_on_Azure/Process_Documentation/Changing_the_naming_convention.md)
 
-- Please see the video on naming conventions
+-   Please see the video on naming conventions
     [here](https://microsoft.sharepoint.com/:v:/t/NorthStarPlaybookWorkshop/EfdM1eCJga1OkJXXB5d6lDQBzNzXiU7BZkoQjC6bp325Wg)
 
 Give the break for 10 min and talk about naming convention
@@ -621,30 +828,80 @@ sequence.
 >
 > APP Install (Optional)
 
-Execute the **${DEPLOYMENT_REPO_PATH}/deploy/ansible/test_menu.sh**
+You need to make sure you have two files generated from earlier SAP
+infrastructure provisioning and they are available at
+SYSTEM\\DEV-\<region>-SAP01-X00. 
+
+1.  sap-parameters.yaml
+
+2.  X00host.yaml
+
+-   In the sap-parameters.yaml you have to fill bom_base_name parameter
+    and modify secret_prefix as below
+
+```{=html}
+<!-- -->
+```
+-   Bom_base_name: S41909SPS03_v0005ms
+
+-   ## kv_name: Name of DEV-\<region>-SAP-INFRASTRUCTURE resource group´s key vault e.g., DEVUKSOSAPuser432** **
+
+-   secret_prefix: DEV-\<region>-SAP (\"region" is four-character region
+    code for your deployment). This value is perhaps already populated
+    as DEV-\<region>-SAP01; this means remove the "01" at the end.
+
+```{=html}
+<!-- -->
+```
+-   You also have to set the value for sap_fqdn; something like
+    foo.sap.com will work fine.
+
+In case you see error like this --
+
+![](./images//media/image46.png){width="8.180838801399824in"
+height="0.3224048556430446in"}
+
+To fix this error, add your Azure user to access policy of key vault in
+DEV-\<region>-SAP-INFRASTRUCTURE.
+
+With this, you should be ready to execute the steps 10-1 to 10-8.
+
+Now execute the **\${DEPLOYMENT_REPO_PATH}/deploy/ansible/test_menu.sh**
 script
 
 #### **10-1: OS Config**
 
-<img src="./media/image45.png" style="width:6.26806in;height:0.57778in" />
+![](./images//media/image47.png){width="6.268055555555556in"
+height="0.5777777777777777in"}
 
-<img src="./media/image46.png" style="width:6.26806in;height:1.7875in" alt="Text Description automatically generated" />
+![Text Description automatically
+generated](./images//media/image48.png){width="6.268055555555556in"
+height="1.7875in"}
 
 At the end you will see the screen like below
 
-<img src="./media/image47.png" style="width:6.26806in;height:1.85278in" alt="Text Description automatically generated" />
+![Text Description automatically
+generated](./images//media/image49.png){width="6.268055555555556in"
+height="1.8527777777777779in"}
 
 #### **10-2: SAP** Specific OS config
 
-<img src="./media/image48.png" style="width:6.26806in;height:1.44028in" alt="Text Description automatically generated" />
+![Text Description automatically
+generated](./images//media/image50.png){width="6.268055555555556in"
+height="1.4402777777777778in"}
 
-<img src="./media/image49.png" style="width:6.26806in;height:2.35417in" alt="Text Description automatically generated" />
+![Text Description automatically
+generated](./images//media/image51.png){width="6.268055555555556in"
+height="2.3541666666666665in"}
 
 #### **10-3: BoM** Processing
 
-<img src="./media/image50.png" style="width:6.26806in;height:1.26736in" alt="Text Description automatically generated" />
+![Text Description automatically
+generated](./images//media/image52.png){width="6.268055555555556in"
+height="1.2673611111111112in"}
 
-<img src="./media/image51.png" style="width:6.26806in;height:0.48889in" />
+![](./images//media/image53.png){width="6.268055555555556in"
+height="0.4888888888888889in"}
 
 #### **10-4: HANA DB Install**
 
@@ -652,83 +909,198 @@ Before you install HANA please check the secret
 DEV-WEEU-SAP-\<SID>-sap-password inside workload keyvault have the value
 not starting with a digit
 
-<img src="./media/image52.png" style="width:6.26806in;height:4.18125in" alt="Graphical user interface, text, application, email Description automatically generated" />
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image54.png){width="6.268055555555556in"
+height="4.18125in"}
 
 So, if the value looks like above i.e starting with a number, we need to
 change it.
 
 The password of user DBUser may only consist of alphanumeric characters
-and the special characters #, $, @ and \_. The first character must not
+and the special characters #, \$, @ and \_. The first character must not
 be a digit or an underscore
 
 So it will look like below
 
-<img src="./media/image53.png" style="width:6.24045in;height:6.51133in" alt="Graphical user interface, text, application, email Description automatically generated" />
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image55.png){width="6.240454943132108in"
+height="6.511325459317585in"}
 
-<img src="./media/image54.png" style="width:6.26806in;height:0.58264in" />
+![](./images//media/image56.png){width="6.268055555555556in"
+height="0.5826388888888889in"}
 
-<img src="./media/image55.png" style="width:6.26806in;height:2.72014in" alt="Text Description automatically generated" />
+![Text Description automatically
+generated](./images//media/image57.png){width="6.268055555555556in"
+height="2.720138888888889in"}
 
-<img src="./media/image56.png" style="width:6.26806in;height:2.11458in" alt="Graphical user interface, text Description automatically generated" />
+![Graphical user interface, text Description automatically
+generated](./images//media/image58.png){width="6.268055555555556in"
+height="2.1145833333333335in"}
 
 #### **10-5: SCS Install**
 
-<img src="./media/image57.png" style="width:6.26806in;height:2.54653in" alt="Text Description automatically generated" />
+![Text Description automatically
+generated](./images//media/image59.png){width="6.268055555555556in"
+height="2.546527777777778in"}
 
-<img src="./media/image58.png" style="width:6.26806in;height:2.21111in" alt="Text Description automatically generated" />
+![Text Description automatically
+generated](./images//media/image60.png){width="6.268055555555556in"
+height="2.2111111111111112in"}
 
 #### **10-6: DB Load**
 
-<img src="./media/image59.png" style="width:6.26806in;height:1.95069in" alt="Text Description automatically generated" />
+![Text Description automatically
+generated](./images//media/image61.png){width="6.268055555555556in"
+height="1.9506944444444445in"}
 
-<img src="./media/image60.png" style="width:6.26806in;height:2.36111in" alt="Text Description automatically generated" />
+![Text Description automatically
+generated](./images//media/image62.png){width="6.268055555555556in"
+height="2.361111111111111in"}
 
-<img src="./media/image61.png" style="width:6.26806in;height:3.94306in" alt="Text Description automatically generated" />
+![Text Description automatically
+generated](./images//media/image63.png){width="6.268055555555556in"
+height="3.9430555555555555in"}
 
 #### **10-7: PAS** Install
 
-<img src="./media/image62.png" style="width:6.26806in;height:2.10833in" alt="Text Description automatically generated" />
+![Text Description automatically
+generated](./images//media/image64.png){width="6.268055555555556in"
+height="2.1083333333333334in"}
 
-<img src="./media/image63.png" style="width:6.26806in;height:3.02083in" alt="Text Description automatically generated" />
+![Text Description automatically
+generated](./images//media/image65.png){width="6.268055555555556in"
+height="3.0208333333333335in"}
 
-<img src="./media/image64.png" style="width:6.26806in;height:2.19167in" alt="Text Description automatically generated" />
+![Text Description automatically
+generated](./images//media/image66.png){width="6.268055555555556in"
+height="2.191666666666667in"}
 
 #### **10-8: APP Install**
 
-<img src="./media/image65.png" style="width:6.26806in;height:2.10833in" alt="Text Description automatically generated" />
+![Text Description automatically
+generated](./images//media/image67.png){width="6.268055555555556in"
+height="2.1083333333333334in"}
 
-<img src="./media/image66.png" style="width:6.26806in;height:3.42153in" alt="Text Description automatically generated" />
+![Text Description automatically
+generated](./images//media/image68.png){width="6.268055555555556in"
+height="3.421527777777778in"}
 
-<img src="./media/image67.png" style="width:6.26806in;height:2.17292in" alt="Text Description automatically generated" />
+![Text Description automatically
+generated](./images//media/image69.png){width="6.268055555555556in"
+height="2.1729166666666666in"}
 
 Congratulations! You have reached the end of Module One and have
-deployed a stand-alone HANA system.
+deployed a stand-alone S/4HANA system.
+
+#### **10-9: SAP System Verification**
+
+Now we need to verify the system we have just installed. Please follow
+the below steps to check the system status.
+
+Connecting to the corresponding SAP VMs
+
+We can connect to all SAP VMs from deployer VM through SSH. sshkey key
+will be available at SYSTEM\\DEV-\<region>-SAP01-X00 folder
+
+**Note:** If you didn't find the sshkey in the above-mentioned folder
+then you can copy it from secret DEV-XXXX-SAP-sid-sshkey inside
+DEVXXXXSAPuserxxx keyvault.
+
+[Checking HANA services]{.underline}
+
+Login to HANA VM
+
+ssh -i sshkey azureadm@\< DEV-XXXX-SAP01-X00_x00dhdb00l0xxx
+\_vm_private_ip>
+
+sudo su - hdbadm
+
+sapcontrol -nr 00 -function GetProcessList
+
+![Text Description automatically
+generated](./images//media/image70.png){width="6.268055555555556in"
+height="1.770138888888889in"}
+
+All the services status should be green
+
+*Note: 00 here is the instance number of HANA DB*
+
+[Checking SCS Instance]{.underline}
+
+ssh -i sshkey azureadm@\< DEV-XXXX-SAP01-X00_x00scs00lxxx
+\_vm_private_ip>
+
+sudo su -- x00adm
+
+sapcontrol -nr 00 -function GetProcessList
+
+![Text Description automatically
+generated](./images//media/image71.png){width="6.268055555555556in"
+height="1.336111111111111in"}
+
+All the services status should be green
+
+*Note: 00 here is the instance number of SCS Instance*
+
+[Checking PAS Instance]{.underline}
+
+ssh -i sshkey azureadm@\< DEV-XXXX-SAP01-X00_x00app00lxxx_vm_private_ip>
+
+sudo su -- x00adm
+
+sapcontrol -nr 00 -function GetProcessList
+
+![Text Description automatically
+generated](./images//media/image72.png){width="6.268055555555556in"
+height="1.5645833333333334in"}
+
+All the services status should be green
+
+*Note: 00 here is the instance number of PAS Instance*
+
+[Checking Additional Application Instance]{.underline}
+
+ssh -i sshkey azureadm@\< DEV-XXXX-SAP01-X00_x00app01lxxx_vm_private_ip>
+
+sudo su -- x00adm
+
+sapcontrol -nr 00 -function GetProcessList
+
+![Text Description automatically
+generated](./images//media/image73.png){width="6.268055555555556in"
+height="1.625in"}
+
+All the services status should be green
+
+*Note: 00 here is the instance number of AAS Instance*
 
 ## **Task 11: Clean-up**
 
 You may perform this task outside of the lab but please be sure to do so
-as the **<u>infrastructure can be quite expensive so do not delay!</u>**
-You may find that you lose any credits you have very quickly. Follow the
-below steps in sequence to remove the entire SAP infrastructure you have
-deployed earlier:
+as the **[infrastructure can be quite expensive so do not
+delay!]{.underline}** You may find that you lose any credits you have
+very quickly. Follow the below steps in sequence to remove the entire
+SAP infrastructure you have deployed earlier:
 
-Remove SAP Infra Resources -> Remove Workload Zone -> Remove Control
+Remove SAP Infra Resources -\> Remove Workload Zone -\> Remove Control
 Plane
 
 Please also note that
 
-1. Removal of SAP infra-Resources
+1.  Removal of SAP infra-Resources
 
-2. Removal of workload Zone
+2.  Removal of workload Zone
 
 Should be executed from the deployer VM, whereas
 
-3. Removal of control Plane
+3.  Removal of control Plane
 
 Should be executed from cloud shell where you have deployed the control
 plane earlier
 
-So, let’s start cleaning up Azure resources (for 1 and 2 as mentioned
+So, let's start cleaning up Azure resources (for 1 and 2 as mentioned
 above) from your Deployer VM
 
 Before you start executing remover script make sure you have logged in
@@ -744,36 +1116,36 @@ and enter your device code you see in the bash shell
 If you notice multiple subscriptions, please set the specific
 subscription you are working with by executing the below command
 
-az account set --subscription \<your subscription ID>
+az account set \--subscription \<your subscription ID>
 
 **Removal of SAP infra resources**
 
-- Navigate to the DEV-XXXX-SAP01-X00 subfolder inside SYSTEM folder
+-   Navigate to the DEV-XXXX-SAP01-X00 subfolder inside SYSTEM folder
     and execute the below command from there
 
-> **$DEPLOYMENT_REPO_PATH/deploy/scripts/remover.sh --parameterfile
-> DEV-\<region>-SAP01-X00.json --type sap_system**
+> **\$DEPLOYMENT_REPO_PATH/deploy/scripts/remover.sh \--parameterfile
+> DEV-\<region>-SAP01-X00.tfvars \--type sap_system**
 >
-> Proceed with **‘Yes’**
+> Proceed with **'yes'**
 
 **Removal of SAP workload resources**
 
-- Navigate to the DEV-XXXX-SAP01-INFRASTRUCTURE sub-folder inside
+-   Navigate to the DEV-XXXX-SAP01-INFRASTRUCTURE sub-folder inside
     LANDSCAPE folder and execute the below command from there
 
-> **$DEPLOYMENT_REPO_PATH/deploy/scripts/remover.sh --parameterfile**
-> **DEV-\<region>-SAP01-INFRASTRUCTURE.tfvars --type sap_landscape**
+> **\$DEPLOYMENT_REPO_PATH/deploy/scripts/remover.sh \--parameterfile**
+> **DEV-\<region>-SAP01-INFRASTRUCTURE.tfvars \--type sap_landscape**
 >
-> Proceed with **‘Yes’**
+> Proceed with **'yes'**
 
 **Removal of Control Plane**
 
-- Now go to <https://shell.azure.com> (for 3)
+-   Now go to <https://shell.azure.com> (for 3)
 
-- Navigate to the WORKSPACES folder inside
+-   Navigate to the WORKSPACES folder inside
     \~/Azure_SAP_Automation_Deployment folder
 
-- Export the below two environment variables (It get lost after
+-   Export the below two environment variables (It get lost after
     session time out)
 
 > **export
@@ -781,136 +1153,228 @@ az account set --subscription \<your subscription ID>
 >
 > **export ARM_SUBSCRIPTION_ID=\<Your Subscription ID>**
 
-- and run the below command from WORKSPACES folder:
+-   and run the below command from WORKSPACES folder:
 
-> **$DEPLOYMENT_REPO_PATH/deploy/scripts/remove_region.sh
-> --deployer_parameter_file DEPLOYER/MGMT-\<region>-DEP00-**
-> **INFRASTRUCTURE/MGMT-\<region>-DEP00-INFRASTRUCTURE.tfvars –**
+> **\$DEPLOYMENT_REPO_PATH/deploy/scripts/remove_region.sh
+> \--deployer_parameter_file DEPLOYER/MGMT-\<region>-DEP00-**
+> **INFRASTRUCTURE/MGMT-\<region>-DEP00-INFRASTRUCTURE.tfvars --**
 > **library_parameter_file LIBRARY/MGMT-\<region>-SAP_LIBRARY/
 > MGMT-\<region>-SAP_LIBRARY.tfvars**
 >
-> Proceed with **‘Yes’**
+> Proceed with **'yes'**
 >
-> Congratulation! You have cleaned up all resources.
+> **Please verify in the Azure portal that all the resource groups are
+> now deleted -- if not, delete any remaining resource groups
+> manually.**
 
-**Module 2: SAP + Data & AI**
+# Congratulation! You have cleaned up all resources. 
 
-As explained in the General Hierarchy section, Application Group is a
-logical grouping of applications installed on session hosts in the host
-pool. They are of two types:
+# 
 
-- RemoteApp
+# **Module 2: SAP + Data & AI**
 
-- Desktop
+## Scenario 
 
-## **Scenario: Data Extraction à Data Lake à Modelling technique \[CDMs\] à Analytics\[Power BI\]**
+In the SAP and Data part of the training you\'ll get familiar with basic
+tools and methods allowing you to extract and process data stored in the
+SAP system outside of the SAP system. You\'ll use the Synapse Pipelines
+to copy data to the Azure Data Lake Storage and then import them to
+PowerBI to create relationships and visualize them.
 
-@sanjeev to add visual for the whole flow. This will provide an overview
-to audience how multiple components are interacting with each other
-end-to-end.
+## Introduction:
 
-## Introduction
+Azure Synapse is the tool for data processing and analytics within
+Microsoft cloud. You\'ll use it to extract SAP data using OData protocol
+from publicly available SAP system. Below we\'ll describe each step
+required to establish the extraction pipeline with the Azure Data Lake
+as the target location. Once all data are available you\'ll import them
+to PowerBI to create simple data visualization, showing the top
+customers.
+
+![Timeline Description automatically
+generated](./images//media/image74.png){width="6.268055555555556in"
+height="3.001388888888889in"}
 
 ### Agenda
 
-| **S.No** | **Action Plan**                             | **Installation time** | **Time required for each step** |
-|----------|---------------------------------------------|-----------------------|---------------------------------|
-| 1        | Create Synpase Analytics                    | NA                    | 10 mins                         |
-| 2        | Add Linked Services into Synapse Pipeline   | NA                    | 20 mins                         |
-| 3        | Add Integration Dataset to Synapse Pipeline | NA                    | 20 mins                         |
-| 4        | Run Data Extraction                         | NA                    | 10 mins                         |
-| 5        | Add Parameters                              |  NA                   | 20 mins                         |
-| 6        | Add Power BI visualization                  | NA                    | 20 mins                         |
-| 7        | Q/A                                         |                       | 20 mins                         |
-|          |                                             | Total                 | 120 mins                        |
+  ---------------------------------------------------------------------------------------
+  **S.No**   **Action Plan**                           **Installation   **Time required
+                                                       time**           for each step**
+  ---------- ----------------------------------------- ---------------- -----------------
+  1          Introduction and Session Walkthrough      NA               5 mins
 
-## **Task 1: Pre-Requisites**
+  2          Deploy Synapse Analytics in your          NA               10 mins
+             subscription                                               
 
-#### Deploy Synapse Analytics Workspace
+  3          Prepare Synapse Pipelines resources       NA               20 mins
 
-- Go to htps://Portal.azure.com
+  4          Create Synapse Pipeline                   NA               10 min
 
-  - <img src="./media/image68.png" style="width:4.95833in;height:1.05208in" alt="Graphical user interface, application Description automatically generated" />
+  5          Run and monitor the data extraction         NA             10 mins
+             process                                                    
 
-<!-- -->
+  6          Use parameters to avoid hardcoding values   NA             15 mins
 
-- Ensure the the Synapse provider is registered in your subscription.
-    Go to your subscriptions in the Azure Portal and go to Resource
-    Providers, then search for Synapse and ensure it is a registered
-    provider:
+  7          Import extracted data to PowerBI          NA               15 mins
 
-<img src="./media/image69.png" style="width:5in;height:3.38542in" alt="Graphical user interface, text, application, email Description automatically generated" />
+  8          Create relationship between tables and    NA               15 mins
+             build simple visual                                        
 
-- Create Synapse Analytics
+                                                       Total            100 mins
+  ---------------------------------------------------------------------------------------
 
-> <img src="./media/image70.png" style="width:5in;height:4.65625in" alt="Graphical user interface, text, application, email Description automatically generated" />
+### 
 
-- Enter the details
-
-  - <img src="./media/image71.png" style="width:5in;height:4.60417in" alt="Graphical user interface Description automatically generated" />
-
-- Click on Review+ Create and then click on “Create”
-
-  - While it is creating move forward with ste 2
+## **Pre-Requisites**
 
 #### Accessing SAP ES5 system
 
-- Check access to SAP Sales Order oDATA service here
-    <https://sapes5.sapdevcenter.com/sap/opu/odata4/sap/ze2e001/default/sap/ze2e001_salesorder/0001/SalesOrder?$top=3&sap-ds-debug=true>
+1.  If you don\'t have an S-User account already you can register using
+    the following link:
 
-- Register for ES5 demo system here
-    <https://register.sapdevcenter.com/SUPSignForms/>
+[Register to access SAP
+resources](https://www.sap.com/uk/registration/protected/form-universal-reg.afl.html?generalRegistration=true)
+
+2.  Use the created credentials to register for ES5 Demo system:
+
+[Register to ES5 Demo
+system](https://register.sapdevcenter.com/SUPSignForms/)
+
+3.  Once you complete the registration process you should receive e-mail
+    containing your credentials to access ES5 system:
+
+![Graphical user interface, text, application Description automatically
+generated](./images//media/image75.png){width="6.268055555555556in"
+height="2.5881944444444445in"}
+
+4.  Access the SAP WebUI by using the following link:
+
+[Access SAP ES5 system](https://sapes5.sapdevcenter.com/)
+
+5.  Provide your credentials from the e-mail and click Log On. If you
+    access the system for the first time you\'ll be prompted to provide
+    a new password.
+
+![Graphical user interface Description automatically
+generated](./images//media/image76.png){width="5.729966097987751in"
+height="3.5838331146106737in"}
+
+6.  Close the browser. Your access to the demo SAP system is now
+    confirmed.
+
+Supporting documentation is available here:
 
 [New SAP Gateway Demo System available \| SAP
 Blogs](https://blogs.sap.com/2017/12/05/new-sap-gateway-demo-system-available/)
 
-PowerPoint to support the documentation
+## 
+
+## **Task 1: Deploy Synapse Analytics in your subscription**
+
+#### Deploy Synapse Analytics Workspace
+
+-   Ensure the Synapse provider is registered in your subscription. Go
+    to your subscriptions in the Azure Portal and go to Resource
+    Providers, then search for Synapse and ensure it is a registered
+    provider:
+
+> ![Graphical user interface, text, application, email Description
+> automatically generated](./images//media/image77.png){width="5.0in"
+> height="3.3854166666666665in"}
+
+-   Open Azure Portal (<https://portal.azure.com>) and type Synapse
+    Analytics in the top search box. Open the Azure Synapse Analytics
+    blade.
+
+![Graphical user interface, application Description automatically
+generated](./images//media/image78.png){width="4.958333333333333in"
+height="1.0520833333333333in"}
+
+-   Click Create Synapse workspace button
+
+> ![Graphical user interface, text, application, email Description
+> automatically generated](./images//media/image79.png){width="5.0in"
+> height="4.65625in"}
+
+-   Choose and provide the resource group and workspace names together
+    with account and file system names for the Data Lake Storage. Ensure
+    the checkbox \"Assign myself the Storage Blob Data Contributor role
+    on the Data Lake storage...\" is marked.
+
+You don\'t have to provide the name for Managed resource group.
+
+> ![Graphical user interface, text, application Description
+> automatically
+> generated](./images//media/image80.png){width="5.385416666666667in"
+> height="5.852598425196851in"}
+
+-   Click on Review + Create button to go to summary page
+
+![Graphical user interface, application, chat or text message
+Description automatically
+generated](./images//media/image81.png){width="4.135416666666667in"
+height="0.4869892825896763in"}
+
+-   Click Create button at the bottom on the page to confirm the
+    deployment. It will take a couple of minutes to deploy the service.
 
 ## **Task 2:** Prepare Synapse Pipelines resources
 
-In this task you're going to prepare required object to extract data
-from the SAP system over the OData protocol and save them on the data
-lake.
+In this task you\'ll access your Synapse workspace and you\'ll deploy
+basic resources required to establish data extraction using OData
+protocol.
 
-#### Step 1: How to access synapse Studio
+#### Step 1: Access Synapse Studio 
 
-Portal.azure.com --> go to azure Synapse analytics --> Click on open
-Synapse Studio
+To access Synapse Studio open Azure Portal (<https://portal.azure.com>)
+and go to Azure Synapse Analytics. Then choose Open Synapse Studio.
 
-<img src="./media/image72.png" style="width:3.61458in;height:5in" alt="Graphical user interface, application Description automatically generated" />
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image82.png){width="6.268055555555556in"
+height="3.689583333333333in"}
 
-#### Step 2 – Create a Linked Service to connect to SAP system
+#### Step 2 -- Create a Linked Service to connect to SAP system
 
-1. On the left menu choose Manage icon
+1)  On the left menu choose Manage icon
 
-<img src="./media/image73.png" style="width:2.46875in;height:4.97917in" alt="Graphical user interface, application Description automatically generated" />
+![Graphical user interface, application, Word Description automatically
+generated](./images//media/image83.png){width="4.177666229221347in"
+height="3.8859590988626422in"}
 
-2. Select Linked Services from the menu
+2)  Select Linked Services from the menu
 
-<img src="./media/image74.png" style="width:4.80208in;height:4.90625in" alt="Graphical user interface, application Description automatically generated" />
+![Graphical user interface, text, application Description automatically
+generated](./images//media/image84.png){width="4.573555336832896in"
+height="3.9901399825021873in"}
 
-3. Click +New button
+3)  Click +New button
 
-<img src="./media/image75.png" style="width:5in;height:3.625in" alt="Graphical user interface, text, application Description automatically generated" />
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image85.png){width="6.268055555555556in"
+height="2.5840277777777776in"}
 
-4. On the New Linked Service blade set the type to OData
+4)  On the New Linked Service blade set the type to OData
 
-<img src="./media/image76.png" style="width:6.26806in;height:3.22292in" alt="Graphical user interface, text, application Description automatically generated" />
+![Graphical user interface, text, application Description automatically
+generated](./images//media/image86.png){width="6.268055555555556in"
+height="3.222916666666667in"}
 
-5. Fill the required fields to establish a connection:
+5)  Fill the required fields to establish a connection:
 
-Name: ES5_OData
+**Name:** ES5_OData
 
-Connect via Integration Runtime: AutoResolveIntegrationRuntime
+**Connect via Integration Runtime:** AutoResolveIntegrationRuntime
 
-Service URL:
+**Service URL:**
 <https://sapes5.sapdevcenter.com/sap/opu/odata/sap/SEPMRA_SO_MAN>
 
-Authentication type: Basic authentication
+**Authentication type:** Basic authentication
 
-Username:
+**Username:** \<ES5 demo system username>
 
-Password
+**Password:** \<ES5 demo system password>
 
 Auth headers:
 
@@ -918,126 +1382,190 @@ Property name: sap-client
 
 Value: 002
 
-<img src="./media/image77.png" style="width:5in;height:3.75in" alt="Graphical user interface Description automatically generated" />
+![Graphical user interface, application Description automatically
+generated](./images//media/image87.png){width="3.942227690288714in"
+height="4.78125in"}
 
-<img src="./media/image78.png" style="width:6.26806in;height:5.24375in" alt="Graphical user interface, text, application Description automatically generated" />
+6)  Click Test Connection button. You should receive confirmation
+    \"Connection Successful\"
 
-6. Test the connection. You should receive message saying the
-    Connection was Successful.
+![Background pattern Description automatically generated with low
+confidence](./images//media/image88.png){width="6.268055555555556in"
+height="0.7347222222222223in"}
 
-7. Click Apply to save your settings.
+7)  Click Create to save your settings.
 
-#### STEP 3 – Create Integration Dataset that represents the OData
+#### STEP 3 -- Create Integration Dataset that represents the OData
 
-1. On the left menu choose Data icon
+1)  On the left menu choose Data icon
 
-<img src="./media/image79.png" style="width:5in;height:3.28125in" alt="Graphical user interface, text, application, email Description automatically generated" />
+![Graphical user interface, application, Word Description automatically
+generated](./images//media/image89.png){width="4.177666229221347in"
+height="3.8859590988626422in"}
 
-2. Switch the view from Workspace to Linked
+2)  Switch the view from Workspace to Linked
 
-<img src="./media/image80.png" style="width:4.84443in;height:2.34408in" alt="Graphical user interface, text, application Description automatically generated" />
+![Graphical user interface, application Description automatically
+generated](./images//media/image90.png){width="3.40625in"
+height="1.6492432195975504in"}
 
-3. Click the + button and create a new Integration Dataset
+3)  Click the + button and create a new Integration Dataset
 
-<img src="./media/image81.png" style="width:5in;height:2.79167in" alt="Graphical user interface, text, application, Word Description automatically generated" />
+![Graphical user interface, application, Word Description automatically
+generated](./images//media/image91.png){width="6.268055555555556in"
+height="3.0881944444444445in"}
 
-4. On the New Integration Dataset blade set the type to OData
+4)  On the New Integration Dataset blade set the type to OData
 
-5. Provide the name of the Integration Dataset and link it to the
-    ES5_OData linked service. Path: SEPMRA_C\_SalesOrderTP
+5)  Set Integration Dataset properties:
 
-    1. This collection has the details about Sales order
+**Name**: ES5_OData_Dataset
 
-<img src="./media/image82.png" style="width:6.26806in;height:3.03333in" alt="Graphical user interface, text, application, email Description automatically generated" />
+**Linked Service**: \<choose previously created Linked Service>
 
-6. Click OK to save your settings
+**Path**: Choose SEPMRA_C\_SalesOrder from the list
 
-7. Error:
-    <img src="./media/image83.png" style="width:4.04167in;height:3.34375in" alt="Graphical user interface, text, application Description automatically generated" />
+![Graphical user interface, application Description automatically
+generated](./images//media/image92.png){width="6.268055555555556in"
+height="3.0625in"}
 
-#### STEP 4 – Create Integration Dataset that represents the target Data Lake
+6)  Click OK to save your settings
 
-As part of Synapse you have deployed a Data Lake storage which will be
-the destination of the extracted data. In this step we will create a
-dataset that represents the target storage.
+#### STEP 4 -- Create Integration Dataset that represents the target Data Lake
 
-1. On the left menu choose Data icon
+Together with the Synapse Analytics you also deployed a data lake
+storage which we will use as the target location for extracted SAP data.
 
-2. Switch the view from Workspace to Linked
+1)  On the left menu choose Data icon
 
-<img src="./media/image80.png" style="width:4.84443in;height:2.34408in" alt="Graphical user interface, text, application Description automatically generated" />
+2)  Switch the view from Workspace to Linked
 
-3. Click the + button and create a new Integration Dataset
+![Graphical user interface, application Description automatically
+generated](./images//media/image90.png){width="3.40625in"
+height="1.6492432195975504in"}
 
-4. On the New Integration Dataset blade set the type to Azure Data Lake
-    Storage Gen2
+3)  Click the + button and create a new Integration Dataset
 
-<img src="./media/image84.png" style="width:5in;height:2.39583in" alt="Graphical user interface, application Description automatically generated" />
+![Graphical user interface, application, Word Description automatically
+generated](./images//media/image91.png){width="6.268055555555556in"
+height="3.0881944444444445in"}
 
-5. Set the file format to Parquet
+4)  On the New Integration Dataset blade set the type to Azure Data Lake
+    Storage Gen2 and click Continue
 
-<img src="./media/image85.png" style="width:4.45833in;height:5in" alt="Graphical user interface, application, Teams Description automatically generated" />
+![Graphical user interface, application, Word Description automatically
+generated](./images//media/image93.png){width="6.268055555555556in"
+height="6.025in"}
 
-6. Provide the name of the Integration Dataset and link it to the Data
+5)  Set the file format to Parquet
+
+![Graphical user interface, application, Teams Description automatically
+generated](./images//media/image94.png){width="4.291666666666667in"
+height="4.516092519685039in"}
+
+6)  Provide the name of the Integration Dataset and link it to the Data
     Lake storage that was created as part of Synapse
 
-Click on the Browse
+**Name:** ES5_DataLake
 
-<img src="./media/image86.png" style="width:5in;height:3.42708in" alt="Graphical user interface, text, application, email Description automatically generated" />
+**Linked Service:** \<choose the linked service pointing to Data Lake -
+\*WorkspaceDefaultStorage
 
-7. Click OK to save your settings
+In the File Path section provide the Synapse filesystem created during
+service provisioning. You can either provide the name directly in the
+file system name, or use the Folder icon to select it using the user
+interface. Leave the directory and file name empty.
 
-8. <img src="./media/image87.png" style="width:5in;height:2.89583in" alt="Graphical user interface, text, application, email Description automatically generated" />
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image95.png){width="4.510416666666667in"
+height="2.394128390201225in"}
 
-#### STEP 5 – Publish and save your settings
+7)  Click OK to save your settings
 
-To deploy changes we've done in this task we have to Publish them. Click
-the Publish All button from the top menu.
+#### STEP 5 -- Publish and save your settings.
 
-<img src="./media/image88.png" style="width:5in;height:2.30208in" alt="Graphical user interface, text, application, chat or text message, email Description automatically generated" />
+To save and deploy changes made to Synapse workspace you need to click
+the button Publish All.
+
+![](./images//media/image96.png){width="6.268055555555556in"
+height="0.75in"}
+
+All changes made in Synapse are now saved.
 
 ## **Task 3: Create Synapse Pipeline**
 
 In the previous task we created all required resources to establish the
-connection with the source system and target storage. In this task we'll
-use them to build the data extraction pipeline.
+connection with the source system and target storage. In this task
+we\'ll use them to build the data extraction pipeline.
 
-#### STEP 1 – Create a new pipeline
+#### STEP 1 -- Create a new pipeline
 
-1. From the left menu choose Integrate icon
+1)  From the left menu choose Integrate icon
 
-<img src="./media/image89.png" style="width:3.15625in;height:4.08333in" alt="Graphical user interface, application Description automatically generated" />
+![Graphical user interface, application, Word Description automatically
+generated](./images//media/image97.png){width="4.177666229221347in"
+height="3.8859590988626422in"}
 
-2. Click the + button and select Pipeline
+2)  Click the + button and select Pipeline
 
-<img src="./media/image90.png" style="width:4.5in;height:2.53125in" alt="Graphical user interface, text, application, Word Description automatically generated" />
+![Graphical user interface, application, Word Description automatically
+generated](./images//media/image98.png){width="6.268055555555556in"
+height="2.9208333333333334in"}
 
-3. In the Properties window provide the name of the pipeline
+3)  In the Properties window on the right side of the screen provide the
+    name of the pipeline:
 
-<img src="./media/image91.png" style="width:5in;height:1.67708in" alt="Graphical user interface, application, Word Description automatically generated" />
+**Name:** ES5_Pipeline
 
-#### STEP 2 – Add Copy Data activity to extract Sales Orders
+![Graphical user interface, application, Word Description automatically
+generated](./images//media/image99.png){width="5.0in"
+height="1.6770833333333333in"}
+
+#### STEP 2 -- Add Copy Data activity to extract Sales Orders
 
 To extract Sales Orders data from the source SAP system you will use the
 copy data activity.
 
-1. On the Activities menu expand the Move and Transform group
+1)  On the Activities menu expand the Move and Transform group
 
-2. Move the Copy Data activity to the pipeline
+![Graphical user interface, text, application Description automatically
+generated](./images//media/image100.png){width="6.268055555555556in"
+height="2.1909722222222223in"}
 
-3. Provide the name of the Copy Data activity on the General tab
+2)  Move the Copy Data activity to the pipeline
 
-4. Move to the Source tab and choose the source dataset that represents
+![Graphical user interface, application, Word Description automatically
+generated](./images//media/image101.png){width="6.268055555555556in"
+height="1.85in"}
+
+3)  Click on the Copy Data activity on the pipeline. Provide the name of
+    the activity under the General tab:
+
+**Name**: ES5_CopyData
+
+![Graphical user interface Description automatically
+generated](./images//media/image102.png){width="6.268055555555556in"
+height="2.3555555555555556in"}
+
+4)  Move to the Source tab and choose the source dataset that represents
     the OData connection to the ES5 system
 
-<img src="./media/image92.png" style="width:6.26806in;height:1.81667in" alt="Graphical user interface, text, application, email Description automatically generated" />
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image103.png){width="6.268055555555556in"
+height="1.8166666666666667in"}
 
-5. Move to the Sink tab and choose the target dataset that represents
+5)  Move to the Sink tab and choose the target dataset that represents
     the Data Lake storage:
 
-<img src="./media/image93.png" style="width:6.26806in;height:2.04167in" alt="Graphical user interface, text, application, email Description automatically generated" />
+![Graphical user interface, application Description automatically
+generated](./images//media/image104.png){width="6.268055555555556in"
+height="1.50625in"}
 
-6. Click Publish All to save your settings
+6)  Click Publish All to save your settings
+
+The data extraction pipeline is now created.
 
 ## **Task 4:** Run and monitor the data extraction process
 
@@ -1045,234 +1573,621 @@ In the last task we created a pipeline containing the Copy Data activity
 to extract SAP data to the lake. Now we will run it to verify everything
 went well.
 
-#### STEP 1 – Check the processing status
+#### STEP 1 -- Run the extraction pipeline
 
-1. Ensure you clicked the Publish All button and all settings are saved
+1)  Ensure you clicked the Publish All button and all settings are saved
 
-2. On the Pipeline screen click the Add Trigger button and select Now
+2)  On the Pipeline screen click the Add Trigger button and select Now
     to start the processing immediately
 
-3. Confirm by clicking OK button. The extraction is now started.
+![Graphical user interface, application Description automatically
+generated](./images//media/image105.png){width="6.268055555555556in"
+height="2.067361111111111in"}
 
-4. On the left menu choose the Monitor button
+3)  Confirm by clicking OK button. The extraction is now started.
 
-5. In the Pipeline Runs view you should see the current status of the
+#### 
+
+#### STEP 2 -- Check the processing status
+
+1)  On the left menu choose the Monitor button
+
+![Graphical user interface, application, Word Description automatically
+generated](./images//media/image106.png){width="4.177666229221347in"
+height="3.8859590988626422in"}
+
+2)  In the Pipeline Runs view you should see the current status of the
     extraction process
 
-<img src="./media/image94.png" style="width:6.26806in;height:1.5125in" alt="Graphical user interface, text, application Description automatically generated" />
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image107.png){width="6.268055555555556in"
+height="1.8111111111111111in"}
 
-6. The extraction should take around one or two minutes. Use the
-    Refresh button to see the current status of the extraction.
+3)  The extraction will take around one or two minutes. Use the Refresh
+    button to see the current status of the extraction.
 
-7. Once the Status is changed to Successful click on the pipeline name.
+4)  Once the Status is changed to Successful click on the pipeline name.
     In this view you can see the status of each activity contained in
     the pipeline.
 
-8. In the Activity Runs section select the copy data activity and
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image108.png){width="6.268055555555556in"
+height="1.8111111111111111in"}
+
+5)  In the Activity Runs section select the copy data activity and
     choose the Glasses icon to see the activity details.
 
-<img src="./media/image95.png" style="width:6.26806in;height:1.77986in" alt="Graphical user interface, text, application Description automatically generated" />
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image109.png){width="6.268055555555556in"
+height="2.957638888888889in"}
 
-9. The details of the Copy Data contain useful information about the
+6)  The details of the Copy Data contain useful information about the
     extraction process, like the total duration or number of rows
     processed.
 
-<img src="./media/image96.png" style="width:6.26806in;height:4.97847in" alt="Graphical user interface, application Description automatically generated" />
+![Graphical user interface, application Description automatically
+generated](./images//media/image110.png){width="6.268055555555556in"
+height="4.978472222222222in"}
 
-10. Click X button to close the Details window.
+7)  Click X button to close the Details window.
 
-#### STEP 2 – Display extracted data in Synapse
+#### STEP 2 -- Display extracted data in Synapse
 
 Once we have all data available in the Data Lake you can use Synapse to
 display the data.
 
-1. Choose the Data icon from the left menu and switch to the Linked
+1)  Choose the Data icon from the left menu and switch to the Linked
     view
 
-2. Expand the Azure Data Lake Storage Gen2 group
+![Graphical user interface, application Description automatically
+generated](./images//media/image111.png){width="5.479931102362205in"
+height="3.427561242344707in"}
 
-3. Choose the container with extracted data
+2)  Expand the Azure Data Lake Storage Gen2 group and then expand the
+    Data Lake storage group. Choose the Synapse filesystem:
 
-4. You should see a list of files stored in the container
+![Graphical user interface, application Description automatically
+generated](./images//media/image112.png){width="6.1779451006124235in"
+height="3.4692344706911635in"}
 
-<img src="./media/image97.png" style="width:6.26806in;height:1.74375in" alt="Graphical user interface, text, application, email Description automatically generated" />
+3)  You should see a list of files stored in the container
 
-5. Click on the file using the right mouse button and choose New SQL
-    Script – Select TOP 100 Rows
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image113.png){width="6.268055555555556in"
+height="1.5263888888888888in"}
 
-6. Click the Run icon
+4)  Click on the file using the right mouse button and choose New SQL
+    Script -- Select TOP 100 Rows
 
-7. Extracted data are displayed on the screen
+![Graphical user interface, application Description automatically
+generated](./images//media/image114.png){width="6.268055555555556in"
+height="3.2131944444444445in"}
 
-<img src="./media/image98.png" style="width:6.26806in;height:1.90417in" alt="Graphical user interface, application Description automatically generated" />
+5)  Click the Run icon
 
-8. Delete the file containing data extraction – we will run the process
-    again.
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image115.png){width="6.268055555555556in"
+height="1.1555555555555554in"}
 
-<img src="./media/image99.png" style="width:5in;height:0.65625in" alt="Graphical user interface, text, application, Word Description automatically generated" />
+6)  Extracted data are displayed on the screen
 
-## **Task 5:** Use parameters to make the pipeline agile
+![Graphical user interface, application Description automatically
+generated](./images//media/image116.png){width="6.268055555555556in"
+height="1.9041666666666666in"}
 
-So far all values in were hardcoded, which mean that if you'd like to
-extract any additional data you have to create another Integration
-Dataset. In this step we'll use parameters to customize the process.
+7)  Delete the file containing data extraction -- we will run the
+    process again.
 
-#### STEP 1 – Define parameters for the OData dataset
+![Graphical user interface, text, application Description automatically
+generated](./images//media/image117.png){width="6.268055555555556in"
+height="0.7826388888888889in"}
 
-1. Open the Data --> Integration Dataset that represent the source ES5
-    system
+The extraction pipeline run successfully and you were able to display
+the content of the file stored in the data lake.
 
-2. Go to the Parameters tab and choose the +New button
+## **Task 5:** Use parameters to avoid hardcoding values
 
-3. Create a new parameter EntityName of type String. Leave the default
+So far all values in were hardcoded, which mean that if you\'d like to
+extract any additional data you have to create another Integration. In
+the Copy Data activity we\'ll define a parameter that represents the
+OData entity name we\'d like to process. This way we will avoid creating
+additional resources if we want to extract more than one entity from a
+single OData service.
+
+#### STEP 1 -- Define parameters for the OData dataset
+
+1)  Select Data from the left menu, expand available Integration
+    Datasets and select the OData one.
+
+![Graphical user interface, application Description automatically
+generated](./images//media/image118.png){width="6.21961832895888in"
+height="2.979582239720035in"}
+
+2)  Go to the Parameters tab and choose the +New button
+
+![Application Description automatically generated with medium
+confidence](./images//media/image119.png){width="6.268055555555556in"
+height="1.9159722222222222in"}
+
+3)  Create a new parameter EntityName of type String. Leave the default
     value empty
 
-<img src="./media/image100.png" style="width:6.26806in;height:2.57639in" alt="Graphical user interface, text, application, email Description automatically generated" />
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image120.png){width="6.268055555555556in"
+height="2.576388888888889in"}
 
-4. Go to the Connection tab and click the Edit checkbox under the Path
+4)  Go to the Connection tab and check the Edit checkbox under the Path
     input box
 
-<img src="./media/image101.png" style="width:5in;height:2.71875in" alt="Graphical user interface Description automatically generated" />
+> ![Graphical user interface, application Description automatically
+> generated](./images//media/image121.png){width="6.268055555555556in"
+> height="1.5854166666666667in"}
 
-5. Clear the details from the Path text box . Choose Add Dynamic
+5)  Clear the details from the Path text box . Choose Add Dynamic
     Content
 
-<img src="./media/image102.png" style="width:6.26806in;height:2.49861in" alt="Graphical user interface, text, application, email Description automatically generated" />
+> ![Graphical user interface, application Description automatically
+> generated](./images//media/image122.png){width="6.268055555555556in"
+> height="1.7236111111111112in"}
 
-<img src="./media/image103.png" style="width:5in;height:2.48958in" alt="Graphical user interface, text, application Description automatically generated" />
-
-6. We will use Expressions to get the value of the EntityName to
+6)  We will use Expressions to get the value of the EntityName to
     process. In the Add Dynamic Content view expand the Parameters group
     and choose EntityName:
 
-<img src="./media/image104.png" style="width:6.26806in;height:4.82986in" alt="Graphical user interface, text, application, email Description automatically generated" />
+![Graphical user interface, text, application Description automatically
+generated](./images//media/image123.png){width="6.2672101924759405in"
+height="4.82708552055993in"}
 
-7. Click OK to save your settings.
+7)  Click OK to save your settings.
 
-#### STEP 2 – Define parameters for the Data Lake dataset
+#### STEP 2 -- Define parameters for the Data Lake dataset
 
-1. Open the Integration Dataset that represent the target data lake
+1)  Open the Integration Dataset that represent the target data lake
 
-2. Go to the Parameters tab and choose the +New button
+![Graphical user interface, application Description automatically
+generated](./images//media/image124.png){width="6.1779451006124235in"
+height="3.3754713473315836in"}
 
-3. Create a new parameter Path of type String. Leave the default value
+2)  Go to the Parameters tab and choose the +New button
+
+![Graphical user interface, application Description automatically
+generated](./images//media/image125.png){width="6.268055555555556in"
+height="2.076388888888889in"}
+
+3)  Create a new parameter Path of type String. Leave the default value
     empty
 
-<img src="./media/image105.png" style="width:6.26806in;height:2.58403in" alt="Graphical user interface, text, application, email Description automatically generated" />
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image126.png){width="6.268055555555556in"
+height="2.5840277777777776in"}
 
-4. Go to the Connection tab
+4)  Go to the Connection tab
 
-5. Click on the Directory field under File path and choose Add Dynamic
+5)  Click on the Directory field under File path and choose Add Dynamic
     Content
 
-<img src="./media/image106.png" style="width:5in;height:1.22917in" alt="Graphical user interface, text Description automatically generated" />
+> ![Graphical user interface, text, application Description
+> automatically
+> generated](./images//media/image127.png){width="6.268055555555556in"
+> height="2.2506944444444446in"}
 
-6. As in the previous step we will use the expression to reference the
+6)  As in the previous step we will use the expression to reference the
     newly defined parameter.
 
-<img src="./media/image107.png" style="width:6.26806in;height:2.26736in" alt="Graphical user interface, text, application Description automatically generated" />
+![Graphical user interface, text, application Description automatically
+generated](./images//media/image128.png){width="6.268055555555556in"
+height="2.267361111111111in"}
 
-7. Click OK to save your settings.
+7)  Click OK to save your settings.
 
-#### STEP 3 – Modify existing Copy Data activity to pass parameters
+#### STEP 3 -- Modify existing Copy Data activity to pass parameters
 
-1. Open the Synapse pipeline and select the Copy Data activity
+1)  Choose Integrate from the left menu. Open the existing pipeline and
+    select the Copy Data activity
 
-2. In the Source tab you'll notice a new EntityName field. Enter a
+2)  In the Source tab you\'ll notice a new EntityName field. Enter a
     value SEPMRA_C\_SalesOrder
 
-<img src="./media/image108.png" style="width:5in;height:4.5in" alt="Graphical user interface, application Description automatically generated" />
+![Graphical user interface, text, application Description automatically
+generated](./images//media/image129.png){width="6.268055555555556in"
+height="3.225in"}
 
-3. In the Sink tab there is a new Path field as well. Enter the
+3)  Open the Sink tab. You\'ll notice a new Path field. Enter the
     SEPMRA_C\_SalesOrder value.
 
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image130.png){width="6.268055555555556in"
+height="2.8965277777777776in"}
+
 With above changes data extracted from the SEPMRA_C\_SalesOrder entity
-of the OData service will land in the directory.
+of the OData service will land in a directory and not in the root
+filesystem.
 
-#### STEP 4 – Add a new Copy Data activity to extract customer information
+#### STEP 4 -- Add a new Copy Data activity to extract customer information
 
-1. Integrate --> Move & transform --> Copy Data
+1)  Choose Integrate from the left menu. Open the existing pipeline.
 
-2. Add a new Copy Activity to the same pipeline and provide the name
+2)  Add a new Copy Activity to the same pipeline and provide the name
 
-<img src="./media/image109.png" style="width:6.26806in;height:3.14792in" alt="Graphical user interface, application Description automatically generated" />
+**Name:** ES5_CopyData_Cust
 
-3. In the source tab reference the OData integration dataset. This time
+![Graphical user interface, application Description automatically
+generated](./images//media/image131.png){width="6.268055555555556in"
+height="1.5041666666666667in"}
+
+3)  In the source tab reference the OData integration dataset. This time
     provide another Entity name: SEPMRA_C\_SalesOrderCustomer
 
-<img src="./media/image110.png" style="width:6.26806in;height:2.16736in" alt="Graphical user interface, text, application, email Description automatically generated" />
+![Graphical user interface, application Description automatically
+generated](./images//media/image132.png){width="6.268055555555556in"
+height="2.973611111111111in"}
 
-4. In the Sink tab reference the target Data Lake storage. Provide
+4)  In the Sink tab reference the target Data Lake storage. Provide
     SEPMRA_C\_SalesOrderCustomer as the Path parameter.
 
-<img src="./media/image111.png" style="width:6.26806in;height:1.4125in" alt="Graphical user interface, text, application, email Description automatically generated" />
+![Graphical user interface, text, application Description automatically
+generated](./images//media/image133.png){width="6.268055555555556in"
+height="2.973611111111111in"}
 
-#### STEP 5 – Run and monitor the extraction
+#### STEP 5 -- Run and monitor the extraction
 
 By using parameters we gained the possibility to customize integration
 datasets during runtime, which allows us to reuse the resources to
 process multiple objects. All extracted data from both entities will now
 land in separate directories.
 
-1. Ensure you clicked the Publish All button to save your settings.
+1)  Ensure you clicked the Publish All button to save your settings.
 
-2. Click Add Trigger -> Now button
+2)  Click Add Trigger -\> Now button
 
-3. Move to the Monitor view and wait until the extraction is completed
+3)  Move to the Monitor view and wait until the extraction is completed
 
-4. When you display the Activity Runs you see both activities were
+4)  When you display the Activity Runs you see both activities were
     completed successfully:
 
-> <img src="./media/image112.png" style="width:6.26806in;height:1.25069in" alt="Graphical user interface, text, application Description automatically generated" />
+> ![Graphical user interface, text, application Description
+> automatically
+> generated](./images//media/image134.png){width="6.268055555555556in"
+> height="1.4479166666666667in"}
 
-5. Go back to the Data view and display the content of the data lake.
+5)  Go back to the Data view and display the content of the data lake.
     This time the target files are stored in subdirectories instead of
     the root folder.
 
-<img src="./media/image113.png" style="width:6.26806in;height:1.74792in" alt="Graphical user interface, text, application, email Description automatically generated" />
+![Graphical user interface, text, application Description automatically
+generated](./images//media/image135.png){width="6.268055555555556in"
+height="1.5506944444444444in"}
 
-6. Ensure there are files in both directories. Display the content of
+6)  Ensure there are files in both directories. Display the content of
     both files.
 
-## **Task 6: Create analytics dashboard in PowerBI**
+## **Task 6: Import extracted data to PowerBI** 
 
 Once we have all data stored in the Data Lake we can import them to
-PowerBI and build visuals.
+PowerBI.
 
-#### STEP 1 – Get Data Lake account key
+#### STEP 1 -- Get Data Lake account key
 
-1. Login to Azure Portal and go to storage accounts
+1)  Login to Azure Portal and go to storage accounts
 
-2. Open the Storage Account that was created during Synapse Workspace
+2)  Open the Storage Account that was created during Synapse Workspace
     deployment
 
-3. Copy the Account Key which will be required to establish
+> ![Graphical user interface, text, application, email Description
+> automatically
+> generated](./images//media/image136.png){width="6.268055555555556in"
+> height="2.5166666666666666in"}
+
+3)  Copy the Account Key which will be required to establish
     connectivity
 
-<img src="./media/image114.png" style="width:6.26806in;height:3.78819in" alt="Graphical user interface, text, application, email Description automatically generated" />
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image137.png){width="6.268055555555556in"
+height="3.7881944444444446in"}
 
-#### STEP 2 – Import your data to PowerBI
+#### STEP 2 -- Import your data to PowerBI
 
-1. Open PowerBI Desktop
+1)  Open PowerBI Desktop
 
-2. Click the Get Data button from the top menu
+2)  Click the Get Data button from the top menu
 
-<img src="./media/image115.png" style="width:6.26806in;height:0.85833in" alt="Graphical user interface, application, Word Description automatically generated" />
+![Graphical user interface, application, Word Description automatically
+generated](./images//media/image138.png){width="6.268055555555556in"
+height="0.8583333333333333in"}
 
-3. Choose the Data Lake as the source service and click connect
+3)  Choose the Data Lake as the source service and click connect
 
-<img src="./media/image116.png" style="width:6.23004in;height:2.29199in" alt="Graphical user interface, text, application Description automatically generated" />
+![Graphical user interface, text, application Description automatically
+generated](./images//media/image139.png){width="6.230036089238845in"
+height="2.2919860017497813in"}
 
-4. Provide the URL of the Data Lake service together with the container
-    name.
+4)  Provide the URL of the Data Lake service together with the file
+    system and directory name with Sales Order data. The URL should look
+    as follow:
 
-5. Provide the previously copied Account Key and click Connect
+https://\<nameOfADLS>.dfs.core.windows.net/synapse/SEPMRA_C\_SalesOrder
 
-6. Click Load to import both files with data extracts
+![Graphical user interface, text Description automatically
+generated](./images//media/image140.png){width="6.268055555555556in"
+height="2.220138888888889in"}
 
-<img src="./media/image117.png" style="width:6.26806in;height:4.54861in" alt="Graphical user interface, text, application Description automatically generated" />
+5)  Provide the previously copied Account Key and click Connect
 
-7.  
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image141.png){width="6.268055555555556in"
+height="2.3847222222222224in"}
+
+6)  Click Transform Data to import Sales Order data to PowerBI. If you
+    see more than one file here it means you haven\'t provided the full
+    path to the file (the directory is missing)
+
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image142.png){width="6.268055555555556in"
+height="2.8381944444444445in"}
+
+7)  The file metadata information have been loaded to PowerBI as a
+    table. As we\'re interested in the content of the file you have to
+    expose this information to PowerBI. In the table view, in the first
+    column click the Binary button
+
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image143.png){width="6.268055555555556in"
+height="1.4534722222222223in"}
+
+8)  Now all extracted rows are displayed on the screen. On the right
+    hand side provide the name of the query:
+
+Name: SalesOrders
+
+![Text Description automatically
+generated](./images//media/image144.png){width="6.268055555555556in"
+height="1.2409722222222221in"}
+
+9)  Choose Apply and Close to finish importing data to PowerBI
+
+![A screenshot of a computer Description automatically
+generated](./images//media/image145.png){width="6.268055555555556in"
+height="1.8840277777777779in"}
+
+10) Sales Orders have been loaded to PowerBI.
+
+11) Repeat steps 2-10 to load customer information.
+
+> Path: https://
+> \<nameOfADLS>.dfs.core.windows.net/synapse/SEPMRA_C\_SalesOrderCustomer/
+>
+> Query name: Customers
+
+12) Verify that in the Fields list you can see both Customers and
+    SalesOrders tables
+
+![Graphical user interface, application, Word Description automatically
+generated](./images//media/image146.png){width="6.268055555555556in"
+height="2.4583333333333335in"}
+
+## **Task 7: Create relationship between tables and build a simple visual** 
+
+All extracted data are available in PowerBI. In this task you\'ll set
+relationship between Customer and SalesOrders tables and visualize the
+data.
+
+#### STEP 1 -- Create relationship between tables
+
+1)  On the left menu of PowerBI choose Model icon
+
+![Graphical user interface, application Description automatically
+generated](./images//media/image147.png){width="6.268055555555556in"
+height="2.4583333333333335in"}
+
+2)  Choose manage relationship from the top menu
+
+![Graphical user interface, application Description automatically
+generated](./images//media/image148.png){width="6.268055555555556in"
+height="2.560416666666667in"}
+
+3)  In the pop up window choose New
+
+![Graphical user interface, text, application, email Description
+automatically
+generated](./images//media/image149.png){width="6.268055555555556in"
+height="4.415972222222222in"}
+
+4)  In the new window choose Customers as the first table and Sales
+    Orders as the second
+
+![Table Description automatically
+generated](./images//media/image150.png){width="6.268055555555556in"
+height="3.7694444444444444in"}
+
+5)  From the list of columns under Customer table mark the Customer
+    column. This is the primary key.
+
+![Graphical user interface, application Description automatically
+generated](./images//media/image151.png){width="6.268055555555556in"
+height="1.511111111111111in"}
+
+6)  From the list of columns under SalesOrders table mark the SoldTo
+    column. You may need to use the scroll bar to move to the right.
+    This is the foreign key.
+
+![Graphical user interface, text, application, table Description
+automatically
+generated](./images//media/image152.png){width="6.268055555555556in"
+height="1.4333333333333333in"}
+
+7)  Don\'t make any other changes in the window. Click OK to create the
+    relationship.
+
+8)  In the Manage Relationship you should see the relationship you have
+    just created. Verify the Active box is checked. Click Close.
+
+![Graphical user interface Description automatically
+generated](./images//media/image153.png){width="6.268055555555556in"
+height="4.4215277777777775in"}
+
+9)  You should notice that the Model view is updated and you can see the
+    relationship between tables. Click on the Report icon from the left
+    menu.
+
+![Graphical user interface, application Description automatically
+generated](./images//media/image154.png){width="6.268055555555556in"
+height="2.1125in"}
+
+#### STEP 2 -- Create data visualization
+
+1)  On the Report view of PowerBI expand the Visualizations menu on the
+    right. Choose Pie Chart from the list.
+
+![Graphical user interface, text, application Description automatically
+generated](./images//media/image155.png){width="6.268055555555556in"
+height="2.4763888888888888in"}
+
+2)  A new char was added to the screen. Expand the SalesOrders tables
+    and mark the checkbox next to field NetAmountInTransactionCurrency.
+    You\'ll notice this field is now displayed in the Values:
+
+![Graphical user interface Description automatically
+generated](./images//media/image156.png){width="6.268055555555556in"
+height="2.411111111111111in"}
+
+3)  Expand the Customers tables and mark the CustomerName checkbox.
+    You\'ll notice this field is now displayed in the Legend section:
+
+![Graphical user interface, application Description automatically
+generated](./images//media/image157.png){width="6.268055555555556in"
+height="2.411111111111111in"}
+
+4)  Enlarge the chart. It displays information total sales order value
+    per customer.
+
+![Chart, pie chart Description automatically
+generated](./images//media/image158.png){width="6.268055555555556in"
+height="3.573611111111111in"}
+
+#### STEP 2 -- Use filtering in PowerBI
+
+Charts in PowerBI can interact with each other. Filter selected on one
+visual is automatically applied to the other one. In this task you\'ll
+see how to display sales value over time for selected customer.
+
+1)  Add Line Chart to the report from the Visualization view
+
+![Graphical user interface, application Description automatically
+generated with medium
+confidence](./images//media/image159.png){width="6.268055555555556in"
+height="1.7361111111111112in"}
+
+2)  Expand SalesOrder table and select checkbox next to
+    NetAmountInTransactionCurrency. You\'ll notice it\'s now part of the
+    Values group in the Visualization:
+
+![A screenshot of a computer Description automatically
+generated](./images//media/image160.png){width="6.268055555555556in"
+height="2.0868055555555554in"}
+
+3)  Select the checkbox next to CreationDateTime field. It\'s now part
+    of the Axis group of the Visualization:
+
+![A screenshot of a computer Description automatically generated with
+medium
+confidence](./images//media/image161.png){width="6.268055555555556in"
+height="2.0868055555555554in"}
+
+4)  The Line Chart now displays sales value over time for all customers.
+
+![Chart, line chart Description automatically
+generated](./images//media/image162.png){width="5.719548337707787in"
+height="2.260731627296588in"}
+
+5)  On the Pie Chart select the Sorali customer from the List. You\'ve
+    just set data filter which applies to all visuals on the report. The
+    Line Chart now display sales value only for the Sorali customer.
+
+![Chart Description automatically
+generated](./images//media/image163.png){width="5.761220472440945in"
+height="4.875680227471566in"}
+
+6)  Click on the customer name again to undo the filtering.
+
+#### STEP 3 -- Use forecasting with PowerBI
+
+PowerBI contains AI features that allow to prepare data forecasting. In
+below example you\'ll forecast sales volume based on past data.
+
+1)  Select the created Line Chart on the screen.
+
+2)  In the Axis field click the X next to Quarter to remove it from the
+    Hierarchy
+
+![Chart Description automatically
+generated](./images//media/image164.png){width="6.268055555555556in"
+height="2.298611111111111in"}
+
+3)  On the Line Chart click the down arrow to enable drill down
+    functionality
+
+![Chart, line chart Description automatically
+generated](./images//media/image165.png){width="5.771639326334208in"
+height="2.50034886264217in"}
+
+4)  Click the data point for 2021 to drill down into months:
+
+![Chart, line chart Description automatically
+generated](./images//media/image166.png){width="5.771639326334208in"
+height="2.50034886264217in"}
+
+5)  The Line Chart now displays only data for 2021:
+
+![Chart, line chart Description automatically
+generated](./images//media/image167.png){width="5.709130577427821in"
+height="2.271150481189851in"}
+
+6)  While the Line Chart is selected go to Analytics view in the
+    Visualizations:
+
+![Graphical user interface, application Description automatically
+generated](./images//media/image168.png){width="2.6462029746281717in"
+height="4.844425853018373in"}
+
+7)  Expand the Forecast group and click Add.
+
+![Graphical user interface, application Description automatically
+generated](./images//media/image169.png){width="2.635784120734908in"
+height="3.875541338582677in"}
+
+8)  Change the Forecast Length to 2 Points and click Apply
+
+![Graphical user interface, application Description automatically
+generated](./images//media/image170.png){width="2.635784120734908in"
+height="3.708850612423447in"}
+
+9)  The line chart now displays all existing data points of the year
+    2021 as well as forecast for next two months:
+
+![Chart, line chart Description automatically
+generated](./images//media/image171.png){width="5.75080271216098in"
+height="2.3024048556430445in"}
+
+10) Move your mouse over the Nov 2021 data point to display the
+    forecasting values:
+
+![Chart, line chart Description automatically
+generated](./images//media/image172.png){width="6.268055555555556in"
+height="2.097916666666667in"}
+
+You\'ve created a simple forecast in PowerBI
 
 # **Summary**
 
