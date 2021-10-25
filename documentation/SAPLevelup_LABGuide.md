@@ -2,12 +2,9 @@
 
 ## Scenario 
 
-For this workshop we will be using the Cloud Shell in the portal to
-deploy the Control Plane infrastructure. Then, we will be using the
-Deployer VM to deploy the remaining infrastructure and the SAP HANA
-configurations. There is a customized branch based on the Automation
-Framework that will enable us to follow this scenario. This is the
-**sap-level-up** branch.
+For this lab, Contoso a large global customer wants to do SAP S/4HANA greenfield implementation on Azure. They must roll out the SAP solution quickly and ramp up the deployments in different azure region within a short time span. They also would like to ensure that running SAP workload on Azure platform follows Microsoft best practises and recommendations for SAP workload without compromising scalability and flexibility of cloud platform. Cloud centre of excellence team also wants to keep track of the infrastructure changes and configuration changes and adopt a deployment process which can scale globally without any drift.
+You are working with Contoso to develop a process of implementing an automated deployment of single-node SAP S/4HANA system on Azure which they can use for rapid SAP landscape deployment.
+
 
 ## Introduction
 
@@ -101,6 +98,13 @@ running the SAP application, including the web, app and database tiers.
   -----------------------------------------------------------------------------------------
 
 # Tasks 0 -- 5 are PRE-REQUISITES to the Level Up
+
+For this workshop we will be using the Cloud Shell in the portal to
+deploy the Control Plane infrastructure. Then, we will be using the
+Deployer VM to deploy the remaining infrastructure and the SAP HANA
+configurations. There is a customized branch based on the Automation
+Framework that will enable us to follow this scenario. This is the
+**sap-level-up** branch.
 
 ## Task 0: Repository, Downloads and Tooling
 
