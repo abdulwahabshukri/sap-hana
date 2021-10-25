@@ -1,33 +1,3 @@
-# Few Things before we start
-
-1.  We will record this call & Moderators will be recording the breakout
-    > rooms sessions
-
-2.  Break Out Rooms -- will be closed 2 hours each ,Every session will
-    > start with a quick discussion on what will be build and we move to
-    > break out rooms.
-
-3.  Timelines for each module
-
-4.  Please all of you chime in to proceed with the steps
-
-5.  Group Assignment, Lab setup and 2 modules
-
-6.  We have a packed agenda so I would ask that you type your questions
-    > in the chat so the presenter can follow up or address during
-    > planned Q&A
-
-7.  We have planned breaks but if you need to step out for a few minutes
-    > no worries.
-
-8.  We are hoping you have completed prerequisites
-
-9.  Provide feedback pre and post session à Links will be pasted in the
-    > Teams chat
-
-10. Teams channel Link à
-    > <https://teams.microsoft.com/l/team/19%3aiH0OECo4EtoMCHj96ZbEjA-WeQ1hstibPihfwUa3dLM1%40thread.tacv2/conversations?groupId=d5aeafae-2779-44b6-b1eb-45a4b71f6e24&tenantId=72f988bf-86f1-41af-91ab-2d7cd011db47>
-
 **Module 1: Enterprise Scale for SAP Automation Framework Deployment**
 
 ## Scenario 
@@ -51,11 +21,9 @@ focusing on one workflow for ease of deployment with a large audience:
 **a SAP-HANA standalone environment deployed using bash. [Ensure that
 you execute the pre-requisite tasks]{.underline}**
 
-![](./images//media/image1.emf)
-
 **Environment Overview**
 
-![](./images//media/image2.png){width="6.3125in" height="4.28125in"}
+![](./media/image1.png){width="6.3125in" height="4.28125in"}
 
 **[Management Zone:]{.underline}** The management zone houses the
 infrastructure from which other environments will be deployed. Once the
@@ -145,7 +113,7 @@ Be sure to change the branch from master to **sap-level-up**:
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image3.png){width="6.268055555555556in"
+generated](./media/image2.png){width="6.268055555555556in"
 height="1.3763888888888889in"}
 
 We strongly recommend familiarizing yourself with the documentation
@@ -204,7 +172,7 @@ Follow the instructions displayed in order to authenticate. You should
 see the following screen upon successful authentication:
 
 ![Text Description automatically
-generated](./images//media/image4.png){width="5.75in" height="4.25in"}
+generated](./media/image3.png){width="5.75in" height="4.25in"}
 
 > **az account set -s \<your subscription ID>**
 >
@@ -224,13 +192,13 @@ generated](./images//media/image4.png){width="5.75in" height="4.25in"}
 > **git checkout sap-level-up (ONLY work from this branch during the
 > lab)**
 >
-> ![](./images//media/image5.png){width="5.0in" height="1.78125in"}
+> ![](./media/image4.png){width="5.0in" height="1.78125in"}
 >
 > cd util
 >
 > Execute the command **./check_workstation.sh**
 >
-> ![](./images//media/image6.png){width="5.0in"
+> ![](./media/image5.png){width="5.0in"
 > height="0.9270833333333334in"}
 
 -   The below versions are supported for the automation:
@@ -242,7 +210,7 @@ generated](./images//media/image4.png){width="5.75in" height="4.25in"}
 > **ansible = 2.10.2**
 >
 > **jq = 1.5**![Text Description automatically
-> generated](./images//media/image7.png){width="5.4941447944007in"
+> generated](./media/image6.png){width="5.4941447944007in"
 > height="1.1145330271216098in"}
 
 If you do not have at least version 0.14.7 for Terraform, please upgrade
@@ -327,19 +295,19 @@ characters when typing/pasting in the commands**
 >
 > **Please run "ls" and verify that WORKSPACES folder is available**
 >
-> ![](./images//media/image8.png){width="5.0in" height="0.71875in"}
+> ![](./media/image7.png){width="5.0in" height="0.71875in"}
 >
 > **"code ." (Note: There is a period at the end of the command: code
 > +** **space + .)**
 >
-> ![](./images//media/image9.png){width="4.75in" height="5.0in"}
+> ![](./media/image8.png){width="4.75in" height="5.0in"}
 
 -   Expand the **WORKSPACES** directory -- you will see 5 sub folders:
     **DEPLOYER**, **LANDSCAPE**, **LIBRARY**, **SYSTEM** and **BOMS.**
     Expand each of these folders to find regional deployment
     configuration files similar to the below screenshot:
 
-> ![](./images//media/image10.png){width="5.0in"
+> ![](./media/image9.png){width="5.0in"
 > height="2.4166666666666665in"}
 >
 > **Note: Only use the regional folder associated with your group. Do
@@ -378,7 +346,7 @@ characters when typing/pasting in the commands**
 -   If you drill down into each regional sub folder, you will see the
     Terraform variable files that are used for configuration. Snippet of
     the **DEPLOYER** Terraform variable file below.
-    ![](./images//media/image11.png){width="5.0in" height="2.4375in"}
+    ![](./media/image10.png){width="5.0in" height="2.4375in"}
 
 -   There are no edits necessary for the Terraform variable files --
     this is informational only so that you can view them and know where
@@ -403,7 +371,7 @@ characters when typing/pasting in the commands**
 >
 > **export ARM_SUBSCRIPTION_ID=\<YOUR SUBSCRIPTION ID>**
 >
-> ![](./images//media/image12.png){width="5.0in" height="0.40625in"}
+> ![](./media/image11.png){width="5.0in" height="0.40625in"}
 >
 > Empty output means it has executed as expected. Proceed to next steps
 
@@ -423,13 +391,13 @@ characters when typing/pasting in the commands**
 > **If you get the following error for the Deployer module deployment,
 > ensure that you have navigated to the WORKSPACES directory:**
 >
-> ![](./images//media/image13.png){width="5.0in"
+> ![](./media/image12.png){width="5.0in"
 > height="0.8229166666666666in"}
 >
 > The Automation will run the Terraform Initialize and Plan operations.
 >
 > ![Text Description automatically
-> generated](./images//media/image14.png){width="5.0in"
+> generated](./media/image13.png){width="5.0in"
 > height="2.15625in"}
 >
 > This deployer may run between 15 and 20 min.
@@ -437,7 +405,7 @@ characters when typing/pasting in the commands**
 > You should see the progress of the deployment such as below:
 >
 > ![Text Description automatically
-> generated](./images//media/image15.png){width="5.0in"
+> generated](./media/image14.png){width="5.0in"
 > height="2.5104166666666665in"}
 >
 > The deployment will go through cycles of deploying the infrastructure,
@@ -448,7 +416,7 @@ characters when typing/pasting in the commands**
 > transient, and you can simply rerun the exact same command:**
 >
 > ![Text Description automatically
-> generated](./images//media/image16.png){width="5.020830052493438in"
+> generated](./media/image15.png){width="5.020830052493438in"
 > height="2.0885323709536308in"}
 >
 > **If you run into authentication issues directly after running the
@@ -469,18 +437,18 @@ characters when typing/pasting in the commands**
 
 > Deployer Infrastructure resource group:
 >
-> ![](./images//media/image17.png){width="5.0in"
+> ![](./media/image16.png){width="5.0in"
 > height="1.7708333333333333in"}
 >
 > LIBRARY resource group (**MGMT-\<region>-SAP_LIBRARY**)
 >
-> ![](./images//media/image18.png){width="5.0in"
+> ![](./media/image17.png){width="5.0in"
 > height="0.6145833333333334in"}
 >
 > Inside the state file storage account and inside the tfstate
 > container, you should see the Deployer and Library state files:
 >
-> ![](./images//media/image19.png){width="5.0in"
+> ![](./media/image18.png){width="5.0in"
 > height="0.5729166666666666in"}
 
 -   Collect the following information in a text editor of your choice.
@@ -492,9 +460,9 @@ characters when typing/pasting in the commands**
         storage account \> containers -\> tfstate -\> Copy the **name**
         of the Deployer state file
 
-> ![](./images//media/image20.png){width="5.0in" height="2.84375in"}
+> ![](./media/image19.png){width="5.0in" height="2.84375in"}
 >
-> ![](./images//media/image21.png){width="5.0in"
+> ![](./media/image20.png){width="5.0in"
 > height="1.4583333333333333in"}
 
 -   The private ssh secret for the Deployer VM.
@@ -503,13 +471,13 @@ characters when typing/pasting in the commands**
 > Vault> -\>** Click on Secret -\> Click on current version -\> Copy the
 > secret
 >
-> ![](./images//media/image22.png){width="5.0in" height="3.3125in"}
+> ![](./media/image21.png){width="5.0in" height="3.3125in"}
 >
-> ![](./images//media/image23.png){width="5.0in" height="1.96875in"}
+> ![](./media/image22.png){width="5.0in" height="1.96875in"}
 >
 > ![Graphical user interface, text, application, chat or text message,
 > email Description automatically
-> generated](./images//media/image24.png){width="3.8854166666666665in"
+> generated](./media/image23.png){width="3.8854166666666665in"
 > height="5.861334208223972in"}
 >
 > Open Notepad or a similar editor and paste the contents of the secret
@@ -517,13 +485,13 @@ characters when typing/pasting in the commands**
 
 -   The name of the Deployer resource group key vault
 
-> ![](./images//media/image25.png){width="4.71875in" height="5.0in"}
+> ![](./media/image24.png){width="4.71875in" height="5.0in"}
 
 -   The Public IP address of the Deployer VM
 
 > Deployer resource group -\> Deployer VM -\> copy Public IP Address
 >
-> ![](./images//media/image26.png){width="6.010415573053368in"
+> ![](./media/image25.png){width="6.010415573053368in"
 > height="2.8229166666666665in"}
 
 ## **Task 5: Connect to the Deployer - The rest of Module One will be completed on the Deployer VM**
@@ -538,31 +506,31 @@ channel]{.underline}**
     alias\]\\.ssh. Name the file "deployer_ssh" and save as the type
     "All Files"
 
-> ![](./images//media/image27.png){width="6.268055555555556in"
+> ![](./media/image26.png){width="6.268055555555556in"
 > height="0.49930555555555556in"}
 >
 > **Note: File name should not have .txt extension**
 >
-> ![](./images//media/image28.png){width="5.0in" height="2.53125in"}
+> ![](./media/image27.png){width="5.0in" height="2.53125in"}
 
 -   **Open PuttyGen (do this by opening a command window and typing
     *puttygen.exe*), then click on "Load"**
 
 > ![Graphical user interface, text, application Description
 > automatically
-> generated](./images//media/image29.png){width="6.268055555555556in"
+> generated](./media/image28.png){width="6.268055555555556in"
 > height="4.743055555555555in"}
 
 -   **Load the SSH key**![Graphical user interface, text, application
     Description automatically
-    generated](./images//media/image30.png){width="6.010416666666667in"
+    generated](./media/image29.png){width="6.010416666666667in"
     height="3.609846894138233in"}
 
 -   Save the private the key with name **\<Region>-deployer_ssh**
 
 > ![Graphical user interface, text, application, email Description
 > automatically
-> generated](./images//media/image31.png){width="6.268055555555556in"
+> generated](./media/image30.png){width="6.268055555555556in"
 > height="4.854166666666667in"}
 
 -   **Connecting the Deployer VM using PuTTY:**
@@ -579,7 +547,7 @@ channel]{.underline}**
 
 > ![Graphical user interface, text, application Description
 > automatically
-> generated](./images//media/image32.png){width="4.055555555555555in"
+> generated](./media/image31.png){width="4.055555555555555in"
 > height="3.8333333333333335in"}
 >
 >  
@@ -592,18 +560,18 @@ channel]{.underline}**
 
 > ![Graphical user interface, text, application, email Description
 > automatically
-> generated](./images//media/image33.png){width="4.097222222222222in"
+> generated](./media/image32.png){width="4.097222222222222in"
 > height="3.6744181977252843in"} 
 
 -   Click on Open to open the connection to the Deployer:
 
 > ![Graphical user interface, text, application Description
 > automatically
-> generated](./images//media/image34.png){width="6.268055555555556in"
+> generated](./media/image33.png){width="6.268055555555556in"
 > height="3.5243055555555554in"}
 >
 > ![Text Description automatically
-> generated](./images//media/image35.png){width="4.597222222222222in"
+> generated](./media/image34.png){width="4.597222222222222in"
 > height="2.9027777777777777in"} 
 
 **This completes the pre-requisite portion of the lab. Perform the
@@ -622,7 +590,7 @@ remaining tasks in Module One on the Deployer VM**
 > **git checkout sap-level-up**
 >
 > ![Graphical user interface, text Description automatically
-> generated](./images//media/image36.png){width="5.302325021872266in"
+> generated](./media/image35.png){width="5.302325021872266in"
 > height="0.8402143482064742in"}
 
 -   Go back to the root deployment folder and copy the repository
@@ -633,7 +601,7 @@ remaining tasks in Module One on the Deployer VM**
 > **cp -Rp ./sap-hana/deploy/samples/WORKSPACES ./**
 >
 > ![A screenshot of a computer Description automatically
-> generated](./images//media/image37.png){width="5.150949256342957in"
+> generated](./media/image36.png){width="5.150949256342957in"
 > height="0.9409722222222222in"}
 
 ## **Task 7: BOM Details**
@@ -645,7 +613,7 @@ will act as the archive for all sap media requirements for a project.
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image38.png){width="6.260416666666667in"
+generated](./media/image37.png){width="6.260416666666667in"
 height="1.4149398512685913in"}
 
 The BOM itself mimics the SAP maintenance planner in that we have the
@@ -657,7 +625,7 @@ Installation.
 A sample extract of a BOM file is provided below:
 
 ![Text Description automatically
-generated](./images//media/image39.png){width="6.260416666666667in"
+generated](./media/image38.png){width="6.260416666666667in"
 height="5.018875765529309in"}
 
 You will be able to utilize the following pre-staged storage accounts
@@ -699,7 +667,7 @@ folder and do the following:
 
 > Run **nano sap-parameters.yaml**
 >
-> ![](./images//media/image40.png){width="5.0in" height="0.5625in"}
+> ![](./media/image39.png){width="5.0in" height="0.5625in"}
 >
 > Change **\<storage_account_name \_for_sapbit>** to the name of the
 > storage account for your region from the table above
@@ -713,7 +681,7 @@ folder and do the following:
 > Your file should look similar to this:
 >
 > ![Text Description automatically
-> generated](./images//media/image41.png){width="6.260416666666667in"
+> generated](./media/image40.png){width="6.260416666666667in"
 > height="1.063286307961505in"}
 >
 > We will provide the SAS token during the Level Up session. We will be
@@ -757,13 +725,13 @@ folder and do the following:
 > deployer state file> \--auto-approve**
 >
 > ![Text Description automatically
-> generated](./images//media/image42.png){width="6.268055555555556in"
+> generated](./media/image41.png){width="6.268055555555556in"
 > height="3.8833333333333333in"}
 
 -   You should start to see the landscape module deploy:
 
 > ![Graphical user interface, text Description automatically
-> generated](./images//media/image43.png){width="6.268055555555556in"
+> generated](./media/image42.png){width="6.268055555555556in"
 > height="0.9458333333333333in"}
 
 Similarly, once the Landscape is complete, you can deploy the system
@@ -788,13 +756,13 @@ resources using the following commands:
 
 > ![Graphical user interface, application Description automatically
 > generated with medium
-> confidence](./images//media/image44.png){width="5.593022747156605in"
+> confidence](./media/image43.png){width="5.593022747156605in"
 > height="1.964932195975503in"}
 
 -   System Resource Group (Abridged):\
     ![Graphical user interface, text, table, email Description
     automatically
-    generated](./images//media/image45.png){width="6.268055555555556in"
+    generated](./media/image44.png){width="6.268055555555556in"
     height="3.6493055555555554in"}
 
 ## **Task 9: Naming Conventions**
@@ -858,7 +826,7 @@ SYSTEM\\DEV-\<region>-SAP01-X00. 
 
 In case you see error like this --
 
-![](./images//media/image46.png){width="8.180838801399824in"
+![](./media/image45.png){width="8.180838801399824in"
 height="0.3224048556430446in"}
 
 To fix this error, add your Azure user to access policy of key vault in
@@ -871,36 +839,36 @@ script
 
 #### **10-1: OS Config**
 
-![](./images//media/image47.png){width="6.268055555555556in"
+![](./media/image46.png){width="6.268055555555556in"
 height="0.5777777777777777in"}
 
 ![Text Description automatically
-generated](./images//media/image48.png){width="6.268055555555556in"
+generated](./media/image47.png){width="6.268055555555556in"
 height="1.7875in"}
 
 At the end you will see the screen like below
 
 ![Text Description automatically
-generated](./images//media/image49.png){width="6.268055555555556in"
+generated](./media/image48.png){width="6.268055555555556in"
 height="1.8527777777777779in"}
 
 #### **10-2: SAP** Specific OS config
 
 ![Text Description automatically
-generated](./images//media/image50.png){width="6.268055555555556in"
+generated](./media/image49.png){width="6.268055555555556in"
 height="1.4402777777777778in"}
 
 ![Text Description automatically
-generated](./images//media/image51.png){width="6.268055555555556in"
+generated](./media/image50.png){width="6.268055555555556in"
 height="2.3541666666666665in"}
 
 #### **10-3: BoM** Processing
 
 ![Text Description automatically
-generated](./images//media/image52.png){width="6.268055555555556in"
+generated](./media/image51.png){width="6.268055555555556in"
 height="1.2673611111111112in"}
 
-![](./images//media/image53.png){width="6.268055555555556in"
+![](./media/image52.png){width="6.268055555555556in"
 height="0.4888888888888889in"}
 
 #### **10-4: HANA DB Install**
@@ -911,7 +879,7 @@ not starting with a digit
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image54.png){width="6.268055555555556in"
+generated](./media/image53.png){width="6.268055555555556in"
 height="4.18125in"}
 
 So, if the value looks like above i.e starting with a number, we need to
@@ -925,70 +893,70 @@ So it will look like below
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image55.png){width="6.240454943132108in"
+generated](./media/image54.png){width="6.240454943132108in"
 height="6.511325459317585in"}
 
-![](./images//media/image56.png){width="6.268055555555556in"
+![](./media/image55.png){width="6.268055555555556in"
 height="0.5826388888888889in"}
 
 ![Text Description automatically
-generated](./images//media/image57.png){width="6.268055555555556in"
+generated](./media/image56.png){width="6.268055555555556in"
 height="2.720138888888889in"}
 
 ![Graphical user interface, text Description automatically
-generated](./images//media/image58.png){width="6.268055555555556in"
+generated](./media/image57.png){width="6.268055555555556in"
 height="2.1145833333333335in"}
 
 #### **10-5: SCS Install**
 
 ![Text Description automatically
-generated](./images//media/image59.png){width="6.268055555555556in"
+generated](./media/image58.png){width="6.268055555555556in"
 height="2.546527777777778in"}
 
 ![Text Description automatically
-generated](./images//media/image60.png){width="6.268055555555556in"
+generated](./media/image59.png){width="6.268055555555556in"
 height="2.2111111111111112in"}
 
 #### **10-6: DB Load**
 
 ![Text Description automatically
-generated](./images//media/image61.png){width="6.268055555555556in"
+generated](./media/image60.png){width="6.268055555555556in"
 height="1.9506944444444445in"}
 
 ![Text Description automatically
-generated](./images//media/image62.png){width="6.268055555555556in"
+generated](./media/image61.png){width="6.268055555555556in"
 height="2.361111111111111in"}
 
 ![Text Description automatically
-generated](./images//media/image63.png){width="6.268055555555556in"
+generated](./media/image62.png){width="6.268055555555556in"
 height="3.9430555555555555in"}
 
 #### **10-7: PAS** Install
 
 ![Text Description automatically
-generated](./images//media/image64.png){width="6.268055555555556in"
+generated](./media/image63.png){width="6.268055555555556in"
 height="2.1083333333333334in"}
 
 ![Text Description automatically
-generated](./images//media/image65.png){width="6.268055555555556in"
+generated](./media/image64.png){width="6.268055555555556in"
 height="3.0208333333333335in"}
 
 ![Text Description automatically
-generated](./images//media/image66.png){width="6.268055555555556in"
+generated](./media/image65.png){width="6.268055555555556in"
 height="2.191666666666667in"}
 
 #### **10-8: APP Install**
 
 ![Text Description automatically
-generated](./images//media/image67.png){width="6.268055555555556in"
+generated](./media/image66.png){width="6.268055555555556in"
 height="2.1083333333333334in"}
 
 ![Text Description automatically
-generated](./images//media/image68.png){width="6.268055555555556in"
+generated](./media/image67.png){width="6.268055555555556in"
 height="3.421527777777778in"}
 
 ![Text Description automatically
-generated](./images//media/image69.png){width="6.268055555555556in"
+generated](./media/image68.png){width="6.268055555555556in"
 height="2.1729166666666666in"}
 
 Congratulations! You have reached the end of Module One and have
@@ -1020,7 +988,7 @@ sudo su - hdbadm
 sapcontrol -nr 00 -function GetProcessList
 
 ![Text Description automatically
-generated](./images//media/image70.png){width="6.268055555555556in"
+generated](./media/image69.png){width="6.268055555555556in"
 height="1.770138888888889in"}
 
 All the services status should be green
@@ -1037,7 +1005,7 @@ sudo su -- x00adm
 sapcontrol -nr 00 -function GetProcessList
 
 ![Text Description automatically
-generated](./images//media/image71.png){width="6.268055555555556in"
+generated](./media/image70.png){width="6.268055555555556in"
 height="1.336111111111111in"}
 
 All the services status should be green
@@ -1053,7 +1021,7 @@ sudo su -- x00adm
 sapcontrol -nr 00 -function GetProcessList
 
 ![Text Description automatically
-generated](./images//media/image72.png){width="6.268055555555556in"
+generated](./media/image71.png){width="6.268055555555556in"
 height="1.5645833333333334in"}
 
 All the services status should be green
@@ -1069,7 +1037,7 @@ sudo su -- x00adm
 sapcontrol -nr 00 -function GetProcessList
 
 ![Text Description automatically
-generated](./images//media/image73.png){width="6.268055555555556in"
+generated](./media/image72.png){width="6.268055555555556in"
 height="1.625in"}
 
 All the services status should be green
@@ -1192,7 +1160,7 @@ to PowerBI to create simple data visualization, showing the top
 customers.
 
 ![Timeline Description automatically
-generated](./images//media/image74.png){width="6.268055555555556in"
+generated](./media/image73.png){width="6.268055555555556in"
 height="3.001388888888889in"}
 
 ### Agenda
@@ -1244,7 +1212,7 @@ system](https://register.sapdevcenter.com/SUPSignForms/)
     containing your credentials to access ES5 system:
 
 ![Graphical user interface, text, application Description automatically
-generated](./images//media/image75.png){width="6.268055555555556in"
+generated](./media/image74.png){width="6.268055555555556in"
 height="2.5881944444444445in"}
 
 4.  Access the SAP WebUI by using the following link:
@@ -1256,7 +1224,7 @@ height="2.5881944444444445in"}
     a new password.
 
 ![Graphical user interface Description automatically
-generated](./images//media/image76.png){width="5.729966097987751in"
+generated](./media/image75.png){width="5.729966097987751in"
 height="3.5838331146106737in"}
 
 6.  Close the browser. Your access to the demo SAP system is now
@@ -1279,7 +1247,7 @@ Blogs](https://blogs.sap.com/2017/12/05/new-sap-gateway-demo-system-available/)
     provider:
 
 > ![Graphical user interface, text, application, email Description
-> automatically generated](./images//media/image77.png){width="5.0in"
+> automatically generated](./media/image76.png){width="5.0in"
 > height="3.3854166666666665in"}
 
 -   Open Azure Portal (<https://portal.azure.com>) and type Synapse
@@ -1287,13 +1255,13 @@ Blogs](https://blogs.sap.com/2017/12/05/new-sap-gateway-demo-system-available/)
     blade.
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image78.png){width="4.958333333333333in"
+generated](./media/image77.png){width="4.958333333333333in"
 height="1.0520833333333333in"}
 
 -   Click Create Synapse workspace button
 
 > ![Graphical user interface, text, application, email Description
-> automatically generated](./images//media/image79.png){width="5.0in"
+> automatically generated](./media/image78.png){width="5.0in"
 > height="4.65625in"}
 
 -   Choose and provide the resource group and workspace names together
@@ -1305,14 +1273,14 @@ You don\'t have to provide the name for Managed resource group.
 
 > ![Graphical user interface, text, application Description
 > automatically
-> generated](./images//media/image80.png){width="5.385416666666667in"
+> generated](./media/image79.png){width="5.385416666666667in"
 > height="5.852598425196851in"}
 
 -   Click on Review + Create button to go to summary page
 
 ![Graphical user interface, application, chat or text message
 Description automatically
-generated](./images//media/image81.png){width="4.135416666666667in"
+generated](./media/image80.png){width="4.135416666666667in"
 height="0.4869892825896763in"}
 
 -   Click Create button at the bottom on the page to confirm the
@@ -1331,7 +1299,7 @@ and go to Azure Synapse Analytics. Then choose Open Synapse Studio.
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image82.png){width="6.268055555555556in"
+generated](./media/image81.png){width="6.268055555555556in"
 height="3.689583333333333in"}
 
 #### Step 2 -- Create a Linked Service to connect to SAP system
@@ -1339,26 +1307,26 @@ height="3.689583333333333in"}
 1)  On the left menu choose Manage icon
 
 ![Graphical user interface, application, Word Description automatically
-generated](./images//media/image83.png){width="4.177666229221347in"
+generated](./media/image82.png){width="4.177666229221347in"
 height="3.8859590988626422in"}
 
 2)  Select Linked Services from the menu
 
 ![Graphical user interface, text, application Description automatically
-generated](./images//media/image84.png){width="4.573555336832896in"
+generated](./media/image83.png){width="4.573555336832896in"
 height="3.9901399825021873in"}
 
 3)  Click +New button
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image85.png){width="6.268055555555556in"
+generated](./media/image84.png){width="6.268055555555556in"
 height="2.5840277777777776in"}
 
 4)  On the New Linked Service blade set the type to OData
 
 ![Graphical user interface, text, application Description automatically
-generated](./images//media/image86.png){width="6.268055555555556in"
+generated](./media/image85.png){width="6.268055555555556in"
 height="3.222916666666667in"}
 
 5)  Fill the required fields to establish a connection:
@@ -1383,14 +1351,14 @@ Property name: sap-client
 Value: 002
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image87.png){width="3.942227690288714in"
+generated](./media/image86.png){width="3.942227690288714in"
 height="4.78125in"}
 
 6)  Click Test Connection button. You should receive confirmation
     \"Connection Successful\"
 
 ![Background pattern Description automatically generated with low
-confidence](./images//media/image88.png){width="6.268055555555556in"
+confidence](./media/image87.png){width="6.268055555555556in"
 height="0.7347222222222223in"}
 
 7)  Click Create to save your settings.
@@ -1400,19 +1368,19 @@ height="0.7347222222222223in"}
 1)  On the left menu choose Data icon
 
 ![Graphical user interface, application, Word Description automatically
-generated](./images//media/image89.png){width="4.177666229221347in"
+generated](./media/image88.png){width="4.177666229221347in"
 height="3.8859590988626422in"}
 
 2)  Switch the view from Workspace to Linked
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image90.png){width="3.40625in"
+generated](./media/image89.png){width="3.40625in"
 height="1.6492432195975504in"}
 
 3)  Click the + button and create a new Integration Dataset
 
 ![Graphical user interface, application, Word Description automatically
-generated](./images//media/image91.png){width="6.268055555555556in"
+generated](./media/image90.png){width="6.268055555555556in"
 height="3.0881944444444445in"}
 
 4)  On the New Integration Dataset blade set the type to OData
@@ -1426,7 +1394,7 @@ height="3.0881944444444445in"}
 **Path**: Choose SEPMRA_C\_SalesOrder from the list
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image92.png){width="6.268055555555556in"
+generated](./media/image91.png){width="6.268055555555556in"
 height="3.0625in"}
 
 6)  Click OK to save your settings
@@ -1441,26 +1409,26 @@ storage which we will use as the target location for extracted SAP data.
 2)  Switch the view from Workspace to Linked
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image90.png){width="3.40625in"
+generated](./media/image89.png){width="3.40625in"
 height="1.6492432195975504in"}
 
 3)  Click the + button and create a new Integration Dataset
 
 ![Graphical user interface, application, Word Description automatically
-generated](./images//media/image91.png){width="6.268055555555556in"
+generated](./media/image90.png){width="6.268055555555556in"
 height="3.0881944444444445in"}
 
 4)  On the New Integration Dataset blade set the type to Azure Data Lake
     Storage Gen2 and click Continue
 
 ![Graphical user interface, application, Word Description automatically
-generated](./images//media/image93.png){width="6.268055555555556in"
+generated](./media/image92.png){width="6.268055555555556in"
 height="6.025in"}
 
 5)  Set the file format to Parquet
 
 ![Graphical user interface, application, Teams Description automatically
-generated](./images//media/image94.png){width="4.291666666666667in"
+generated](./media/image93.png){width="4.291666666666667in"
 height="4.516092519685039in"}
 
 6)  Provide the name of the Integration Dataset and link it to the Data
@@ -1478,7 +1446,7 @@ interface. Leave the directory and file name empty.
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image95.png){width="4.510416666666667in"
+generated](./media/image94.png){width="4.510416666666667in"
 height="2.394128390201225in"}
 
 7)  Click OK to save your settings
@@ -1488,7 +1456,7 @@ height="2.394128390201225in"}
 To save and deploy changes made to Synapse workspace you need to click
 the button Publish All.
 
-![](./images//media/image96.png){width="6.268055555555556in"
+![](./media/image95.png){width="6.268055555555556in"
 height="0.75in"}
 
 All changes made in Synapse are now saved.
@@ -1504,13 +1472,13 @@ we\'ll use them to build the data extraction pipeline.
 1)  From the left menu choose Integrate icon
 
 ![Graphical user interface, application, Word Description automatically
-generated](./images//media/image97.png){width="4.177666229221347in"
+generated](./media/image96.png){width="4.177666229221347in"
 height="3.8859590988626422in"}
 
 2)  Click the + button and select Pipeline
 
 ![Graphical user interface, application, Word Description automatically
-generated](./images//media/image98.png){width="6.268055555555556in"
+generated](./media/image97.png){width="6.268055555555556in"
 height="2.9208333333333334in"}
 
 3)  In the Properties window on the right side of the screen provide the
@@ -1519,7 +1487,7 @@ height="2.9208333333333334in"}
 **Name:** ES5_Pipeline
 
 ![Graphical user interface, application, Word Description automatically
-generated](./images//media/image99.png){width="5.0in"
+generated](./media/image98.png){width="5.0in"
 height="1.6770833333333333in"}
 
 #### STEP 2 -- Add Copy Data activity to extract Sales Orders
@@ -1530,13 +1498,13 @@ copy data activity.
 1)  On the Activities menu expand the Move and Transform group
 
 ![Graphical user interface, text, application Description automatically
-generated](./images//media/image100.png){width="6.268055555555556in"
+generated](./media/image99.png){width="6.268055555555556in"
 height="2.1909722222222223in"}
 
 2)  Move the Copy Data activity to the pipeline
 
 ![Graphical user interface, application, Word Description automatically
-generated](./images//media/image101.png){width="6.268055555555556in"
+generated](./media/image100.png){width="6.268055555555556in"
 height="1.85in"}
 
 3)  Click on the Copy Data activity on the pipeline. Provide the name of
@@ -1545,7 +1513,7 @@ height="1.85in"}
 **Name**: ES5_CopyData
 
 ![Graphical user interface Description automatically
-generated](./images//media/image102.png){width="6.268055555555556in"
+generated](./media/image101.png){width="6.268055555555556in"
 height="2.3555555555555556in"}
 
 4)  Move to the Source tab and choose the source dataset that represents
@@ -1553,14 +1521,14 @@ height="2.3555555555555556in"}
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image103.png){width="6.268055555555556in"
+generated](./media/image102.png){width="6.268055555555556in"
 height="1.8166666666666667in"}
 
 5)  Move to the Sink tab and choose the target dataset that represents
     the Data Lake storage:
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image104.png){width="6.268055555555556in"
+generated](./media/image103.png){width="6.268055555555556in"
 height="1.50625in"}
 
 6)  Click Publish All to save your settings
@@ -1581,7 +1549,7 @@ went well.
     to start the processing immediately
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image105.png){width="6.268055555555556in"
+generated](./media/image104.png){width="6.268055555555556in"
 height="2.067361111111111in"}
 
 3)  Confirm by clicking OK button. The extraction is now started.
@@ -1593,7 +1561,7 @@ height="2.067361111111111in"}
 1)  On the left menu choose the Monitor button
 
 ![Graphical user interface, application, Word Description automatically
-generated](./images//media/image106.png){width="4.177666229221347in"
+generated](./media/image105.png){width="4.177666229221347in"
 height="3.8859590988626422in"}
 
 2)  In the Pipeline Runs view you should see the current status of the
@@ -1601,7 +1569,7 @@ height="3.8859590988626422in"}
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image107.png){width="6.268055555555556in"
+generated](./media/image106.png){width="6.268055555555556in"
 height="1.8111111111111111in"}
 
 3)  The extraction will take around one or two minutes. Use the Refresh
@@ -1613,7 +1581,7 @@ height="1.8111111111111111in"}
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image108.png){width="6.268055555555556in"
+generated](./media/image107.png){width="6.268055555555556in"
 height="1.8111111111111111in"}
 
 5)  In the Activity Runs section select the copy data activity and
@@ -1621,7 +1589,7 @@ height="1.8111111111111111in"}
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image109.png){width="6.268055555555556in"
+generated](./media/image108.png){width="6.268055555555556in"
 height="2.957638888888889in"}
 
 6)  The details of the Copy Data contain useful information about the
@@ -1629,7 +1597,7 @@ height="2.957638888888889in"}
     processed.
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image110.png){width="6.268055555555556in"
+generated](./media/image109.png){width="6.268055555555556in"
 height="4.978472222222222in"}
 
 7)  Click X button to close the Details window.
@@ -1643,48 +1611,48 @@ display the data.
     view
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image111.png){width="5.479931102362205in"
+generated](./media/image110.png){width="5.479931102362205in"
 height="3.427561242344707in"}
 
 2)  Expand the Azure Data Lake Storage Gen2 group and then expand the
     Data Lake storage group. Choose the Synapse filesystem:
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image112.png){width="6.1779451006124235in"
+generated](./media/image111.png){width="6.1779451006124235in"
 height="3.4692344706911635in"}
 
 3)  You should see a list of files stored in the container
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image113.png){width="6.268055555555556in"
+generated](./media/image112.png){width="6.268055555555556in"
 height="1.5263888888888888in"}
 
 4)  Click on the file using the right mouse button and choose New SQL
     Script -- Select TOP 100 Rows
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image114.png){width="6.268055555555556in"
+generated](./media/image113.png){width="6.268055555555556in"
 height="3.2131944444444445in"}
 
 5)  Click the Run icon
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image115.png){width="6.268055555555556in"
+generated](./media/image114.png){width="6.268055555555556in"
 height="1.1555555555555554in"}
 
 6)  Extracted data are displayed on the screen
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image116.png){width="6.268055555555556in"
+generated](./media/image115.png){width="6.268055555555556in"
 height="1.9041666666666666in"}
 
 7)  Delete the file containing data extraction -- we will run the
     process again.
 
 ![Graphical user interface, text, application Description automatically
-generated](./images//media/image117.png){width="6.268055555555556in"
+generated](./media/image116.png){width="6.268055555555556in"
 height="0.7826388888888889in"}
 
 The extraction pipeline run successfully and you were able to display
@@ -1705,13 +1673,13 @@ single OData service.
     Datasets and select the OData one.
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image118.png){width="6.21961832895888in"
+generated](./media/image117.png){width="6.21961832895888in"
 height="2.979582239720035in"}
 
 2)  Go to the Parameters tab and choose the +New button
 
 ![Application Description automatically generated with medium
-confidence](./images//media/image119.png){width="6.268055555555556in"
+confidence](./media/image118.png){width="6.268055555555556in"
 height="1.9159722222222222in"}
 
 3)  Create a new parameter EntityName of type String. Leave the default
@@ -1719,21 +1687,21 @@ height="1.9159722222222222in"}
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image120.png){width="6.268055555555556in"
+generated](./media/image119.png){width="6.268055555555556in"
 height="2.576388888888889in"}
 
 4)  Go to the Connection tab and check the Edit checkbox under the Path
     input box
 
 > ![Graphical user interface, application Description automatically
-> generated](./images//media/image121.png){width="6.268055555555556in"
+> generated](./media/image120.png){width="6.268055555555556in"
 > height="1.5854166666666667in"}
 
 5)  Clear the details from the Path text box . Choose Add Dynamic
     Content
 
 > ![Graphical user interface, application Description automatically
-> generated](./images//media/image122.png){width="6.268055555555556in"
+> generated](./media/image121.png){width="6.268055555555556in"
 > height="1.7236111111111112in"}
 
 6)  We will use Expressions to get the value of the EntityName to
@@ -1741,7 +1709,7 @@ height="2.576388888888889in"}
     and choose EntityName:
 
 ![Graphical user interface, text, application Description automatically
-generated](./images//media/image123.png){width="6.2672101924759405in"
+generated](./media/image122.png){width="6.2672101924759405in"
 height="4.82708552055993in"}
 
 7)  Click OK to save your settings.
@@ -1751,13 +1719,13 @@ height="4.82708552055993in"}
 1)  Open the Integration Dataset that represent the target data lake
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image124.png){width="6.1779451006124235in"
+generated](./media/image123.png){width="6.1779451006124235in"
 height="3.3754713473315836in"}
 
 2)  Go to the Parameters tab and choose the +New button
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image125.png){width="6.268055555555556in"
+generated](./media/image124.png){width="6.268055555555556in"
 height="2.076388888888889in"}
 
 3)  Create a new parameter Path of type String. Leave the default value
@@ -1765,7 +1733,7 @@ height="2.076388888888889in"}
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image126.png){width="6.268055555555556in"
+generated](./media/image125.png){width="6.268055555555556in"
 height="2.5840277777777776in"}
 
 4)  Go to the Connection tab
@@ -1775,14 +1743,14 @@ height="2.5840277777777776in"}
 
 > ![Graphical user interface, text, application Description
 > automatically
-> generated](./images//media/image127.png){width="6.268055555555556in"
+> generated](./media/image126.png){width="6.268055555555556in"
 > height="2.2506944444444446in"}
 
 6)  As in the previous step we will use the expression to reference the
     newly defined parameter.
 
 ![Graphical user interface, text, application Description automatically
-generated](./images//media/image128.png){width="6.268055555555556in"
+generated](./media/image127.png){width="6.268055555555556in"
 height="2.267361111111111in"}
 
 7)  Click OK to save your settings.
@@ -1796,7 +1764,7 @@ height="2.267361111111111in"}
     value SEPMRA_C\_SalesOrder
 
 ![Graphical user interface, text, application Description automatically
-generated](./images//media/image129.png){width="6.268055555555556in"
+generated](./media/image128.png){width="6.268055555555556in"
 height="3.225in"}
 
 3)  Open the Sink tab. You\'ll notice a new Path field. Enter the
@@ -1804,7 +1772,7 @@ height="3.225in"}
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image130.png){width="6.268055555555556in"
+generated](./media/image129.png){width="6.268055555555556in"
 height="2.8965277777777776in"}
 
 With above changes data extracted from the SEPMRA_C\_SalesOrder entity
@@ -1820,21 +1788,21 @@ filesystem.
 **Name:** ES5_CopyData_Cust
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image131.png){width="6.268055555555556in"
+generated](./media/image130.png){width="6.268055555555556in"
 height="1.5041666666666667in"}
 
 3)  In the source tab reference the OData integration dataset. This time
     provide another Entity name: SEPMRA_C\_SalesOrderCustomer
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image132.png){width="6.268055555555556in"
+generated](./media/image131.png){width="6.268055555555556in"
 height="2.973611111111111in"}
 
 4)  In the Sink tab reference the target Data Lake storage. Provide
     SEPMRA_C\_SalesOrderCustomer as the Path parameter.
 
 ![Graphical user interface, text, application Description automatically
-generated](./images//media/image133.png){width="6.268055555555556in"
+generated](./media/image132.png){width="6.268055555555556in"
 height="2.973611111111111in"}
 
 #### STEP 5 -- Run and monitor the extraction
@@ -1855,7 +1823,7 @@ land in separate directories.
 
 > ![Graphical user interface, text, application Description
 > automatically
-> generated](./images//media/image134.png){width="6.268055555555556in"
+> generated](./media/image133.png){width="6.268055555555556in"
 > height="1.4479166666666667in"}
 
 5)  Go back to the Data view and display the content of the data lake.
@@ -1863,7 +1831,7 @@ land in separate directories.
     the root folder.
 
 ![Graphical user interface, text, application Description automatically
-generated](./images//media/image135.png){width="6.268055555555556in"
+generated](./media/image134.png){width="6.268055555555556in"
 height="1.5506944444444444in"}
 
 6)  Ensure there are files in both directories. Display the content of
@@ -1883,7 +1851,7 @@ PowerBI.
 
 > ![Graphical user interface, text, application, email Description
 > automatically
-> generated](./images//media/image136.png){width="6.268055555555556in"
+> generated](./media/image135.png){width="6.268055555555556in"
 > height="2.5166666666666666in"}
 
 3)  Copy the Account Key which will be required to establish
@@ -1891,7 +1859,7 @@ PowerBI.
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image137.png){width="6.268055555555556in"
+generated](./media/image136.png){width="6.268055555555556in"
 height="3.7881944444444446in"}
 
 #### STEP 2 -- Import your data to PowerBI
@@ -1901,13 +1869,13 @@ height="3.7881944444444446in"}
 2)  Click the Get Data button from the top menu
 
 ![Graphical user interface, application, Word Description automatically
-generated](./images//media/image138.png){width="6.268055555555556in"
+generated](./media/image137.png){width="6.268055555555556in"
 height="0.8583333333333333in"}
 
 3)  Choose the Data Lake as the source service and click connect
 
 ![Graphical user interface, text, application Description automatically
-generated](./images//media/image139.png){width="6.230036089238845in"
+generated](./media/image138.png){width="6.230036089238845in"
 height="2.2919860017497813in"}
 
 4)  Provide the URL of the Data Lake service together with the file
@@ -1917,14 +1885,14 @@ height="2.2919860017497813in"}
 https://\<nameOfADLS>.dfs.core.windows.net/synapse/SEPMRA_C\_SalesOrder
 
 ![Graphical user interface, text Description automatically
-generated](./images//media/image140.png){width="6.268055555555556in"
+generated](./media/image139.png){width="6.268055555555556in"
 height="2.220138888888889in"}
 
 5)  Provide the previously copied Account Key and click Connect
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image141.png){width="6.268055555555556in"
+generated](./media/image140.png){width="6.268055555555556in"
 height="2.3847222222222224in"}
 
 6)  Click Transform Data to import Sales Order data to PowerBI. If you
@@ -1933,7 +1901,7 @@ height="2.3847222222222224in"}
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image142.png){width="6.268055555555556in"
+generated](./media/image141.png){width="6.268055555555556in"
 height="2.8381944444444445in"}
 
 7)  The file metadata information have been loaded to PowerBI as a
@@ -1943,7 +1911,7 @@ height="2.8381944444444445in"}
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image143.png){width="6.268055555555556in"
+generated](./media/image142.png){width="6.268055555555556in"
 height="1.4534722222222223in"}
 
 8)  Now all extracted rows are displayed on the screen. On the right
@@ -1952,13 +1920,13 @@ height="1.4534722222222223in"}
 Name: SalesOrders
 
 ![Text Description automatically
-generated](./images//media/image144.png){width="6.268055555555556in"
+generated](./media/image143.png){width="6.268055555555556in"
 height="1.2409722222222221in"}
 
 9)  Choose Apply and Close to finish importing data to PowerBI
 
 ![A screenshot of a computer Description automatically
-generated](./images//media/image145.png){width="6.268055555555556in"
+generated](./media/image144.png){width="6.268055555555556in"
 height="1.8840277777777779in"}
 
 10) Sales Orders have been loaded to PowerBI.
@@ -1974,7 +1942,7 @@ height="1.8840277777777779in"}
     SalesOrders tables
 
 ![Graphical user interface, application, Word Description automatically
-generated](./images//media/image146.png){width="6.268055555555556in"
+generated](./media/image145.png){width="6.268055555555556in"
 height="2.4583333333333335in"}
 
 ## **Task 7: Create relationship between tables and build a simple visual** 
@@ -1988,34 +1956,34 @@ data.
 1)  On the left menu of PowerBI choose Model icon
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image147.png){width="6.268055555555556in"
+generated](./media/image146.png){width="6.268055555555556in"
 height="2.4583333333333335in"}
 
 2)  Choose manage relationship from the top menu
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image148.png){width="6.268055555555556in"
+generated](./media/image147.png){width="6.268055555555556in"
 height="2.560416666666667in"}
 
 3)  In the pop up window choose New
 
 ![Graphical user interface, text, application, email Description
 automatically
-generated](./images//media/image149.png){width="6.268055555555556in"
+generated](./media/image148.png){width="6.268055555555556in"
 height="4.415972222222222in"}
 
 4)  In the new window choose Customers as the first table and Sales
     Orders as the second
 
 ![Table Description automatically
-generated](./images//media/image150.png){width="6.268055555555556in"
+generated](./media/image149.png){width="6.268055555555556in"
 height="3.7694444444444444in"}
 
 5)  From the list of columns under Customer table mark the Customer
     column. This is the primary key.
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image151.png){width="6.268055555555556in"
+generated](./media/image150.png){width="6.268055555555556in"
 height="1.511111111111111in"}
 
 6)  From the list of columns under SalesOrders table mark the SoldTo
@@ -2024,7 +1992,7 @@ height="1.511111111111111in"}
 
 ![Graphical user interface, text, application, table Description
 automatically
-generated](./images//media/image152.png){width="6.268055555555556in"
+generated](./media/image151.png){width="6.268055555555556in"
 height="1.4333333333333333in"}
 
 7)  Don\'t make any other changes in the window. Click OK to create the
@@ -2034,7 +2002,7 @@ height="1.4333333333333333in"}
     just created. Verify the Active box is checked. Click Close.
 
 ![Graphical user interface Description automatically
-generated](./images//media/image153.png){width="6.268055555555556in"
+generated](./media/image152.png){width="6.268055555555556in"
 height="4.4215277777777775in"}
 
 9)  You should notice that the Model view is updated and you can see the
@@ -2042,7 +2010,7 @@ height="4.4215277777777775in"}
     menu.
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image154.png){width="6.268055555555556in"
+generated](./media/image153.png){width="6.268055555555556in"
 height="2.1125in"}
 
 #### STEP 2 -- Create data visualization
@@ -2051,7 +2019,7 @@ height="2.1125in"}
     right. Choose Pie Chart from the list.
 
 ![Graphical user interface, text, application Description automatically
-generated](./images//media/image155.png){width="6.268055555555556in"
+generated](./media/image154.png){width="6.268055555555556in"
 height="2.4763888888888888in"}
 
 2)  A new char was added to the screen. Expand the SalesOrders tables
@@ -2059,21 +2027,21 @@ height="2.4763888888888888in"}
     You\'ll notice this field is now displayed in the Values:
 
 ![Graphical user interface Description automatically
-generated](./images//media/image156.png){width="6.268055555555556in"
+generated](./media/image155.png){width="6.268055555555556in"
 height="2.411111111111111in"}
 
 3)  Expand the Customers tables and mark the CustomerName checkbox.
     You\'ll notice this field is now displayed in the Legend section:
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image157.png){width="6.268055555555556in"
+generated](./media/image156.png){width="6.268055555555556in"
 height="2.411111111111111in"}
 
 4)  Enlarge the chart. It displays information total sales order value
     per customer.
 
 ![Chart, pie chart Description automatically
-generated](./images//media/image158.png){width="6.268055555555556in"
+generated](./media/image157.png){width="6.268055555555556in"
 height="3.573611111111111in"}
 
 #### STEP 2 -- Use filtering in PowerBI
@@ -2086,7 +2054,7 @@ see how to display sales value over time for selected customer.
 
 ![Graphical user interface, application Description automatically
 generated with medium
-confidence](./images//media/image159.png){width="6.268055555555556in"
+confidence](./media/image158.png){width="6.268055555555556in"
 height="1.7361111111111112in"}
 
 2)  Expand SalesOrder table and select checkbox next to
@@ -2094,7 +2062,7 @@ height="1.7361111111111112in"}
     Values group in the Visualization:
 
 ![A screenshot of a computer Description automatically
-generated](./images//media/image160.png){width="6.268055555555556in"
+generated](./media/image159.png){width="6.268055555555556in"
 height="2.0868055555555554in"}
 
 3)  Select the checkbox next to CreationDateTime field. It\'s now part
@@ -2102,13 +2070,13 @@ height="2.0868055555555554in"}
 
 ![A screenshot of a computer Description automatically generated with
 medium
-confidence](./images//media/image161.png){width="6.268055555555556in"
+confidence](./media/image160.png){width="6.268055555555556in"
 height="2.0868055555555554in"}
 
 4)  The Line Chart now displays sales value over time for all customers.
 
 ![Chart, line chart Description automatically
-generated](./images//media/image162.png){width="5.719548337707787in"
+generated](./media/image161.png){width="5.719548337707787in"
 height="2.260731627296588in"}
 
 5)  On the Pie Chart select the Sorali customer from the List. You\'ve
@@ -2116,7 +2084,7 @@ height="2.260731627296588in"}
     Line Chart now display sales value only for the Sorali customer.
 
 ![Chart Description automatically
-generated](./images//media/image163.png){width="5.761220472440945in"
+generated](./media/image162.png){width="5.761220472440945in"
 height="4.875680227471566in"}
 
 6)  Click on the customer name again to undo the filtering.
@@ -2132,59 +2100,59 @@ below example you\'ll forecast sales volume based on past data.
     Hierarchy
 
 ![Chart Description automatically
-generated](./images//media/image164.png){width="6.268055555555556in"
+generated](./media/image163.png){width="6.268055555555556in"
 height="2.298611111111111in"}
 
 3)  On the Line Chart click the down arrow to enable drill down
     functionality
 
 ![Chart, line chart Description automatically
-generated](./images//media/image165.png){width="5.771639326334208in"
+generated](./media/image164.png){width="5.771639326334208in"
 height="2.50034886264217in"}
 
 4)  Click the data point for 2021 to drill down into months:
 
 ![Chart, line chart Description automatically
-generated](./images//media/image166.png){width="5.771639326334208in"
+generated](./media/image165.png){width="5.771639326334208in"
 height="2.50034886264217in"}
 
 5)  The Line Chart now displays only data for 2021:
 
 ![Chart, line chart Description automatically
-generated](./images//media/image167.png){width="5.709130577427821in"
+generated](./media/image166.png){width="5.709130577427821in"
 height="2.271150481189851in"}
 
 6)  While the Line Chart is selected go to Analytics view in the
     Visualizations:
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image168.png){width="2.6462029746281717in"
+generated](./media/image167.png){width="2.6462029746281717in"
 height="4.844425853018373in"}
 
 7)  Expand the Forecast group and click Add.
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image169.png){width="2.635784120734908in"
+generated](./media/image168.png){width="2.635784120734908in"
 height="3.875541338582677in"}
 
 8)  Change the Forecast Length to 2 Points and click Apply
 
 ![Graphical user interface, application Description automatically
-generated](./images//media/image170.png){width="2.635784120734908in"
+generated](./media/image169.png){width="2.635784120734908in"
 height="3.708850612423447in"}
 
 9)  The line chart now displays all existing data points of the year
     2021 as well as forecast for next two months:
 
 ![Chart, line chart Description automatically
-generated](./images//media/image171.png){width="5.75080271216098in"
+generated](./media/image170.png){width="5.75080271216098in"
 height="2.3024048556430445in"}
 
 10) Move your mouse over the Nov 2021 data point to display the
     forecasting values:
 
 ![Chart, line chart Description automatically
-generated](./images//media/image172.png){width="6.268055555555556in"
+generated](./media/image171.png){width="6.268055555555556in"
 height="2.097916666666667in"}
 
 You\'ve created a simple forecast in PowerBI
