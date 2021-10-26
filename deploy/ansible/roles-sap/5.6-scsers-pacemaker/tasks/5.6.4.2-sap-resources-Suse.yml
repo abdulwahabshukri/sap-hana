@@ -51,7 +51,7 @@
 
   when:
     - inventory_hostname == primary_instance_name
-    - variable == ensa1
+    - ensa1 is defined
 
 #[1] Create the SAP cluster resources - if using ENSA2 -
 #   sudo crm configure colocation col_sap_{{ sap_sid }}_no_both -5000: g-{{ sap_sid }}_ERS g-{{ sap_sid }}_ASCS
@@ -71,6 +71,8 @@
                                       START_PROFILE="/sapmnt/{{ sap_sid }}/profile/{{ sap_sid }}_ASCS{{ scs_instance_number }}_{{ scs_virtual_hostname }}" \
                                       AUTOMATIC_RECOVER=false \
                                       meta resource-stickiness=5000
+      register:                        ASCSrsc_sap
+      failed_when:                     ASCSrsc_sap.rc > 1
 
 
     - name:                           "Configure SAP ERS resources"
@@ -81,6 +83,8 @@
                                       params InstanceName={{ sap_sid }}_ERS{{ ers_instance_number }}_{{ ers_virtual_hostname }} \
                                       START_PROFILE="/sapmnt/{{ sap_sid }}/profile/{{ sap_sid }}_ERS{{ ers_instance_number }}_{{ ers_virtual_hostname }}" \
                                       AUTOMATIC_RECOVER=false IS_ERS=true
+      register:                        ERSrsc_sap
+      failed_when:                     ERSrsc_sap.rc > 1
 
     - name:                           "Modify SCS and ERS groups"
       ansible.builtin.shell: |
@@ -101,7 +105,7 @@
 
   when:
     - inventory_hostname == primary_instance_name
-    - variable == ensa2
+    - ensa1 is not defined
 
 
 #End of SAP Resources Cluster configuration

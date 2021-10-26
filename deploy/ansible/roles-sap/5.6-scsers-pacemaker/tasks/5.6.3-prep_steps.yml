@@ -51,41 +51,6 @@
 
 # [A] Configure SWAP file
 
-- name:                                "Configure SWAP file"
-  block:
-    - name:                            "Swap file: Comment old value of ResourceDisk.EnableSwap"
-      ansible.builtin.replace:
-        path:                           /etc/waagent.conf
-        regexp:                         '^ResourceDisk.SwapSizeMB'
-        replace:                        '#ResourceDisk.SwapSizeMB'
-      tags:
-        -                                commentswapsize
-
-    - name:                             "Swap file: Comment old value of ResourceDisk.SwapSizeMB"
-      ansible.builtin.replace:
-        path:                           /etc/waagent.conf
-        regexp:                         '^ResourceDisk.SwapSizeMB'
-        replace:                        '#ResourceDisk.SwapSizeMB'
-      tags:
-        -                                commentswapsize
-
-    - name:                              "Swap file: Configure values in SWAP file - EnableSwap & SwapSizeMB"
-      vars:
-        waagent:
-          ResourceDisk.EnableSwap:       y
-          ResourceDisk.SwapSizeMB:       2000
-      lineinfile:                        dest=/etc/waagent.conf line="{{ item.key }}={{ item.value }}"
-      with_dict:                         "{{ waagent }}"
-      tags:
-        - swapfilesetup
-
-    - name:                              "Swap file: restart waagent"
-      service:
-        name:                            waagent
-        state:                           restarted
-      tags:
-        - waagentrestart
-
 # [A] RHEL configuration - as per OSS note - SAP Note 2002167 - should we get this reviewed by RHEL ?
 
 # TODO - check the actions required for RHEL & add those actions here

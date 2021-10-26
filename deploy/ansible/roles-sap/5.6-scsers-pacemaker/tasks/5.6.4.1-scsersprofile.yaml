@@ -8,6 +8,7 @@
 ###############################################################################################
 - name:                                 Enqueue Server 2 Setup
   block:
+
     - name:                             "Set the variable for ENSA1"
       become_user:                      "{{ sap_sid | lower }}adm"
       ansible.builtin.shell:            "{{ sapcontrolscs_command }}  -function GetProcessList | grep enserver"
@@ -36,7 +37,7 @@
       ansible.builtin.debug:
         var:                            ensa2
 
-  when: inventory_hostname == primary_instance_name
+  when: inventory_hostname == secondary_instance_name
 
 # Following are the changes in ASCS/ERS profiles based if ENSA1 is applicable
 
@@ -94,8 +95,9 @@
         - keepalive
 
   when:
-    - inventory_hostname == primary_instance_name
-    - ensa1 == enserver
+    - inventory_hostname == secondary_instance_name
+    - ensa1 is defined
+#    - ensa1 == "enserver"
 
 # The following SCS/ERS profile changes are applicable irrespective of ENSA1/2
 
@@ -119,7 +121,10 @@
                                       service/halib_cluster_connector = /usr/bin/sap_suse_cluster_connector
 
       register: ersservicehalib
-  when: inventory_hostname == primary_instance_name
+  when: 
+    - ansible_os_family|upper  == "SUSE"
+    - inventory_hostname == secondary_instance_name
+
 
 # [A] Configure Keep Alive - Ref- SAP Note 1410736 - # added in 1.9-kernelparameters.yaml
 
@@ -130,14 +135,16 @@
     name:                              "{{ sap_sid | lower }}adm"
     comment:                           "{ sap_sid }}adm User "
     group:                             haclient
-
+  when:  ansible_os_family|upper == "SUSE"
 
 ## [1] Add the ASCS and ERS SAP services to the sapservice file
 - name:                            "Add the ASCS and ERS SAP services to the sapservice file"
   ansible.builtin.shell: |
                                    cat /usr/sap/sapservices | grep ASCS{{ scs_instance_number }} | sudo ssh {{ secondary_instance_name }} "cat >>/usr/sap/sapservices"
                                    sudo ssh {{ secondary_instance_name }} "cat /usr/sap/sapservices" | grep ERS{{ ers_instance_number }} | sudo tee -a /usr/sap/sapservices
-  when: inventory_hostname == primary_instance_name
+  when: 
+    - inventory_hostname == primary_instance_name
+    - ansible_os_family|upper == "SUSE"
 
 # END of all profile changes
 ...

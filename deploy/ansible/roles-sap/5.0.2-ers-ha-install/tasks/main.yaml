@@ -12,39 +12,6 @@
     sap_inifile:                       "{{ bom_base_name }}-ers-{{ ansible_hostname }}.params"
     sap_inifile_template:              "{{ bom_base_name }}-ers-inifile-param.j2"
 
-
-# Returns bom object
-- name:                                "ERS Install: Include 3.3.1-bom-utility role"
-  ansible.builtin.include_role:
-    name:                              roles-sap/3.3.1-bom-utility
-    tasks_from:                        bom-register
-  vars:
-    bom_name:                          "{{ bom_base_name }}"
-
-- name:                                "ERS Install: Include roles-sap/3.3.1-bom-utility role"
-  ansible.builtin.include_role:
-    name:                              roles-sap/3.3.1-bom-utility
-    tasks_from:                        bom-template
-  vars:
-    sap_cd_package_cd1:
-    sap_cd_package_cd2:
-    sap_cd_package_cd3:
-    sap_cd_package_cd4:
-    sap_cd_package_cd5:
-    sap_cd_package_hdbclient:
-    sap_ciInstanceNumber:
-    app_instance_number:
-    sap_ciDialogWPNumber:
-    sap_ciBtcWPNumber:
-    sap_installSAPHostAgent:
-    sap_profile_dir:
-    ers_virtual_hostname:                  
-    sap_db_hostname:
-    sap_ciVirtualHostname:
-    sap_appVirtualHostname:
-  tags:
-    - skip_ansible_lint
-
 - name:                                "ERS Install: Create run flag directory"
   ansible.builtin.file:
     path:                              /etc/sap_deployment_automation
@@ -57,51 +24,94 @@
     state:                             absent
   when:                                reinstall
 
+- name:                                "ERS Install: check if installed"
+  ansible.builtin.stat:
+    path:                              /etc/sap_deployment_automation/sap_deployment_ers.txt
+  register:                            ers_installed
 
-- name:                                "ERS Install: install variables"
-  ansible.builtin.debug:
-    msg:                               "{{ sap_inifile }}"
-    verbosity:                         2
+- name:                                "ERS Install"
+  block:
+    
+    # Returns bom object
+    - name:                                "ERS Install: Include 3.3.1-bom-utility role"
+      ansible.builtin.include_role:
+        name:                              roles-sap/3.3.1-bom-utility
+        tasks_from:                        bom-register
+      vars:
+        bom_name:                          "{{ bom_base_name }}"
+    
+    - name:                                "ERS Install: Include roles-sap/3.3.1-bom-utility role"
+      ansible.builtin.include_role:
+        name:                              roles-sap/3.3.1-bom-utility
+        tasks_from:                        bom-template
+      vars:
+        sap_cd_package_cd1:
+        sap_cd_package_cd2:
+        sap_cd_package_cd3:
+        sap_cd_package_cd4:
+        sap_cd_package_cd5:
+        sap_cd_package_hdbclient:
+        sap_ciInstanceNumber:
+        app_instance_number:
+        sap_ciDialogWPNumber:
+        sap_ciBtcWPNumber:
+        sap_installSAPHostAgent:
+        sap_profile_dir:
+        ers_virtual_hostname:                  
+        sap_db_hostname:
+        sap_ciVirtualHostname:
+        sap_appVirtualHostname:
+      tags:
+        - skip_ansible_lint
+    
+    
+    - name:                                "ERS Install: install variables"
+      ansible.builtin.debug:
+        msg:                               "{{ sap_inifile }}"
+        verbosity:                         2
+    
+    - name:                                SAP ERS install variables
+      ansible.builtin.debug:
+        msg:                               "{{ bom.product_ids.ers }}"
+        verbosity:                         2
+    
+    - name:                                SAP ERS install variables
+      ansible.builtin.debug:
+        msg:                               "{{ ers_virtual_hostname }}"
+        verbosity:                         2
+    
+    - name:                                SAP ERS install command
+      ansible.builtin.debug:
+        msg:                               "./sapinst SAPINST_INPUT_PARAMETERS_URL=/usr/sap/install/downloads/{{ sap_inifile }} 
+                                             SAPINST_EXECUTE_PRODUCT_ID={{ bom.product_ids.ers }} SAPINST_SKIP_DIALOGS=true SAPINST_START_GUISERVER=false SAPINST_USE_HOSTNAME={{ ers_virtual_hostname }}"
+        verbosity:                         2
+    
+    
+    # *====================================4=======================================8
+    #   SAP ERS: Install
+    # 2230669 - System Provisioning Using a Parameter Input File
+    #
+    - name:                                "ERS Install: SAP ERS Install"
+      ansible.builtin.shell: |
+                                           set -o errexit
+                                           set -o pipefail
+                                           ./sapinst SAPINST_INPUT_PARAMETERS_URL=/usr/sap/install/downloads/{{ sap_inifile }}     \
+                                                     SAPINST_EXECUTE_PRODUCT_ID={{ bom.product_ids.ers }}                          \
+                                                     SAPINST_SKIP_DIALOGS=true                                                     \
+                                                     SAPINST_START_GUISERVER=false                                                 \                               
+                                                     SAPINST_USE_HOSTNAME={{ ers_virtual_hostname }}
+                                           touch /etc/sap_deployment_automation/sap_deployment_ers.txt
+      args:
+        chdir:                             /usr/sap/install/SWPM
+        creates:                           /etc/sap_deployment_automation/sap_deployment_ers.txt
+      environment:
+        TMPDIR:                            /usr/sap/install
+      tags:
+        - skip_ansible_lint
 
-- name:                                SAP ERS install variables
-  ansible.builtin.debug:
-    msg:                               "{{ bom.product_ids.ers }}"
-    verbosity:                         2
+  when: not ers_installed.stat.exists
 
-- name:                                SAP ERS install variables
-  ansible.builtin.debug:
-    msg:                               "{{ ers_virtual_hostname }}"
-    verbosity:                         2
-
-- name:                                SAP ERS install command
-  ansible.builtin.debug:
-    msg:                               "./sapinst SAPINST_INPUT_PARAMETERS_URL=/usr/sap/install/downloads/{{ sap_inifile }} 
-                                         SAPINST_EXECUTE_PRODUCT_ID={{ bom.product_ids.ers }} SAPINST_SKIP_DIALOGS=true SAPINST_START_GUISERVER=false SAPINST_USE_HOSTNAME={{ ers_virtual_hostname }}"
-    verbosity:                         2
-
-
-# *====================================4=======================================8
-#   SAP ERS: Install
-# 2230669 - System Provisioning Using a Parameter Input File
-#
-- name:                                "ERS Install: SAP ERS Install"
-  ansible.builtin.shell: |
-                                       set -o errexit
-                                       set -o pipefail
-                                       ./sapinst SAPINST_INPUT_PARAMETERS_URL=/usr/sap/install/downloads/{{ sap_inifile }}     \
-                                                 SAPINST_EXECUTE_PRODUCT_ID={{ bom.product_ids.ers }}                          \
-                                                 SAPINST_SKIP_DIALOGS=true                                                     \
-                                                 SAPINST_START_GUISERVER=false                                                 \                               
-                                                 SAPINST_USE_HOSTNAME={{ ers_virtual_hostname }}
-                                       touch /etc/sap_deployment_automation/sap_deployment_ers.txt
-  args:
-    chdir:                             /usr/sap/install/SWPM
-    creates:                           /etc/sap_deployment_automation/sap_deployment_ers.txt
-  environment:
-    TMPDIR:                            /usr/sap/install
-  tags:
-    - skip_ansible_lint
-  # Skip when TRUE (test mode)
+      # Skip when TRUE (test mode)
   # when: not test_new_bom
 # *====================================4=======================================8
 

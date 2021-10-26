@@ -72,6 +72,7 @@
 
     - name: Ensure cluster (hdb_{{ db_sid | upper }}) is configured
       shell: "crm cluster init -y cluster --name 'hdb_{{ db_sid | upper }}' --interface eth0"
+      when: node_tier == 'hana'
     
     - name: Ensure cluster (scs_{{ sap_sid | upper }}) is configured
       shell: "crm cluster init -y cluster --name 'scs_{{ sap_sid | upper }}' --interface eth0"
@@ -136,6 +137,10 @@
                                      tenantId="{{ sap_hana_fencing_spn_tenant_id }}"
                                      login="{{ sap_hana_fencing_spn_client_id }}"
                                      passwd="{{ sap_hana_fencing_spn_client_pwd }}"
+                                     pcmk_monitor_retries=4 
+                                     pcmk_action_limit=3 
+                                     power_timeout=240
+                                     pcmk_reboot_timeout=900                                      
                                      pcmk_host_map="{{ primary_instance_name }}:{{ hostvars[primary_instance_name]['primary_vm_name'] }};{{ secondary_instance_name }}:{{ hostvars[secondary_instance_name]['secondary_vm_name'] }}"
                                      pcmk_host_list="{{ hostvars[primary_instance_name]['primary_vm_name'] }} {{ hostvars[secondary_instance_name]['secondary_vm_name'] }}"
 

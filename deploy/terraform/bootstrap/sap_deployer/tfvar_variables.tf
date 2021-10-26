@@ -43,6 +43,11 @@ variable "management_network_name" {
   default = ""
 }
 
+variable "management_network_logical_name" {
+  default = ""
+}
+
+
 variable "management_network_arm_id" {
   default = ""
 }

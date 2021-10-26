@@ -21,6 +21,13 @@
     scs_virtual_hostname:              "{{ sap_sid | lower }}scs{{ scs_instance_number }}cl1"
     ers_virtual_hostname:              "{{ sap_sid | lower }}ers{{ ers_instance_number }}cl2"
 
+- name:                                "Print - SCS Virtual Instance hostname variable"
+  ansible.builtin.debug:
+    msg:                               "The SCS Vir hostname system is {{ scs_virtual_hostname }}"
+
+- name:                                "Print - ERS Virtual Instance hostname variable"
+  ansible.builtin.debug:
+    msg:                               "The ERS Vir hostname system is {{ ers_virtual_hostname }}"
 
 
 # /*---------------------------------------------------------------------------8
