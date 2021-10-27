@@ -59,7 +59,7 @@
 
 - name:                               "SAP Resources - Cluster Configuration after Install"
   block:
-    - name:                           "Set the cluster on maintenace mode"
+    - name:                           "Set the cluster on maintenance mode"
       ansible.builtin.command:        crm configure property maintenance-mode="true"
 
     - name:                           "Configure SAP ASCS/SCS resources"
@@ -68,11 +68,11 @@
                                       operations \$id=rsc_sap_{{ sap_sid }}_ASCS{{ scs_instance_number }}-operations \
                                       op monitor interval=11 timeout=60 on-fail=restart \
                                       params InstanceName={{ sap_sid }}_ASCS{{ scs_instance_number }}_{{ scs_virtual_hostname }} \
-                                      START_PROFILE="/sapmnt/{{ sap_sid }}/profile/{{ sap_sid }}_ASCS{{ scs_instance_number }}_{{ scs_virtual_hostname }}" \
+                                      START_PROFILE="/sapmnt/{{ sap_sid | upper }}/profile/{{ sap_sid | upper }}_ASCS{{ scs_instance_number }}_{{ scs_virtual_hostname }}" \
                                       AUTOMATIC_RECOVER=false \
                                       meta resource-stickiness=5000
-      register:                        ASCSrsc_sap
-      failed_when:                     ASCSrsc_sap.rc > 1
+      register:                       ASCSrsc_sap
+      failed_when:                    ASCSrsc_sap.rc > 1
 
 
     - name:                           "Configure SAP ERS resources"
@@ -91,7 +91,7 @@
                                       crm configure modgroup g-{{ sap_sid }}_ASCS add rsc_sap_{{ sap_sid }}_ASCS{{ scs_instance_number }}
                                       crm configure modgroup g-{{ sap_sid }}_ERS add rsc_sap_{{ sap_sid }}_ERS{{ ers_instance_number }}
 
-    - name:                           "Configure Colocation Constraints"
+    - name:                           "Configure Co-location Constraints"
       ansible.builtin.shell: |
                                       crm configure colocation col_sap_{{ sap_sid }}_no_both -5000: g-{{ sap_sid }}_ERS g-{{ sap_sid }}_ASCS
                                       crm configure location loc_sap_{{ sap_sid }}_failover_to_ers rsc_sap_{{ sap_sid }}_ASCS{{ scs_instance_number }} rule 2000: runs_ers_{{ sap_sid }} eq 1

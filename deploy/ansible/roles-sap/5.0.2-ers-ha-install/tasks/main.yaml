@@ -28,6 +28,7 @@
   ansible.builtin.stat:
     path:                              /etc/sap_deployment_automation/sap_deployment_ers.txt
   register:                            ers_installed
+  when: node_tier == 'ers'  
 
 - name:                                "ERS Install"
   block:
@@ -109,7 +110,9 @@
       tags:
         - skip_ansible_lint
 
-  when: not ers_installed.stat.exists
+  when: 
+    - node_tier == 'ers'  
+    - not ers_installed.stat.exists
 
       # Skip when TRUE (test mode)
   # when: not test_new_bom

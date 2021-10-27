@@ -139,9 +139,10 @@
 
 ## [1] Add the ASCS and ERS SAP services to the sapservice file
 - name:                            "Add the ASCS and ERS SAP services to the sapservice file"
+  become:                          true
   ansible.builtin.shell: |
-                                   cat /usr/sap/sapservices | grep ASCS{{ scs_instance_number }} | sudo ssh {{ secondary_instance_name }} "cat >>/usr/sap/sapservices"
-                                   sudo ssh {{ secondary_instance_name }} "cat /usr/sap/sapservices" | grep ERS{{ ers_instance_number }} | sudo tee -a /usr/sap/sapservices
+                                   cat /usr/sap/sapservices | grep ASCS{{ scs_instance_number }} | ssh {{ secondary_instance_name }} "cat >>/usr/sap/sapservices"
+                                   ssh {{ secondary_instance_name }} "cat /usr/sap/sapservices" | grep ERS{{ ers_instance_number }} | sudo tee -a /usr/sap/sapservices
   when: 
     - inventory_hostname == primary_instance_name
     - ansible_os_family|upper == "SUSE"

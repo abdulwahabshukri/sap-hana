@@ -248,8 +248,6 @@ then
         echo "#                                                                                       #"
         echo "#########################################################################################"
         exit 65
-    else
-        save_config_var "subscription" "${workload_config_information}"
     fi
 fi
 
@@ -264,8 +262,6 @@ then
         echo "#                                                                                       #"
         echo "#########################################################################################"
         exit 65
-    else
-        save_config_var "STATE_SUBSCRIPTION" "${workload_config_information}"
     fi
     
 fi
@@ -280,8 +276,6 @@ then
         echo "#                                                                                       #"
         echo "#########################################################################################"
         exit 65
-    else
-      save_config_var "client_id" "${workload_config_information}"
     fi
 fi
 
@@ -300,15 +294,8 @@ then
         echo "#                                                                                       #"
         echo "#########################################################################################"
         exit 65
-    else
-        save_config_var "tenant_id" "${workload_config_information}"
     fi
     
-fi
-
-if [ ! -z $REMOTE_STATE_SA ]
-then
-    save_config_var "REMOTE_STATE_SA" "${workload_config_information}"
 fi
 
 
@@ -438,13 +425,6 @@ then
     
     tfstate_parameter=" -var tfstate_resource_id=${tfstate_resource_id}"
 
-    save_config_vars "${workload_config_information}" \
-    keyvault \
-    deployer_tfstate_key \
-    tfstate_resource_id \
-    REMOTE_STATE_SA \
-    REMOTE_STATE_RG
-    
     if [ -n $STATE_SUBSCRIPTION ]
     then
         if [ ${account_set} == 0 ]
@@ -452,7 +432,6 @@ then
             $(az account set --sub "${STATE_SUBSCRIPTION}")
             account_set=1
         fi
-        
 
     fi
 else
@@ -473,6 +452,10 @@ then
     az keyvault secret show --name "$secretname" --vault "$keyvault" --only-show-errors 2>error.log
     if [ -s error.log ]
     then
+        save_config_var "client_id" "${workload_config_information}"
+        save_config_var "tenant_id" "${workload_config_information}"
+
+
         if [ ! -z "$spn_secret" ]
         then
             allParams=$(printf " --workload --environment %s --region %s --vault %s --spn_secret %s --subscription %s" ${environment} ${region} ${keyvault} ${spn_secret} ${subscription})
@@ -663,6 +646,11 @@ then
     echo ""
     exit $return_value        
 fi
+
+save_config_var "REMOTE_STATE_SA" "${workload_config_information}"
+save_config_var "subscription" "${workload_config_information}"
+save_config_var "STATE_SUBSCRIPTION" "${workload_config_information}"
+
 
 if [ 1 == $check_output ]
 then

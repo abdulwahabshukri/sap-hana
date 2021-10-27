@@ -94,7 +94,7 @@
     
       
     - block:
-        - name:                        Run the pacmaker role
+        - name:                        Run the pacemaker role
           include_role:
             name:                      roles-sap/5.6-scsers-pacemaker
           when:                        scs_high_availability

@@ -28,6 +28,12 @@
   ansible.builtin.stat:
     path:                              /etc/sap_deployment_automation/sap_deployment_scs.txt
   register:                            scs_installed
+  when:                                node_tier == 'scs'
+
+- name:                                "SCS Install: check if installed"
+  ansible.builtin.debug:
+    var:                               scs_installed
+
 
 - name:                                "SCS Install"
   block:
@@ -97,8 +103,11 @@
         creates:                           /etc/sap_deployment_automation/sap_deployment_scs.txt
       tags:
         - skip_ansible_lint
+      when:                                node_tier == 'scs'
     
-  when: not scs_installed.stat.exists
+  when: 
+    - node_tier == 'scs'  
+    - not scs_installed.stat.exists
       # Skip when TRUE (test mode)
       # when: not test_new_bom
     # *====================================4=======================================8

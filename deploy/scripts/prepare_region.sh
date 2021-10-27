@@ -228,7 +228,7 @@ deployer_config_information="${automation_config_directory}"/"${environment}""${
 
 #Plugins
 if [ ! -d "$HOME/.terraform.d/plugin-cache" ]; then
-    mkdir "$HOME/.terraform.d/plugin-cache"
+    mkdir -p "$HOME/.terraform.d/plugin-cache"
 fi
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 
@@ -244,8 +244,6 @@ init "${automation_config_directory}" "${generic_config_information}" "${deploye
 
 if [ ! -z "${subscription}" ]; then
     ARM_SUBSCRIPTION_ID="${subscription}"
-    save_config_var "ARM_SUBSCRIPTION_ID" "${deployer_config_information}"
-    save_config_var "subscription" "${deployer_config_information}"
     export ARM_SUBSCRIPTION_ID=$subscription
 fi
 
@@ -367,6 +365,13 @@ if [ 0 == $step ]; then
     echo "#########################################################################################"
     echo ""
     
+    allParams=$(printf " -p %s %s" "${deployer_file_parametername}" "${approveparam}")
+    
+    "${DEPLOYMENT_REPO_PATH}"/deploy/scripts/install_deployer.sh $allParams
+    if (($? > 0)); then
+        exit $?
+    fi
+
     #Persist the parameters
     if [ ! -z "$subscription" ]; then
         save_config_var "subscription" "${deployer_config_information}"
@@ -387,14 +392,7 @@ if [ 0 == $step ]; then
     if [ $force == 1 ]; then
         rm -Rf .terraform terraform.tfstate*
     fi
-    
-    allParams=$(printf " -p %s %s" "${deployer_file_parametername}" "${approveparam}")
-    
-    "${DEPLOYMENT_REPO_PATH}"/deploy/scripts/install_deployer.sh $allParams
-    if (($? > 0)); then
-        exit $?
-    fi
-    
+
     step=1
     save_config_var "step" "${deployer_config_information}"
 

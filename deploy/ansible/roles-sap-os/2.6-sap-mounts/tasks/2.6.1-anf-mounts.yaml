@@ -32,45 +32,6 @@
   when:
     - tier == 'sapos'
 
-- name:                                "ANF Mount: Disable ID mapping (ANF)- Verify nfs4_disable_idmapping"
-  ansible.builtin.command:             cat /sys/module/nfs/parameters/nfs4_disable_idmapping
-  register:                            nfs4_disable_idmapping
-  when:
-    - tier == 'sapos'
-
-- name:                                "ANF Mount: Disable ID mapping (ANF)- set nfs4_disable_idmapping to Y"
-  block:
-    - name:                             "ANF Mount: create /mnt/tmp"
-      ansible.builtin.command:           mkdir /mnt/tmp
-
-    - name:                             "ANF Mount: Mount sapmnt on /mnt/tmp"
-      ansible.builtin.mount:
-        src:                           "{{ sap_mnt }}"
-        path:                          "/mnt/tmp"
-        fstype:                        "nfs4"
-        opts:                          "rw,hard,rsize=65536,wsize=65536,sec=sys,vers=4.1,tcp"
-        state:                         mounted
-
-    - name:                             "ANF Mount: Unmount sapmnt on /mnt/tmp"
-      ansible.builtin.mount:
-        src:                           "{{ sap_mnt }}"
-        path:                          "/mnt/tmp"
-        fstype:                        "nfs4"
-        opts:                          "rw,hard,rsize=65536,wsize=65536,sec=sys,vers=4.1,tcp"
-        state:                         unmounted
-
-                                        
-    - name:                             "ANF Mount: update the setting on nfs4_disable_idmapping"                                  
-      ansible.builtin.command:          echo "Y" > /sys/module/nfs/parameters/nfs4_disable_idmapping
-    
-    - name:                             "ANF Mount: Make the configuration permanent"
-      ansible.builtin.command:          echo "options nfs nfs4_disable_idmapping=Y" >> /etc/modprobe.d/nfs.conf
-
-  when:
-    - tier == 'sapos' 
-    - nfs4_disable_idmapping.stdout == 'N'
-
-
 - name:                                "ANF Mount: Ensure the services are restarted"
   block:
     - name:                            "AF Mount: Ensure the rpcbind service is restarted"
@@ -83,7 +44,7 @@
         state:                         restarted
     - name:                            "ANF Mount: Pause for 15 seconds"
       ansible.builtin.pause:
-        seconds:                       15
+        seconds:                       5
     - name:                            "ANF Mount: Ensure the NFS service is restarted"
       ansible.builtin.systemd:
         name:                          "{{ nfs_service }}"
@@ -98,6 +59,7 @@
     group:                             sapsys
   when:
     - node_tier == 'scs'
+    - tier == 'sapos'
     - sap_mnt is defined
 
 - name:                                "ANF Mount: Create /saptrans (ANF)"
@@ -107,6 +69,7 @@
     group:                             sapsys
   when:
     - node_tier == 'scs'
+    - tier == 'sapos'
     - sap_trans is defined
 
 
@@ -193,7 +156,7 @@
     - sap_trans is defined
 
 
-- name:                                "ANF Mount: Unmount filesystems (ANF Setup)"
+- name:                                "ANF Mount: Unmount file systems (ANF Setup)"
   ansible.builtin.mount:
     src:                               "{{ sap_mnt }}"
     path:                              "/saptmp"
@@ -203,7 +166,7 @@
     - node_tier == 'scs'
     - sap_mnt is defined
 
-- name:                                "ANF Mount: Unmount filesystems (ANF Setup) (transport)"
+- name:                                "ANF Mount: Unmount file systems (ANF Setup) (transport)"
   ansible.builtin.mount:
     src:                               "{{ sap_trans }}"
     path:                              "/saptrans"
@@ -397,9 +360,11 @@
                                       /usr/sap/trans -nfsvers=4.1,nobind,sec=sys {{ sap_trans }}/usrsaptrans
   register: autofs_configuration_changed_scs
   when:
-    - tier == 'sapos'
+    - tier in ['sapos']
     - node_tier == 'scs' 
     - sap_mnt is defined
+    - sap_trans is defined
+    - 1 == 2
 
 - name:                               "ANF Mount: Update auto.direct (ers)"
   ansible.builtin.blockinfile:
@@ -412,9 +377,11 @@
                                       /usr/sap/install -nfsvers=4.1,nobind,sec=sys {{ nfs_server }}:/usr/sap/install
   register: autofs_configuration_changed_ers
   when:
-    - tier == 'sapos'
+    - tier in ['sapos']
     - node_tier  == 'ers'
+    - sap_trans is defined
     - sap_mnt is defined
+    - 1 == 2
 
 - name:                               "ANF Mount: Update auto.direct (app)"
   ansible.builtin.blockinfile:
@@ -442,6 +409,7 @@
   ansible.builtin.systemd:
     name:                             autofs
     state:                            restarted
+  when: autofs_configuration_changed_ers or autofs_configuration_changed_scs
 
 - name:                               "ANF Mount: Ensure the NFS service is restarted"
   ansible.builtin.systemd:
@@ -449,5 +417,5 @@
     state:                             restarted
   when:
     - node_tier == 'scs'
-#    - sap_mnt is not defined
-#    - sap_trans is not defined
+    - sap_mnt is not defined
+    - sap_trans is not defined
