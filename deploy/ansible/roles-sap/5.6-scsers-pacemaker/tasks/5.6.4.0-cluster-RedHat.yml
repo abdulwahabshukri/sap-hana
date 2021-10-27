@@ -15,8 +15,8 @@
                                        pcs resource defaults resource-stickiness=1
                                        pcs resource defaults migration-threshold=3
 
-    - name:                            "Put Seconday host on standby"
-      ansible.builtin.shell:           pcs node standby {{ secondary_instance_name }}
+    # - name:                            "Put Secondary host on standby"
+    #   ansible.builtin.shell:           pcs node standby {{ secondary_instance_name }}
 
     - name:                            "SCS - Configure File system resources"
       ansible.builtin.shell: >
@@ -63,11 +63,11 @@
 - name:                               "ERS - Cluster Configuration before Install "
   block:
 
-    - name:                            "Bring Secondary host online "
-      ansible.builtin.shell:           pcs node unstandby {{ secondary_instance_name }}
+    # - name:                            "Bring Secondary host online "
+    #   ansible.builtin.shell:           pcs node unstandby {{ secondary_instance_name }}
 
-    - name:                            "Put Primary host on standby"
-      ansible.builtin.shell:           pcs node standby {{ primary_instance_name }}
+    # - name:                            "Put Primary host on standby"
+    #   ansible.builtin.shell:           pcs node standby {{ primary_instance_name }}
 
     - name:                            "ERS - Configure File system resources"
       ansible.builtin.shell: >

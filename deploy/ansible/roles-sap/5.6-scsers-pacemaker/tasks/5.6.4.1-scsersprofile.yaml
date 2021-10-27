@@ -146,6 +146,7 @@
   when: 
     - inventory_hostname == primary_instance_name
     - ansible_os_family|upper == "SUSE"
+    - 1 == 2
 
 # END of all profile changes
 ...

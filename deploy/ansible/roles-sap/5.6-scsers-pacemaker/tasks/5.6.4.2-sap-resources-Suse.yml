@@ -8,8 +8,8 @@
 
 - name:                               "SAP Resources - Cluster Configuration after Install "
   block:
-    - name:                           "Set the cluster on maintenace mode"
-      ansible.builtin.command:        crm configure property maintenance-mode="true"
+    # - name:                           "Set the cluster on maintenace mode"
+    #   ansible.builtin.command:        crm configure property maintenance-mode="true"
 
     - name:                           "Configure SAP ASCS/SCS resources"
       ansible.builtin.shell: >
@@ -43,8 +43,8 @@
                                       crm configure location loc_sap_{{ sap_sid }}_failover_to_ers rsc_sap_{{ sap_sid }}_ASCS{{ scs_instance_number }} rule 2000: runs_ers_{{ sap_sid }} eq 1
                                       crm configure order ord_sap_{{ sap_sid }}_first_start_ascs Optional: rsc_sap_{{ sap_sid }}_ASCS{{ scs_instance_number }}:start rsc_sap_{{ sap_sid }}_ERS{{ ers_instance_number }}:stop symmetrical=false
 
-    - name:                           " Bring primary node online "
-      ansible.builtin.command:        crm node online {{ primary_instance_name }}
+    # - name:                           " Bring primary node online "
+    #   ansible.builtin.command:        crm node online {{ primary_instance_name }}
 
     - name:                           "Set the Cluster out of maintenance mode"
       ansible.builtin.command:        crm configure property maintenance-mode="false"

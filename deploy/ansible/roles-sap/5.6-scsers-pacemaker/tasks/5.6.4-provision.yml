@@ -18,14 +18,8 @@
   include_tasks:                       "5.6.4.0-cluster-{{ ansible_os_family }}.yml"
   #when:                                cluster_existence_check_result.rc != 0
 
-#- name:                                "Re-mount"
-#  import_tasks:                        ../../../roles-sap-os/2.6-sap-mounts/tasks/main.yaml
-
 - name:                                "Profile"
   include_tasks:                       "5.6.4.1-scsersprofile.yaml"
-
-#- name:                                Re-mount
-#  import_tasks:                        ../../../roles-sap-os/2.6-sap-mounts/tasks/main.yaml
 
 - name:
   include_tasks:                       "5.6.4.2-sap-resources-{{ ansible_os_family }}.yml"
