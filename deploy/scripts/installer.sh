@@ -221,7 +221,7 @@ echo "Parallelism count $parallelism"
 #Plugins
 if [ ! -d "$HOME/.terraform.d/plugin-cache" ]
 then
-    mkdir "$HOME/.terraform.d/plugin-cache"
+    mkdir -p "$HOME/.terraform.d/plugin-cache"
 fi
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 
