@@ -36,6 +36,8 @@
       ansible.builtin.shell: |
                                       crm configure modgroup g-{{ sap_sid }}_ASCS add rsc_sap_{{ sap_sid }}_ASCS{{ scs_instance_number }}
                                       crm configure modgroup g-{{ sap_sid }}_ERS add rsc_sap_{{ sap_sid }}_ERS{{ ers_instance_number }}
+      register:                       SCSERSGRP
+      failed_when:                    SCSERSGRP.rc > 1
 
     - name:                           "Configure Colocation Constraints"
       ansible.builtin.shell: |
@@ -90,12 +92,16 @@
       ansible.builtin.shell: |
                                       crm configure modgroup g-{{ sap_sid }}_ASCS add rsc_sap_{{ sap_sid }}_ASCS{{ scs_instance_number }}
                                       crm configure modgroup g-{{ sap_sid }}_ERS add rsc_sap_{{ sap_sid }}_ERS{{ ers_instance_number }}
+      register:                       SCSERSGRP
+      failed_when:                    SCSERSGRP.rc > 1
 
     - name:                           "Configure Co-location Constraints"
       ansible.builtin.shell: |
                                       crm configure colocation col_sap_{{ sap_sid }}_no_both -5000: g-{{ sap_sid }}_ERS g-{{ sap_sid }}_ASCS
                                       crm configure location loc_sap_{{ sap_sid }}_failover_to_ers rsc_sap_{{ sap_sid }}_ASCS{{ scs_instance_number }} rule 2000: runs_ers_{{ sap_sid }} eq 1
                                       crm configure order ord_sap_{{ sap_sid }}_first_start_ascs Optional: rsc_sap_{{ sap_sid }}_ASCS{{ scs_instance_number }}:start rsc_sap_{{ sap_sid }}_ERS{{ ers_instance_number }}:stop symmetrical=false
+      register:                       COLOC
+      failed_when:                    COLOC.rc > 1
 
     - name:                           "Bring primary node online "
       ansible.builtin.shell:          crm node online {{ primary_instance_name }}

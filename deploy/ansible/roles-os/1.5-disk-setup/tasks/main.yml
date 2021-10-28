@@ -106,6 +106,7 @@
     verbosity:                         2
   when:
     - tier == "sapos"
+    - vgscreated is defined
 
 - name:                                "Print vgcreated details"
   ansible.builtin.debug:

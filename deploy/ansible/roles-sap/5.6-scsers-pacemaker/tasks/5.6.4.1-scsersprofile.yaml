@@ -11,9 +11,13 @@
 
     - name:                             "Set the variable for ENSA1"
       become_user:                      "{{ sap_sid | lower }}adm"
-      ansible.builtin.shell:            "{{ sapcontrolscs_command }}  -function GetProcessList | grep enserver"
+      become:                           true
+      ansible.builtin.shell:            >
+                                        source ~/.bashrc ;
+                                        {{ sapcontrolscs_command }}  -function GetProcessList | grep enserver
       register:                         enq_server1
       failed_when:                      enq_server1.stdout != 'enserver'
+      changed_when: false
 
     - name:                             Capture the Enqueue server version
       ansible.builtin.set_fact:
@@ -25,6 +29,7 @@
 
     - name:                             "Set the variable for ENSA2"
       become_user:                      "{{ sap_sid | lower }}adm"
+      become:                           true
       ansible.builtin.shell:            "{{ sapcontrolscs_command }}  -function GetProcessList | grep enq_server"
       register:                         enq_server2
       failed_when:                      enq_server2.stdout != 'enq_server'
@@ -37,7 +42,9 @@
       ansible.builtin.debug:
         var:                            ensa2
 
-  when: inventory_hostname == secondary_instance_name
+  when: 
+   - inventory_hostname == primary_instance_name
+   - 1 == 2
 
 # Following are the changes in ASCS/ERS profiles based if ENSA1 is applicable
 
@@ -106,7 +113,7 @@
 
     - name:                               " ASCS Profile - add service/halib"
       ansible.builtin.blockinfile:
-        path: /sapmnt/{{ sap_sid }}/profile/{{ sap_sid }}_ASCS{{ ascs_instance_number }}_{{ ascs_virtual_hostname }}
+        path: /sapmnt/{{ sap_sid }}/profile/{{ sap_sid }}_ASCS{{ scs_instance_number }}_{{ scs_virtual_hostname }}
         block: |
                                       service/halib = $(DIR_CT_RUN)/saphascriptco.so
                                       service/halib_cluster_connector = /usr/bin/sap_suse_cluster_connector
@@ -138,15 +145,40 @@
   when:  ansible_os_family|upper == "SUSE"
 
 ## [1] Add the ASCS and ERS SAP services to the sapservice file
-- name:                            "Add the ASCS and ERS SAP services to the sapservice file"
-  become:                          true
-  ansible.builtin.shell: |
-                                   cat /usr/sap/sapservices | grep ASCS{{ scs_instance_number }} | ssh {{ secondary_instance_name }} "cat >>/usr/sap/sapservices"
-                                   ssh {{ secondary_instance_name }} "cat /usr/sap/sapservices" | grep ERS{{ ers_instance_number }} | sudo tee -a /usr/sap/sapservices
-  when: 
-    - inventory_hostname == primary_instance_name
+# - name:                            "Add the ASCS and ERS SAP services to the sapservice file"
+#   become:                          true
+#   ansible.builtin.shell: |
+#                                    cat /usr/sap/sapservices | grep ASCS{{ scs_instance_number }} | ssh {{ secondary_instance_name }} "cat >>/usr/sap/sapservices"
+#                                    ssh {{ secondary_instance_name }} "cat /usr/sap/sapservices" | grep ERS{{ ers_instance_number }} | sudo tee -a /usr/sap/sapservices
+#   when: 
+#     - inventory_hostname == primary_instance_name
+#     - ansible_os_family|upper == "SUSE"
+#     - 1 == 2
+
+- name:                                "SUSE - Remove the ASCS and ERS service definitions from sapservices file"
+  ansible.builtin.lineinfile:
+    backup:                            yes
+    regexp:                            '^LD_LIBRARY_PATH='
+    state:                             absent
+  when:
     - ansible_os_family|upper == "SUSE"
-    - 1 == 2
+
+- name:                                "REDHAT - Comment the ASCS and ERS service definitions from sapservices file"
+  ansible.builtin.replace:
+    backup:                            yes
+    regexp:                            '^LD_LIBRARY_PATH='
+    replace:                           "#LD_LIBRARY_PATH="
+  when:
+    - ansible_os_family|upper == "REDHAT"
+
+- name:                                "Add ASCS and ERS services to the sapserivces file"
+  ansible.builtin.blockinfile:
+    path:                              /usr/sap/sapservices
+    block: |
+                                       LD_LIBRARY_PATH=/usr/sap/{{ sap_sid }}/ERS{{ ers_instance_number }}/exe:$LD_LIBRARY_PATH; export LD_LIBRARY_PATH; /usr/sap/{{ sap_sid }}/ERS{{ ers_instance_number }}/exe/sapstartsrv pf=/usr/sap/{{ sap_sid }}/SYS/profile/{{ sap_sid }}_ERS{{ ers_instance_number }}_{{ ers_virtual_hostname }} -D -u {{ sap_sid | lower }}adm
+                                       LD_LIBRARY_PATH=/usr/sap/{{ sap_sid }}/ASCS{{ scs_instance_number }}/exe:$LD_LIBRARY_PATH; export LD_LIBRARY_PATH; /usr/sap/{{ sap_sid }}/ASCS{{ scs_instance_number }}/exe/sapstartsrv pf=/usr/sap/{{ sap_sid }}/SYS/profile/{{ sap_sid }}_ASCS{{ scs_instance_number }}_{{ scs_virtual_hostname }} -D -u {{ sap_sid | lower }}adm
+  when:
+    - ansible_os_family|upper == "SUSE"
 
 # END of all profile changes
 ...
