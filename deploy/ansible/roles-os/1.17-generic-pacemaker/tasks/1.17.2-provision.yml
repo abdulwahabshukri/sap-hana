@@ -15,11 +15,12 @@
 # the VIP assignment)
 # Refer to: https://www.suse.com/support/kb/doc/?id=7023633 for more information
 - name:                                Ensure that network interface is not managed by cloud network plugin
-  ansible.builtin.replace:
+  become:                              true
+  ansible.builtin.lineinfile:
     path:                              /etc/sysconfig/network/ifcfg-eth0
     backup:                            yes
-    regexp:                            '^CLOUD_NETCONFIG_MANAGE="yes"'
-    replace:                           'CLOUD_NETCONFIG_MANAGE="no"'
+    regexp:                            '^CLOUD_NETCONFIG_MANAGE='
+    line:                              CLOUD_NETCONFIG_MANAGE='no'
   when:
     - ansible_os_family|upper == "SUSE"
   tags:

@@ -158,6 +158,7 @@
 - name:                                "SUSE - Remove the ASCS and ERS service definitions from sapservices file"
   ansible.builtin.lineinfile:
     backup:                            yes
+    path:                              /usr/sap/sapservices
     regexp:                            '^LD_LIBRARY_PATH='
     state:                             absent
   when:
@@ -166,12 +167,13 @@
 - name:                                "REDHAT - Comment the ASCS and ERS service definitions from sapservices file"
   ansible.builtin.replace:
     backup:                            yes
+    path:                              /usr/sap/sapservices
     regexp:                            '^LD_LIBRARY_PATH='
     replace:                           "#LD_LIBRARY_PATH="
   when:
     - ansible_os_family|upper == "REDHAT"
 
-- name:                                "Add ASCS and ERS services to the sapserivces file"
+- name:                                "Add ASCS and ERS services to the sapservices file"
   ansible.builtin.blockinfile:
     path:                              /usr/sap/sapservices
     block: |
