@@ -12,7 +12,7 @@
       ansible.builtin.command:         crm node standby {{ secondary_instance_name }}
 
     - name:                            "SCS - Configure File system resources"
-      ansible.builtin.shell: >
+      ansible.builtin.command: >
                                        crm configure primitive fs_{{ sap_sid }}_ASCS Filesystem \
                                        device='{{ sap_mnt }}/usrsap{{ sap_sid }}ascs{{ scs_instance_number }}' \
                                        directory='/usr/sap/{{ sap_sid }}/ASCS{{ scs_instance_number }}' fstype='nfs' options='sec=sys,vers=4.1' \
@@ -23,7 +23,7 @@
       failed_when:                     FSResource.rc > 1
 
     - name:                            "SCS - Create ASCS VIP - This is LB frontend ASCS/SCS IP"
-      ansible.builtin.shell: >
+      ansible.builtin.command: >
                                        crm configure primitive vip_{{ sap_sid }}_ASCS IPaddr2 \
                                        params ip={{ scs_lb_ip }} cidr_netmask=24 \
                                        op monitor interval="10s" timeout="20s"
@@ -61,10 +61,10 @@
 - name:                                "ERS - Cluster Configuration before Install"
   block:
     - name:                           "Bring Secondary host online"
-      ansible.builtin.shell:           crm node online {{ secondary_instance_name }}
+      ansible.builtin.command:        crm node online {{ secondary_instance_name }}
 
     - name:                            "ERS - Configure File system resources"
-      ansible.builtin.shell: >
+      ansible.builtin.command: >
                                        crm configure primitive fs_{{ sap_sid }}_ERS Filesystem \
                                        device='{{ sap_mnt }}/usrsap{{ sap_sid }}ers{{ ers_instance_number }}' \
                                        directory='/usr/sap/{{ sap_sid }}/ERS{{ ers_instance_number }}' fstype='nfs' options='sec=sys,vers=4.1' \

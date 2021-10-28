@@ -12,7 +12,7 @@
     #   ansible.builtin.command:        crm configure property maintenance-mode="true"
 
     - name:                           "Configure SAP ASCS/SCS resources"
-      ansible.builtin.shell: >
+      ansible.builtin.command: >
                                       crm configure primitive rsc_sap_{{ sap_sid }}_ASCS{{ scs_instance_number }} SAPInstance \
                                       operations \$id=rsc_sap_{{ sap_sid }}_ASCS{{ scs_instance_number }}-operations \
                                       op monitor interval=11 timeout=60 on-fail=restart \
@@ -21,9 +21,11 @@
                                       AUTOMATIC_RECOVER=false \
                                       meta resource-stickiness=5000 failure-timeout=60 \
                                       migration-threshold=1 priority=10
+      register:                       ASCS
+      failed_when:                    ASCS.rc > 1
 
     - name:                           "Configure SAP ERS resources"
-      ansible.builtin.shell: >
+      ansible.builtin.command: >
                                       crm configure primitive rsc_sap_{{ sap_sid }}_ERS{{ ers_instance_number }} SAPInstance \
                                       operations \$id=rsc_sap_{{ sap_sid }}_ERS{{ ers_instance_number }}-operations \
                                       op monitor interval=11 timeout=60 on-fail=restart \
@@ -31,6 +33,8 @@
                                       START_PROFILE="/sapmnt/{{ sap_sid }}/profile/{{ sap_sid }}_ERS{{ ers_instance_number }}_{{ ers_virtual_hostname }}" \
                                       AUTOMATIC_RECOVER=false IS_ERS=true \
                                       meta priority=1000
+      register:                       ERS
+      failed_when:                    ERS.rc > 1
 
     - name:                           "Modify SCS and ERS groups"
       ansible.builtin.shell: |
@@ -39,11 +43,13 @@
       register:                       SCSERSGRP
       failed_when:                    SCSERSGRP.rc > 1
 
-    - name:                           "Configure Colocation Constraints"
+    - name:                           "Configure Co-location Constraints"
       ansible.builtin.shell: |
                                       crm configure colocation col_sap_{{ sap_sid }}_no_both -5000: g-{{ sap_sid }}_ERS g-{{ sap_sid }}_ASCS
                                       crm configure location loc_sap_{{ sap_sid }}_failover_to_ers rsc_sap_{{ sap_sid }}_ASCS{{ scs_instance_number }} rule 2000: runs_ers_{{ sap_sid }} eq 1
                                       crm configure order ord_sap_{{ sap_sid }}_first_start_ascs Optional: rsc_sap_{{ sap_sid }}_ASCS{{ scs_instance_number }}:start rsc_sap_{{ sap_sid }}_ERS{{ ers_instance_number }}:stop symmetrical=false
+      register:                       COLO
+      failed_when:                    COLO.rc > 1
 
     # - name:                           " Bring primary node online "
     #   ansible.builtin.command:        crm node online {{ primary_instance_name }}

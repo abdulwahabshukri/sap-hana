@@ -2,9 +2,6 @@
 
 # @TODO- Check if any modification is required from ASCS/SCS resources perspective
 
-- name:                                Ensure maintenance mode is disabled
-  ansible.builtin.command:             "crm configure property maintenance-mode=false"
-
 
 - name:                                "Pause to give cluster time to stabilize"
   ansible.builtin.pause:
