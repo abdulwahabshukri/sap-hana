@@ -159,8 +159,12 @@
   ansible.builtin.lineinfile:
     backup:                            yes
     path:                              /usr/sap/sapservices
-    regexp:                            '^LD_LIBRARY_PATH='
-    state:                             absent
+    regexp:                            "{{ item.regexp }}"
+    line:                              "{{ item.lif }}"
+    state:                             present
+  loop:
+   - {regexp: "LD_LIBRARY_PATH=/usr/sap/{{ sap_sid }}/ASCS{{ scs_instance_number }}/exe", lif: "LD_LIBRARY_PATH=/usr/sap/{{ sap_sid }}/ASCS{{ scs_instance_number }}/exe:$LD_LIBRARY_PATH; export LD_LIBRARY_PATH; /usr/sap/{{ sap_sid }}/ASCS{{ scs_instance_number }}/exe/sapstartsrv pf=/usr/sap/{{ sap_sid }}/SYS/profile/{{ sap_sid }}_ASCS{{ scs_instance_number }}_{{ scs_virtual_hostname }} -D -u {{ sap_sid | lower }}adm" }
+   - {regexp: "LD_LIBRARY_PATH=/usr/sap/{{ sap_sid }}/ERS{{ ers_instance_number }}/exe", lif: "LD_LIBRARY_PATH=/usr/sap/{{ sap_sid }}/ERS{{ ers_instance_number }}/exe:$LD_LIBRARY_PATH; export LD_LIBRARY_PATH; /usr/sap/{{ sap_sid }}/ERS{{ ers_instance_number }}/exe/sapstartsrv pf=/usr/sap/{{ sap_sid }}/SYS/profile/{{ sap_sid }}_ERS{{ ers_instance_number }}_{{ ers_virtual_hostname }} -D -u {{ sap_sid | lower }}adm"     }
   when:
     - ansible_os_family|upper == "SUSE"
 
@@ -173,14 +177,14 @@
   when:
     - ansible_os_family|upper == "REDHAT"
 
-- name:                                "Add ASCS and ERS services to the sapservices file"
-  ansible.builtin.blockinfile:
-    path:                              /usr/sap/sapservices
-    block: |
-                                       LD_LIBRARY_PATH=/usr/sap/{{ sap_sid }}/ERS{{ ers_instance_number }}/exe:$LD_LIBRARY_PATH; export LD_LIBRARY_PATH; /usr/sap/{{ sap_sid }}/ERS{{ ers_instance_number }}/exe/sapstartsrv pf=/usr/sap/{{ sap_sid }}/SYS/profile/{{ sap_sid }}_ERS{{ ers_instance_number }}_{{ ers_virtual_hostname }} -D -u {{ sap_sid | lower }}adm
-                                       LD_LIBRARY_PATH=/usr/sap/{{ sap_sid }}/ASCS{{ scs_instance_number }}/exe:$LD_LIBRARY_PATH; export LD_LIBRARY_PATH; /usr/sap/{{ sap_sid }}/ASCS{{ scs_instance_number }}/exe/sapstartsrv pf=/usr/sap/{{ sap_sid }}/SYS/profile/{{ sap_sid }}_ASCS{{ scs_instance_number }}_{{ scs_virtual_hostname }} -D -u {{ sap_sid | lower }}adm
-  when:
-    - ansible_os_family|upper == "SUSE"
+# - name:                                "Add ASCS and ERS services to the sapservices file"
+#   ansible.builtin.blockinfile:
+#     path:                              /usr/sap/sapservices
+#     block: |
+#                                        LD_LIBRARY_PATH=/usr/sap/{{ sap_sid }}/ERS{{ ers_instance_number }}/exe:$LD_LIBRARY_PATH; export LD_LIBRARY_PATH; /usr/sap/{{ sap_sid }}/ERS{{ ers_instance_number }}/exe/sapstartsrv pf=/usr/sap/{{ sap_sid }}/SYS/profile/{{ sap_sid }}_ERS{{ ers_instance_number }}_{{ ers_virtual_hostname }} -D -u {{ sap_sid | lower }}adm
+#                                        LD_LIBRARY_PATH=/usr/sap/{{ sap_sid }}/ASCS{{ scs_instance_number }}/exe:$LD_LIBRARY_PATH; export LD_LIBRARY_PATH; /usr/sap/{{ sap_sid }}/ASCS{{ scs_instance_number }}/exe/sapstartsrv pf=/usr/sap/{{ sap_sid }}/SYS/profile/{{ sap_sid }}_ASCS{{ scs_instance_number }}_{{ scs_virtual_hostname }} -D -u {{ sap_sid | lower }}adm
+#   when:
+#     - ansible_os_family|upper == "SUSE"
 
 # END of all profile changes
 ...

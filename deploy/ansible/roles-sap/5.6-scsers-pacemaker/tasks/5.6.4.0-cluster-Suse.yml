@@ -75,7 +75,7 @@
       failed_when:                     ERSFSResource.rc > 1
           
     - name:                            "ERS - Create ERS VIP - This is LB frontend ERS IP"
-      ansible.builtin.shell: >
+      ansible.builtin.command: >
                                        crm configure primitive vip_{{ sap_sid }}_ERS IPaddr2 \
                                        params ip={{ ers_lb_ip }} cidr_netmask=24 \
                                        op monitor interval="10s" timeout="20s"
@@ -83,19 +83,16 @@
       failed_when:                     ERSVIP.rc > 1
           
     - name:                            "ERS - create Azure LB resource "
-      ansible.builtin.shell:           crm configure primitive nc_{{ sap_sid }}_ERS azure-lb port=621{{ ers_instance_number }}
+      ansible.builtin.command:         crm configure primitive nc_{{ sap_sid }}_ERS azure-lb port=621{{ ers_instance_number }}
       register:                        ERSALB
       failed_when:                     ERSALB.rc > 1
           
     - name:                            "ERS - Create Health Probe"
-      ansible.builtin.shell: >
-                                       crm configure group g-{{ sap_sid }}_ERS fs_{{ sap_sid }}_ERS nc_{{ sap_sid }}_ERS \ 
+      ansible.builtin.command: >
+                                       crm configure group g-{{ sap_sid }}_ERS fs_{{ sap_sid }}_ERS nc_{{ sap_sid }}_ERS \
                                        vip_{{ sap_sid }}_ERS meta resource-stickiness=3000  
       register:                        ERSHP
       failed_when:                     ERSHP.rc > 1
-
-    # - name:                           "Put Primary host on standby"
-    #   ansible.builtin.shell:           crm node standby {{ primary_instance_name }}
 
   when: inventory_hostname == secondary_instance_name
 
@@ -104,14 +101,11 @@
 - name:                                 "ERS - Install on Secondary host"
   block:
 
-  - name:                               "ERS - Install on Secondary host"
-    include_role:
-      name:                             roles-sap/5.0.2-ers-ha-install
-    vars:
-      sap_scs_hostname:                 "{{ ers_virtual_hostname }}"
-
-  # - name:                               "Bring Primary host online"
-  #   ansible.builtin.shell:              crm node online {{ primary_instance_name }}
+    - name:                               "ERS - Install on Secondary host"
+      include_role:
+        name:                             roles-sap/5.0.2-ers-ha-install
+      vars:
+        sap_scs_hostname:                 "{{ ers_virtual_hostname }}"
 
   when: inventory_hostname == secondary_instance_name
 
