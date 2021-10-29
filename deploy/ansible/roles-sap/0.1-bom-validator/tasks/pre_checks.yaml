@@ -30,7 +30,7 @@
   ansible.builtin.assert:
     that:
 
-      - "kv_name is defined"           
+      - "kv_name is defined"
       - "kv_name | type_debug != 'NoneType'"    # and given a value                                          # Has the variable been defined
       - "kv_name | trim | length != 0"                                           #   and given a value
 

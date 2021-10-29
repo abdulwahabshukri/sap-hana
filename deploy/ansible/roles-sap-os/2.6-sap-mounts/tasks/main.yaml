@@ -49,7 +49,7 @@
   rescue:
     - name:                            Re-mount Filesystems when not using ANF (app & pas)
       ansible.builtin.debug:
-        msg:                           "Trying to remount"               
+        msg:                           "Trying to remount"
     - name:                            Re-mount Filesystems when not using ANF (app & pas)
       ansible.builtin.mount:
         src:                           "{{ item.src }}"
@@ -83,7 +83,7 @@
   rescue:
     - name:                            Re-mount Filesystems when not using ANF (app & pas)
       ansible.builtin.debug:
-        msg:                           "Trying to remount"               
+        msg:                           "Trying to remount"
     - name:                            Re-mount Filesystems when not using ANF (app & pas)
       ansible.builtin.mount:
         src:                           "{{ item.src }}"
