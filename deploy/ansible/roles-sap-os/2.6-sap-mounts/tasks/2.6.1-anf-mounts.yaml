@@ -360,22 +360,55 @@
                                       /usr/sap/trans -nfsvers=4.1,nobind,sec=sys {{ sap_trans }}/usrsaptrans
   register: autofs_configuration_changed_scs
   when:
+    - not scs_high_availability
     - tier in ['sapos']
     - node_tier == 'scs' 
     - sap_mnt is defined
     - sap_trans is defined
 
-- name:                               "ANF Mount: Update auto.direct (ers)"
+- name:                               "ANF Mount: Update auto.direct (scs)"
   ansible.builtin.blockinfile:
-    path: /etc/auto.direct
+    path:                              /etc/auto.direct
     block: |
-                                      /sapmnt/{{ sap_sid|upper }} -nfsvers=4.1,nobind,sec=sys {{ sap_mnt }}/sapmnt{{ sap_sid|upper }}
-                                      /usr/sap/{{ sap_sid|upper }}/SYS -nfsvers=4.1,nobind,sec=sys {{ sap_mnt }}/usrsap{{ sap_sid|upper }}sys
-                                      /usr/sap/{{ sap_sid|upper }}/ERS{{ ers_instance_number }} -nfsvers=4.1,nobind,sec=sys {{ sap_mnt }}/usrsap{{ sap_sid|upper }}ers{{ ers_instance_number }}
-                                      /usr/sap/trans -nfsvers=4.1,nobind,sec=sys {{ sap_trans }}/usrsaptrans
-                                      /usr/sap/install -nfsvers=4.1,nobind,sec=sys {{ nfs_server }}:/usr/sap/install
-  register: autofs_configuration_changed_ers
+                                       /sapmnt/{{ sap_sid|upper }} -nfsvers=4.1,nobind,sec=sys {{ sap_mnt }}/sapmnt{{ sap_sid|upper }}
+                                       /usr/sap/{{ sap_sid|upper }}/SYS -nfsvers=4.1,nobind,sec=sys {{ sap_mnt }}/usrsap{{ sap_sid|upper }}sys
+                                       /usr/sap/trans -nfsvers=4.1,nobind,sec=sys {{ sap_trans }}/usrsaptrans
+  register:                            autofs_configuration_changed_scs
   when:
+    - scs_high_availability
+    - tier in ['sapos']
+    - node_tier == 'scs' 
+    - sap_mnt is defined
+    - sap_trans is defined
+
+- name:                                "ANF Mount: Update auto.direct (ers)"
+  ansible.builtin.blockinfile:
+    path:                              /etc/auto.direct
+    block: |
+                                       /sapmnt/{{ sap_sid|upper }} -nfsvers=4.1,nobind,sec=sys {{ sap_mnt }}/sapmnt{{ sap_sid|upper }}
+                                       /usr/sap/{{ sap_sid|upper }}/SYS -nfsvers=4.1,nobind,sec=sys {{ sap_mnt }}/usrsap{{ sap_sid|upper }}sys
+                                       /usr/sap/{{ sap_sid|upper }}/ERS{{ ers_instance_number }} -nfsvers=4.1,nobind,sec=sys {{ sap_mnt }}/usrsap{{ sap_sid|upper }}ers{{ ers_instance_number }}
+                                       /usr/sap/trans -nfsvers=4.1,nobind,sec=sys {{ sap_trans }}/usrsaptrans
+                                       /usr/sap/install -nfsvers=4.1,nobind,sec=sys {{ nfs_server }}:/usr/sap/install
+  register:                            autofs_configuration_changed_ers
+  when:
+    - not scs_high_availability
+    - tier in ['sapos']
+    - node_tier  == 'ers'
+    - sap_trans is defined
+    - sap_mnt is defined
+
+- name:                                "ANF Mount: Update auto.direct (ers)"
+  ansible.builtin.blockinfile:
+    path:                              /etc/auto.direct
+    block: |
+                                       /sapmnt/{{ sap_sid|upper }} -nfsvers=4.1,nobind,sec=sys {{ sap_mnt }}/sapmnt{{ sap_sid|upper }}
+                                       /usr/sap/{{ sap_sid|upper }}/SYS -nfsvers=4.1,nobind,sec=sys {{ sap_mnt }}/usrsap{{ sap_sid|upper }}sys
+                                       /usr/sap/trans -nfsvers=4.1,nobind,sec=sys {{ sap_trans }}/usrsaptrans
+                                       /usr/sap/install -nfsvers=4.1,nobind,sec=sys {{ nfs_server }}:/usr/sap/install
+  register:                            autofs_configuration_changed_ers
+  when:
+    - scs_high_availability
     - tier in ['sapos']
     - node_tier  == 'ers'
     - sap_trans is defined
