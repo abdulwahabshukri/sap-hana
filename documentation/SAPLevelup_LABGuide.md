@@ -380,11 +380,16 @@ using the instructions
 
 -   When the entire deployment is complete and you will see deployment successful message in your terminal, then go to the Azure portal and verify the resources    inside the Deployer Infrastructure Resourcegroup **(MGMT-\<region>-DEP00-INFRASTRUCTURE)** . You should see the following resources are deployed.
     
-    Deployer Infrastructure resource group:
+    Deployer Infrastructure resource group
+
     ![](./media/image16.png)
+
     LIBRARY resource group (**MGMT-\<region>-SAP_LIBRARY**)
+
     ![](./media/image17.png)
+
     Inside the state file storage account and inside the tfstate container, you should see the Deployer and Library state files:
+
     ![](./media/image18.png)
 
 -   Collect the following information in a text editor of your choice.
@@ -397,6 +402,7 @@ using the instructions
         of the Deployer state file
 
     ![](./media/image19.png)
+
     ![](./media/image20.png)
 
 -   The private ssh secret for the Deployer VM.
@@ -404,12 +410,15 @@ using the instructions
     Deployer Resource Group -\> **MGMT\<region>DEP00userXXX -\> \<KeyVault> -\>** Click on Secret -\> Click on current version -\> Copy the secret
 
     ![](./media/image21.png)
+
     ![](./media/image22.png)
+
     ![](./media/image23.png)
     
     Open Notepad or a similar editor and paste the contents of the secret value. We will use it in the next step.
 
 -   The name of the Deployer resource group key vault
+
     ![](./media/image24.png)
 
 -   The Public IP address of the Deployer VM
@@ -421,8 +430,8 @@ using the instructions
     
     Ensure that you can connect to your deployer VM as we will be deploying the rest of the infrastructures from that machine. If you need assistance, please reach out to your coach
 
--   Open Notepad or and editor of your choice and copy the ssh key collected in the previous task. Copy the file to "C:\\Users\\\[youralias\]\\.ssh. Name the file "deployer_ssh" and save as the type
-    "All Files"
+-   Open Notepad or and editor of your choice and copy the ssh key collected in the previous task. Copy the file to "C:\\Users\\\[youralias\]\\.ssh. Name the file "deployer_ssh" and save as the type "All Files"
+
     ![](./media/image26.png)
 
     Make sure that file name should not have .txt extension
@@ -611,7 +620,7 @@ Now, execute the Ansible playbooks. One way you can execute the playbooks is to 
 Another option is to execute the Ansible playbooks using the command `ansible-playbook`. You can execute the SAP BoM uploader and downloader in either separate commands or the same command.
 
 ```azurecli-interactive
-ansible-playbook                                                                                   \
+    ansible-playbook                                                                                   \
   --user        azureadm                                                                           \
   --private-key sshkey                                                                             \
   --extra-vars="@sap-parameters.yaml"                                                              \
@@ -624,8 +633,8 @@ ansible-playbook                                                                
     The BOM itself mimics the SAP maintenance planner in that we have the relevant product ids and the package download URLs. Once the BOM is
     processed, during SAP system configuration the Deployer reads the BOM and downloads files from the storage account to the SCS Server for Installation.
 
-A sample extract of a BOM file is provided below
-    ![](./media/image38.png)
+1.  A sample extract of a BOM file looks like below which you can find at deploy\ansible\BOM-catalog\S41909SPS03_v0005ms\
+    ![](./media/bom_sample.png)
 
 
 ## **Task 8: Deploy the Workload Zone**
@@ -633,6 +642,15 @@ A sample extract of a BOM file is provided below
 -   On the Deployer VM, navigate directly to the regional Workload zone
     folder:
 
+
+```azurecli-interactive
+    cd ~/Azure_SAP_Automated_Deployment/WORKSPACES/LANDSCAPE/DEV-<region>-SAP01-INFRASTRUCTURE                                                                                 \
+  --user        azureadm                                                                           \
+  --private-key sshkey                                                                             \
+  --extra-vars="@sap-parameters.yaml"                                                              \
+  ~/Azure_SAP_Automated_Deployment/sap-hana/deploy/ansible/playbook_bom_downloader.yaml            \
+  ~/Azure_SAP_Automated_Deployment/sap-hana/deploy/ansible/playbook_bom_uploader.yaml              
+```
 > **cd
 > \~/Azure_SAP_Automated_Deployment/WORKSPACES/LANDSCAPE/DEV-\<region>-SAP01-INFRASTRUCTURE**
 
