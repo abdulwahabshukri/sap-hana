@@ -340,7 +340,7 @@ fi
 
 #setting the user environment variables
 
-if [ $step -gt 1 ]; then
+if [ 3 == $step ]; then
   spn_secret="none"
 fi
 

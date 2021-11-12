@@ -136,7 +136,6 @@ landscape_tfstate_key_exists=false
 deployment_system="sap_landscape"
 
 echo "Deployer environment: $deployer_environment"
-echo "Terraform state storge account: $REMOTE_STATE_SA"
 
 workload_dirname=$(dirname "${parameterfile}")
 workload_file_parametername=$(basename "${parameterfile}")
@@ -212,9 +211,39 @@ fi
 
 #Persisting the parameters across executions
 
-automation_config_directory=~/.sap_deployment_automation/
-generic_config_information="${automation_config_directory}"config
-workload_config_information="${automation_config_directory}""${environment}""${region}"
+automation_config_directory=~/.sap_deployment_automation
+generic_config_information="${automation_config_directory}"/config
+
+workload_config_information="${automation_config_directory}"/"${environment}""${region}"
+
+if [ ! -f "${workload_config_information}" ]
+    then
+    # Ask for deployer environment name and try to read the deployer state file and resource group details from the configuration file
+    if [ -z $deployer_environment ]
+    then
+        read -p "Deployer environment name: " deployer_environment
+    fi
+    
+    deployer_config_information="${automation_config_directory}"/"${deployer_environment}""${region}"
+    if [ -f $deployer_config_information ]
+    then
+        load_config_vars "${deployer_config_information}" "keyvault"
+        load_config_vars "${deployer_config_information}" "REMOTE_STATE_RG"
+        load_config_vars "${deployer_config_information}" "REMOTE_STATE_SA"
+        load_config_vars "${deployer_config_information}" "tfstate_resource_id"
+        load_config_vars "${deployer_config_information}" "deployer_tfstate_key"
+        load_config_vars "${deployer_config_information}" "subscription"
+
+        save_config_vars "${workload_config_information}" \
+        keyvault \
+        subscription \
+        deployer_tfstate_key \
+        tfstate_resource_id \
+        REMOTE_STATE_SA \
+        REMOTE_STATE_RG
+    fi
+
+fi
 
 if [ "${force}" == 1 ]
 then
@@ -233,6 +262,7 @@ fi
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 
 init "${automation_config_directory}" "${generic_config_information}" "${workload_config_information}"
+
 
 param_dirname=$(pwd)
 export TF_DATA_DIR="${param_dirname}/.terraform"
@@ -299,26 +329,6 @@ then
 fi
 
 
-load_config_vars "${workload_config_information}" "REMOTE_STATE_SA"
-load_config_vars "${workload_config_information}" "REMOTE_STATE_RG"
-load_config_vars "${workload_config_information}" "tfstate_resource_id"
-load_config_vars "${workload_config_information}" "STATE_SUBSCRIPTION"
-load_config_vars "${workload_config_information}" "keyvault"
-load_config_vars "${workload_config_information}" "deployer_tfstate_key"
-
-if [ ! -z $tfstate_resource_id ]
-then
-  REMOTE_STATE_RG=$(echo $tfstate_resource_id | cut -d / -f5)
-  REMOTE_STATE_SA=$(echo $tfstate_resource_id | cut -d / -f9)
-  STATE_SUBSCRIPTION=$(echo $tfstate_resource_id | cut -d / -f3)
-  save_config_vars "${workload_config_information}" \
-    tfstate_resource_id \
-    REMOTE_STATE_SA \
-    REMOTE_STATE_RG \
-    STATE_SUBSCRIPTION
-fi
-
-
 # Checking for valid az session
 az account show > stdout.az 2>&1
 temp=$(grep "az login" stdout.az)
@@ -357,7 +367,28 @@ then
 fi
 
 #setting the user environment variables
-set_executing_user_environment_variables "${spn_secret}"
+set_executing_user_environment_variables "none"
+
+load_config_vars "${workload_config_information}" "REMOTE_STATE_SA"
+load_config_vars "${workload_config_information}" "REMOTE_STATE_RG"
+load_config_vars "${workload_config_information}" "tfstate_resource_id"
+load_config_vars "${workload_config_information}" "STATE_SUBSCRIPTION"
+load_config_vars "${workload_config_information}" "subscription"
+load_config_vars "${workload_config_information}" "keyvault"
+load_config_vars "${workload_config_information}" "deployer_tfstate_key"
+
+if [ ! -z $tfstate_resource_id ]
+then
+  REMOTE_STATE_RG=$(echo $tfstate_resource_id | cut -d / -f5)
+  REMOTE_STATE_SA=$(echo $tfstate_resource_id | cut -d / -f9)
+  STATE_SUBSCRIPTION=$(echo $tfstate_resource_id | cut -d / -f3)
+  save_config_vars "${workload_config_information}" \
+    tfstate_resource_id \
+    REMOTE_STATE_SA \
+    REMOTE_STATE_RG \
+    STATE_SUBSCRIPTION
+fi
+
 
 if [ ! -z $STATE_SUBSCRIPTION ]
 then
@@ -375,29 +406,6 @@ fi
 
 if [ -z $REMOTE_STATE_SA ]
 then
-    # Ask for deployer environment name and try to read the deployer state file and resource group details from the configuration file
-    if [ -z $deployer_environment ]
-    then
-        read -p "Deployer environment name: " deployer_environment
-    fi
-    
-    deployer_config_information="${automation_config_directory}""${deployer_environment}""${region}"
-    if [ -f $deployer_config_information ]
-    then
-        load_config_vars "${deployer_config_information}" "keyvault"
-        load_config_vars "${deployer_config_information}" "REMOTE_STATE_RG"
-        load_config_vars "${deployer_config_information}" "REMOTE_STATE_SA"
-        load_config_vars "${deployer_config_information}" "tfstate_resource_id"
-        load_config_vars "${deployer_config_information}" "deployer_tfstate_key"
-
-        save_config_vars "${workload_config_information}" \
-        keyvault \
-        deployer_tfstate_key \
-        tfstate_resource_id \
-        REMOTE_STATE_SA \
-        REMOTE_STATE_RG
-
-    fi
 
     if [ -z $STATE_SUBSCRIPTION ]
     then
@@ -455,7 +463,6 @@ then
         save_config_var "client_id" "${workload_config_information}"
         save_config_var "tenant_id" "${workload_config_information}"
 
-
         if [ ! -z "$spn_secret" ]
         then
             allParams=$(printf " --workload --environment %s --region %s --vault %s --spn_secret %s --subscription %s" ${environment} ${region} ${keyvault} ${spn_secret} ${subscription})
@@ -469,19 +476,9 @@ then
             read -p "Do you want to specify the Workload SPN Details Y/N?"  ans
             answer=${ans^^}
             if [ $answer == 'Y' ]; then
-                envParams=$(printf " --environment %s" "${environment}" )
-                echo $envParams
-                regParams=$(printf " --region %s" "${region}" )
-                echo $regParams
-                vaultParams=$(printf " --vault %s" "${keyvault}" )
-                echo $vaultParams
-
+                allParams=$(printf " --workload --environment %s --region %s --vault %s --subscription %s " "${environment}" "${region}" "${keyvault}" "${subscription}" )
                 
-                allParams=("${envParams}" "${regParams}" "${vaultParams}")
-
-                echo $allParams
-
-                "${DEPLOYMENT_REPO_PATH}"/deploy/scripts/set_secrets.sh "${allParams}" "${envParams}" "${regParams}" "${vaultParams}"
+                "${DEPLOYMENT_REPO_PATH}"/deploy/scripts/set_secrets.sh ${allParams}
                 if [ $? -eq 255 ]
                 then
                     exit $?
