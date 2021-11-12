@@ -190,7 +190,7 @@ key=$(echo "${parameterfile_name}" | cut -d. -f1)
 
 #Plugins
 if [ ! -d "$HOME/.terraform.d/plugin-cache" ]; then
-    mkdir "$HOME/.terraform.d/plugin-cache"
+    mkdir -p "$HOME/.terraform.d/plugin-cache"
 fi
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 
@@ -327,9 +327,11 @@ echo ""
 #create retire_region.sh for deleting the deployer and the library in a proper way
 #terraform doesn't seem to tokenize properly when we pass a full string
 if [ "$deployment_system" == "sap_deployer" ]; then
+    terraform -chdir="${terraform_bootstrap_directory}" refresh -var-file="${var_file}" \
+        $deployer_tfstate_key_parameter
+
     echo -e "#$cyan processing $deployment_system removal as defined in $parameterfile_name $resetformatting"
     terraform -chdir="${terraform_module_directory}" destroy -var-file="${var_file}" \
-        $landscape_tfstate_key_parameter \
         $deployer_tfstate_key_parameter
 
 elif [ "$deployment_system" == "sap_library" ]; then
@@ -348,10 +350,19 @@ elif [ "$deployment_system" == "sap_library" ]; then
     fi
     terraform -chdir="${terraform_bootstrap_directory}" init -upgrade=true -force-copy
 
+    terraform -chdir="${terraform_bootstrap_directory}" refresh -var-file="${var_file}" \
+        $landscape_tfstate_key_parameter \
+        $deployer_tfstate_key_parameter
+
     terraform -chdir="${terraform_bootstrap_directory}" destroy -var-file="${var_file}" \
         $landscape_tfstate_key_parameter \
         $deployer_tfstate_key_parameter
 else
+    terraform -chdir="${terraform_module_directory}" refresh -var-file="${var_file}" \
+        $tfstate_parameter \
+        $landscape_tfstate_key_parameter \
+        $deployer_tfstate_key_parameter
+
     echo -e "#$cyan processing $deployment_system removal as defined in $parameterfile_name $resetformatting"
     terraform -chdir="${terraform_module_directory}" destroy -var-file="${var_file}" \
         $tfstate_parameter \

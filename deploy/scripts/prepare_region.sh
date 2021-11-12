@@ -228,7 +228,7 @@ deployer_config_information="${automation_config_directory}"/"${environment}""${
 
 #Plugins
 if [ ! -d "$HOME/.terraform.d/plugin-cache" ]; then
-    mkdir "$HOME/.terraform.d/plugin-cache"
+    mkdir -p "$HOME/.terraform.d/plugin-cache"
 fi
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 
@@ -236,7 +236,6 @@ if [ $force == 1 ]; then
     if [ -f "${deployer_config_information}" ]; then
         rm "${deployer_config_information}"
     fi
-    rm -Rf .terraform terraform.tfstate*
     
 fi
 
@@ -244,8 +243,6 @@ init "${automation_config_directory}" "${generic_config_information}" "${deploye
 
 if [ ! -z "${subscription}" ]; then
     ARM_SUBSCRIPTION_ID="${subscription}"
-    save_config_var "ARM_SUBSCRIPTION_ID" "${deployer_config_information}"
-    save_config_var "subscription" "${deployer_config_information}"
     export ARM_SUBSCRIPTION_ID=$subscription
 fi
 
@@ -342,13 +339,18 @@ then
 fi
 
 #setting the user environment variables
+
+if [ 3 == $step ]; then
+  spn_secret="none"
+fi
+
 set_executing_user_environment_variables "${spn_secret}"
 
 load_config_vars "${deployer_config_information}" "step"
 
 
 if [ $recover == 1 ]; then
-    if [ -n $REMOTE_STATE_SA ]; then
+    if [ -n "$REMOTE_STATE_SA" ]; then
         save_config_var "REMOTE_STATE_SA" "${deployer_config_information}"
         get_and_store_sa_details ${REMOTE_STATE_SA} "${deployer_config_information}"
         #Support running prepare_region on new host when the resources are already deployed
@@ -367,6 +369,19 @@ if [ 0 == $step ]; then
     echo "#########################################################################################"
     echo ""
     
+    allParams=$(printf " -p %s %s" "${deployer_file_parametername}" "${approveparam}")
+    
+    cd "${deployer_dirname}" || exit
+
+    if [ $force == 1 ]; then
+        rm -Rf .terraform terraform.tfstate*
+    fi
+
+    "${DEPLOYMENT_REPO_PATH}"/deploy/scripts/install_deployer.sh $allParams
+    if (($? > 0)); then
+        exit $?
+    fi
+
     #Persist the parameters
     if [ ! -z "$subscription" ]; then
         save_config_var "subscription" "${deployer_config_information}"
@@ -382,19 +397,10 @@ if [ 0 == $step ]; then
         save_config_var "tenant_id" "${deployer_config_information}"
     fi
     
-    cd "${deployer_dirname}" || exit
-    
     if [ $force == 1 ]; then
         rm -Rf .terraform terraform.tfstate*
     fi
-    
-    allParams=$(printf " -p %s %s" "${deployer_file_parametername}" "${approveparam}")
-    
-    "${DEPLOYMENT_REPO_PATH}"/deploy/scripts/install_deployer.sh $allParams
-    if (($? > 0)); then
-        exit $?
-    fi
-    
+
     step=1
     save_config_var "step" "${deployer_config_information}"
 
@@ -504,6 +510,10 @@ if [ 1 == $step ]; then
     echo "#                                                                                       #"
     echo "#########################################################################################"
     echo ""
+
+    if [ ! -n "$keyvault" ]; then
+        read -r -p "Deployer keyvault name: " keyvault
+    fi
     
     az keyvault secret show --name "$secretname" --vault "$keyvault" --only-show-errors 2>error.log
     if [ -s error.log ]; then
@@ -640,15 +650,27 @@ if [ 4 == $step ]; then
     save_config_var "step" "${deployer_config_information}"
 fi
 
+load_config_vars "${deployer_config_information}" "keyvault"
+load_config_vars "${deployer_config_information}" "deployer_public_ip_address"
+load_config_vars "${deployer_config_information}" "REMOTE_STATE_SA"
+
+printf -v kvname '%-40s' "${keyvault}"
+printf -v dep_ip '%-40s' "${deployer_public_ip_address}"
+printf -v storage_account '%-40s' "${REMOTE_STATE_SA}"
+echo ""
+echo "#########################################################################################"
+echo "#                                                                                       #"
+echo -e "# $cyan Please save these values: $resetformatting                                                           #"
+echo "#     - Key Vault: "${kvname}"                                                #"
+echo "#     - Deployer IP: "${dep_ip}"                                                       #"
+echo "#     - Storage Account: "${REMOTE_STATE_SA}"                                             #"
+echo "#                                                                                       #"
+echo "#########################################################################################"
+
+
 if [ 5 == $step ]; then
     cd "${curdir}" || exit
     
-    echo "#########################################################################################"
-    echo "#                                                                                       #"
-    echo -e "#                         $cyan  Copying the parameterfiles $resetformatting                                 #"
-    echo "#                                                                                       #"
-    echo "#########################################################################################"
-    echo ""
     
     ssh_timeout_s=10
     
@@ -657,6 +679,12 @@ if [ 5 == $step ]; then
     load_config_vars "${deployer_config_information}" "deployer_public_ip_address"
     if [ "$this_ip" != "$deployer_public_ip_address" ] ; then
         # Only run this when not on deployer
+      echo "#########################################################################################"
+      echo "#                                                                                       #"
+      echo -e "#                         $cyan  Copying the parameterfiles $resetformatting                                 #"
+      echo "#                                                                                       #"
+      echo "#########################################################################################"
+      echo ""
     
         if [ ! -z ${sshsecret} ]
         then

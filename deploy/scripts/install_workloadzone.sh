@@ -82,11 +82,11 @@ function missing {
     echo "#      -d or deployer_tfstate_key            Deployer terraform state file name         #"
     echo "#      -e or deployer_environment            Deployer environment, i.e. MGMT            #"
     echo "#      -k or --state_subscription            subscription of keyvault with SPN details  #"
-    echo "#      -v or --vault                         Name of Azure keyvault with SPN details    #"
+    echo "#      -v or --keyvault                      Name of Azure keyvault with SPN details    #"
     echo "#      -s or --subscription                  subscription                               #"
     echo "#      -c or --spn_id                        SPN application id                         #"
     echo "#      -o or --storageaccountname            Storage account for terraform state files  #"
-    echo "#      -p or --spn_secret                    SPN password                               #"
+    echo "#      -n or --spn_secret                    SPN password                               #"
     echo "#      -t or --tenant_id                     SPN Tenant id                              #"
     echo "#      -f or --force                         Clean up the local Terraform files.        #"
     echo "#      -i or --auto-approve                  Silent install                             #"
@@ -96,7 +96,7 @@ function missing {
 
 show_help=false
 force=0
-INPUT_ARGUMENTS=$(getopt -n install_workloadzone -o p:d:e:k:o:s:c:p:t:v:aifh --longoptions parameterfile:,deployer_tfstate_key:,deployer_environment:,subscription:,spn_id:,spn_secret:,tenant_id:,state_subscription:,vault:,storageaccountname:,ado,auto-approve,force,help -- "$@")
+INPUT_ARGUMENTS=$(getopt -n install_workloadzone -o p:d:e:k:o:s:c:n:t:v:aifh --longoptions parameterfile:,deployer_tfstate_key:,deployer_environment:,subscription:,spn_id:,spn_secret:,tenant_id:,state_subscription:,keyvault:,storageaccountname:,ado,auto-approve,force,help -- "$@")
 VALID_ARGUMENTS=$?
 if [ "$VALID_ARGUMENTS" != "0" ]; then
   showhelp
@@ -113,8 +113,8 @@ do
     -o | --storageaccountname)                 REMOTE_STATE_SA="$2"             ; shift 2 ;;
     -s | --subscription)                       subscription="$2"                ; shift 2 ;;
     -c | --spn_id)                             client_id="$2"                   ; shift 2 ;;
-    -v | --vault)                              keyvault="$2"                    ; shift 2 ;;
-    -p | --spn_secret)                         spn_secret="$2"                  ; shift 2 ;;
+    -v | --keyvault)                           keyvault="$2"                    ; shift 2 ;;
+    -n | --spn_secret)                         spn_secret="$2"                  ; shift 2 ;;
     -a | --ado)                                called_from_ado=1                ; shift ;;
     -t | --tenant_id)                          tenant_id="$2"                   ; shift 2 ;;
     -f | --force)                              force=1                          ; shift ;;
@@ -136,7 +136,6 @@ landscape_tfstate_key_exists=false
 deployment_system="sap_landscape"
 
 echo "Deployer environment: $deployer_environment"
-echo "Terraform state storge account: $REMOTE_STATE_SA"
 
 workload_dirname=$(dirname "${parameterfile}")
 workload_file_parametername=$(basename "${parameterfile}")
@@ -145,7 +144,7 @@ param_dirname=$(dirname "${parameterfile}")
 
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 
-if [ $param_dirname != '.' ]; then
+if [ "$param_dirname" != '.' ]; then
     echo ""
     echo "#########################################################################################"
     echo "#                                                                                       #"
@@ -167,7 +166,7 @@ then
     exit 3
 fi
 
-ext=$(echo ${workload_file_parametername} | cut -d. -f2)
+ext=$(echo "${workload_file_parametername}" | cut -d. -f2)
 
 private_link_used=false
 
@@ -212,15 +211,45 @@ fi
 
 #Persisting the parameters across executions
 
-automation_config_directory=~/.sap_deployment_automation/
-generic_config_information="${automation_config_directory}"config
-workload_config_information="${automation_config_directory}""${environment}""${region}"
+automation_config_directory=~/.sap_deployment_automation
+generic_config_information="${automation_config_directory}"/config
+
+workload_config_information="${automation_config_directory}"/"${environment}""${region}"
+
+if [ ! -f "${workload_config_information}" ]
+    then
+    # Ask for deployer environment name and try to read the deployer state file and resource group details from the configuration file
+    if [ -z $deployer_environment ]
+    then
+        read -p "Deployer environment name: " deployer_environment
+    fi
+    
+    deployer_config_information="${automation_config_directory}"/"${deployer_environment}""${region}"
+    if [ -f $deployer_config_information ]
+    then
+        load_config_vars "${deployer_config_information}" "keyvault"
+        load_config_vars "${deployer_config_information}" "REMOTE_STATE_RG"
+        load_config_vars "${deployer_config_information}" "REMOTE_STATE_SA"
+        load_config_vars "${deployer_config_information}" "tfstate_resource_id"
+        load_config_vars "${deployer_config_information}" "deployer_tfstate_key"
+        load_config_vars "${deployer_config_information}" "subscription"
+
+        save_config_vars "${workload_config_information}" \
+        keyvault \
+        subscription \
+        deployer_tfstate_key \
+        tfstate_resource_id \
+        REMOTE_STATE_SA \
+        REMOTE_STATE_RG
+    fi
+
+fi
 
 if [ "${force}" == 1 ]
 then
-    if [ -f $workload_config_information ]
+    if [ -f "${workload_config_information}" ]
     then
-        rm $workload_config_information
+        rm "${workload_config_information}"
     fi
     rm -Rf .terraform terraform.tfstate*
 fi
@@ -233,6 +262,7 @@ fi
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 
 init "${automation_config_directory}" "${generic_config_information}" "${workload_config_information}"
+
 
 param_dirname=$(pwd)
 export TF_DATA_DIR="${param_dirname}/.terraform"
@@ -248,8 +278,6 @@ then
         echo "#                                                                                       #"
         echo "#########################################################################################"
         exit 65
-    else
-        save_config_var "subscription" "${workload_config_information}"
     fi
 fi
 
@@ -264,8 +292,6 @@ then
         echo "#                                                                                       #"
         echo "#########################################################################################"
         exit 65
-    else
-        save_config_var "STATE_SUBSCRIPTION" "${workload_config_information}"
     fi
     
 fi
@@ -280,8 +306,6 @@ then
         echo "#                                                                                       #"
         echo "#########################################################################################"
         exit 65
-    else
-      save_config_var "client_id" "${workload_config_information}"
     fi
 fi
 
@@ -300,35 +324,8 @@ then
         echo "#                                                                                       #"
         echo "#########################################################################################"
         exit 65
-    else
-        save_config_var "tenant_id" "${workload_config_information}"
     fi
     
-fi
-
-if [ ! -z $REMOTE_STATE_SA ]
-then
-    save_config_var "REMOTE_STATE_SA" "${workload_config_information}"
-fi
-
-
-load_config_vars "${workload_config_information}" "REMOTE_STATE_SA"
-load_config_vars "${workload_config_information}" "REMOTE_STATE_RG"
-load_config_vars "${workload_config_information}" "tfstate_resource_id"
-load_config_vars "${workload_config_information}" "STATE_SUBSCRIPTION"
-load_config_vars "${workload_config_information}" "keyvault"
-load_config_vars "${workload_config_information}" "deployer_tfstate_key"
-
-if [ ! -z $tfstate_resource_id ]
-then
-  REMOTE_STATE_RG=$(echo $tfstate_resource_id | cut -d / -f5)
-  REMOTE_STATE_SA=$(echo $tfstate_resource_id | cut -d / -f9)
-  STATE_SUBSCRIPTION=$(echo $tfstate_resource_id | cut -d / -f3)
-  save_config_vars "${workload_config_information}" \
-    tfstate_resource_id \
-    REMOTE_STATE_SA \
-    REMOTE_STATE_RG \
-    STATE_SUBSCRIPTION
 fi
 
 
@@ -370,7 +367,28 @@ then
 fi
 
 #setting the user environment variables
-set_executing_user_environment_variables "${spn_secret}"
+set_executing_user_environment_variables "none"
+
+load_config_vars "${workload_config_information}" "REMOTE_STATE_SA"
+load_config_vars "${workload_config_information}" "REMOTE_STATE_RG"
+load_config_vars "${workload_config_information}" "tfstate_resource_id"
+load_config_vars "${workload_config_information}" "STATE_SUBSCRIPTION"
+load_config_vars "${workload_config_information}" "subscription"
+load_config_vars "${workload_config_information}" "keyvault"
+load_config_vars "${workload_config_information}" "deployer_tfstate_key"
+
+if [ ! -z $tfstate_resource_id ]
+then
+  REMOTE_STATE_RG=$(echo $tfstate_resource_id | cut -d / -f5)
+  REMOTE_STATE_SA=$(echo $tfstate_resource_id | cut -d / -f9)
+  STATE_SUBSCRIPTION=$(echo $tfstate_resource_id | cut -d / -f3)
+  save_config_vars "${workload_config_information}" \
+    tfstate_resource_id \
+    REMOTE_STATE_SA \
+    REMOTE_STATE_RG \
+    STATE_SUBSCRIPTION
+fi
+
 
 if [ ! -z $STATE_SUBSCRIPTION ]
 then
@@ -388,29 +406,6 @@ fi
 
 if [ -z $REMOTE_STATE_SA ]
 then
-    # Ask for deployer environment name and try to read the deployer state file and resource group details from the configuration file
-    if [ -z $deployer_environment ]
-    then
-        read -p "Deployer environment name: " deployer_environment
-    fi
-    
-    deployer_config_information="${automation_config_directory}""${deployer_environment}""${region}"
-    if [ -f $deployer_config_information ]
-    then
-        load_config_vars "${deployer_config_information}" "keyvault"
-        load_config_vars "${deployer_config_information}" "REMOTE_STATE_RG"
-        load_config_vars "${deployer_config_information}" "REMOTE_STATE_SA"
-        load_config_vars "${deployer_config_information}" "tfstate_resource_id"
-        load_config_vars "${deployer_config_information}" "deployer_tfstate_key"
-
-        save_config_vars "${workload_config_information}" \
-        keyvault \
-        deployer_tfstate_key \
-        tfstate_resource_id \
-        REMOTE_STATE_SA \
-        REMOTE_STATE_RG
-
-    fi
 
     if [ -z $STATE_SUBSCRIPTION ]
     then
@@ -438,21 +433,13 @@ then
     
     tfstate_parameter=" -var tfstate_resource_id=${tfstate_resource_id}"
 
-    save_config_vars "${workload_config_information}" \
-    keyvault \
-    deployer_tfstate_key \
-    tfstate_resource_id \
-    REMOTE_STATE_SA \
-    REMOTE_STATE_RG
-    
-    if [ -n $STATE_SUBSCRIPTION ]
+    if [ -n "$STATE_SUBSCRIPTION" ]
     then
         if [ ${account_set} == 0 ]
         then
             $(az account set --sub "${STATE_SUBSCRIPTION}")
             account_set=1
         fi
-        
 
     fi
 else
@@ -466,13 +453,16 @@ else
     fi
 
 fi
-if [ -n $keyvault ]
+if [ -n "$keyvault" ]
 then
     secretname="${environment}"-client-id
 
     az keyvault secret show --name "$secretname" --vault "$keyvault" --only-show-errors 2>error.log
     if [ -s error.log ]
     then
+        save_config_var "client_id" "${workload_config_information}"
+        save_config_var "tenant_id" "${workload_config_information}"
+
         if [ ! -z "$spn_secret" ]
         then
             allParams=$(printf " --workload --environment %s --region %s --vault %s --spn_secret %s --subscription %s" ${environment} ${region} ${keyvault} ${spn_secret} ${subscription})
@@ -486,19 +476,9 @@ then
             read -p "Do you want to specify the Workload SPN Details Y/N?"  ans
             answer=${ans^^}
             if [ $answer == 'Y' ]; then
-                envParams=$(printf " --environment %s" "${environment}" )
-                echo $envParams
-                regParams=$(printf " --region %s" "${region}" )
-                echo $regParams
-                vaultParams=$(printf " --vault %s" "${keyvault}" )
-                echo $vaultParams
-
+                allParams=$(printf " --workload --environment %s --region %s --vault %s --subscription %s " "${environment}" "${region}" "${keyvault}" "${subscription}" )
                 
-                allParams=("${envParams}" "${regParams}" "${vaultParams}")
-
-                echo $allParams
-
-                "${DEPLOYMENT_REPO_PATH}"/deploy/scripts/set_secrets.sh "${allParams}" "${envParams}" "${regParams}" "${vaultParams}"
+                "${DEPLOYMENT_REPO_PATH}"/deploy/scripts/set_secrets.sh ${allParams}
                 if [ $? -eq 255 ]
                 then
                     exit $?
@@ -535,7 +515,7 @@ fi
 if [ -z "${DEPLOYMENT_REPO_PATH}" ]; then
     option="DEPLOYMENT_REPO_PATH"
     missing
-    exit -1
+    exit 1
 fi
 
 if [ -z "${REMOTE_STATE_SA}" ]; then
@@ -549,7 +529,7 @@ if [ -z "${REMOTE_STATE_SA}" ]; then
 
     if [ ! -z "${STATE_SUBSCRIPTION}" ]
     then
-        if [ $account_set==0 ]
+        if [ $account_set == 0 ]
         then
             $(az account set --sub "${STATE_SUBSCRIPTION}")
             account_set=1
@@ -608,14 +588,14 @@ new_deployment=false
 #Plugins
 if [ ! -d "$HOME/.terraform.d/plugin-cache" ]
 then
-    mkdir "$HOME/.terraform.d/plugin-cache"
+    mkdir -p "$HOME/.terraform.d/plugin-cache"
 fi
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 root_dirname=$(pwd)
 
 check_output=0
 
-if [ $account_set==0 ]
+if [ $account_set == 0 ]
 then
     $(az account set --sub "${STATE_SUBSCRIPTION}")
     account_set=1
@@ -663,6 +643,11 @@ then
     echo ""
     exit $return_value        
 fi
+
+save_config_var "REMOTE_STATE_SA" "${workload_config_information}"
+save_config_var "subscription" "${workload_config_information}"
+save_config_var "STATE_SUBSCRIPTION" "${workload_config_information}"
+
 
 if [ 1 == $check_output ]
 then
@@ -778,11 +763,9 @@ if [ 0 == $return_value ] ; then
     exit $return_value
 fi
 
-
-if [ ! $new_deployment ]
-then
-    if [ grep "0 to change, 0 to destroy" plan_output.log ]
-    then
+if [ 2 == $return_value ] ; then
+    test=$(grep kv_user plan_output.log | grep -m1 replaced)
+    if [ ! -z "${test}" ] ; then
         echo ""
         echo "#########################################################################################"
         echo "#                                                                                       #"
@@ -806,7 +789,7 @@ then
         else
             unset TF_DATA_DIR
 
-            exit -1
+            exit 0
         fi
     else
         ok_to_proceed=true
@@ -828,12 +811,43 @@ if [ $ok_to_proceed ]; then
     terraform -chdir="${terraform_module_directory}" apply ${approve} -var-file=${var_file} $tfstate_parameter $landscape_tfstate_key_parameter $deployer_tfstate_key_parameter
 fi
 
-return_value=$?
+return_value=0
 landscape_tfstate_key=${key}.terraform.tfstate
 save_config_var "landscape_tfstate_key" "${workload_config_information}"
 
 
 if [ 0 == $return_value ] ; then
+
+  workloadkeyvault=$(terraform -chdir="${terraform_module_directory}"  output workloadzone_kv_name | tr -d \")
+
+  return_value=-1
+  temp=$(echo "${workloadkeyvault}" | grep "Warning")
+  if [ -z "${temp}" ]
+  then
+      temp=$(echo "${workloadkeyvault}" | grep "Backend reinitialization required")
+      if [ -z "${temp}" ]
+      then
+  
+          printf -v val %-.20s "$workloadkeyvault"            
+  
+          echo ""
+          echo "#########################################################################################"
+          echo "#                                                                                       #"
+          echo -e "#                Keyvault to use for System details:$cyan $val $resetformatting               #"
+          echo "#                                                                                       #"
+          echo "#########################################################################################"
+          echo ""
+  
+          save_config_var "workloadkeyvault" "${workload_config_information}"
+          return_value=0
+      else
+          return_value=-1
+      fi
+  fi
+  unset TF_DATA_DIR
+  exit $return_value
+
+
     if [ "$private_link_used" == "true" ]; then
         echo "#########################################################################################"
         echo "#                                                                                       #"

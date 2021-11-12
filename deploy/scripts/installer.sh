@@ -221,7 +221,7 @@ echo "Parallelism count $parallelism"
 #Plugins
 if [ ! -d "$HOME/.terraform.d/plugin-cache" ]
 then
-    mkdir "$HOME/.terraform.d/plugin-cache"
+    mkdir -p "$HOME/.terraform.d/plugin-cache"
 fi
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 
@@ -352,7 +352,7 @@ if [ ! -n "${REMOTE_STATE_SA}" ]; then
     
     if [ ! -z "${STATE_SUBSCRIPTION}" ]
     then
-        if [ $account_set==0 ]
+        if [ $account_set == 0 ]
         then
             $(az account set --sub "${STATE_SUBSCRIPTION}")
             account_set=1
@@ -375,7 +375,7 @@ if [ -z "${REMOTE_STATE_RG}" ]; then
     
     if [ ! -z "${STATE_SUBSCRIPTION}" ]
     then
-        if [ $account_set==0 ]
+        if [ $account_set == 0 ]
         then
             $(az account set --sub "${STATE_SUBSCRIPTION}")
             account_set=1
@@ -399,7 +399,11 @@ then
     if [ -z "${deployer_tfstate_key}" ]; then
         deployer_tfstate_key_parameter=" "
     else
-        deployer_tfstate_key_parameter=" -var deployer_tfstate_key=${deployer_tfstate_key}"
+        if [ "${deployment_system}" != sap_system ] ; then
+            deployer_tfstate_key_parameter=" -var deployer_tfstate_key=${deployer_tfstate_key}"
+        else
+            deployer_tfstate_key_parameter=" "
+        fi
     fi
     
 else
@@ -449,7 +453,7 @@ new_deployment=false
 
 check_output=0
 
-if [ $account_set==0 ]
+if [ $account_set == 0 ]
 then
     $(az account set --sub "${STATE_SUBSCRIPTION}")
     account_set=1
@@ -491,18 +495,6 @@ else
         echo "#                                                                                       #"
         echo "#########################################################################################"
         echo ""
-        if [ ! -n ${approve} ]
-        then
-            read -p "Do you want to redeploy Y/N?"  ans
-            answer=${ans^^}
-            if [ $answer == 'Y' ]; then
-                ok_to_proceed=true
-            else
-                exit 1
-            fi
-        else
-            ok_to_proceed=true
-        fi
         
         check_output=1
         terraform -chdir="${terraform_module_directory}" init -upgrade=true -reconfigure  \
@@ -615,7 +607,6 @@ echo $allParams
 
 terraform -chdir="$terraform_module_directory" plan -no-color -detailed-exitcode $allParams > plan_output.log
 return_value=$?
-
 if [ 1 == $return_value ]
 then
     echo ""
@@ -674,7 +665,6 @@ if [ 0 == $return_value ] ; then
     exit $return_value
 fi
 if [ 2 == $return_value ] ; then
-    echo "foo" 
     fatal_errors=0
     # HANA VM
     test=$(grep vm_dbnode plan_output.log | grep -m1 replaced)
@@ -905,6 +895,16 @@ if [ $ok_to_proceed ]; then
     fi
     
 fi
+
+
+if [ "${deployment_system}" == sap_deployer ]
+then
+    deployer_public_ip_address=$(terraform -chdir="${terraform_module_directory}" output deployer_public_ip_address | tr -d \")
+    echo $deployer_public_ip_address
+    save_config_vars "${system_config_information}" \
+    deployer_public_ip_address
+fi
+
 
 if [ "${deployment_system}" == sap_landscape ]
 then
