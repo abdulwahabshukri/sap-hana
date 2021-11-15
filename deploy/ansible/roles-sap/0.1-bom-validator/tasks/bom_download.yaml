@@ -15,7 +15,7 @@
 
 - name:                                "BOM: {{ bom_name }} Set Fact  {{ item.archive }}"
   ansible.builtin.set_fact: 
-    proceed:                           "{% if dont_check_storage_account is not defined %}blob_exists.status==404 or blob_exists.status==403{% else %}true{% endif %}"
+    proceed:                           "{% if dont_check_storage_account is not defined %}blob_exists.status==404{% else %}true{% endif %}"
   tags:
     - skip_ansible_lint
 
