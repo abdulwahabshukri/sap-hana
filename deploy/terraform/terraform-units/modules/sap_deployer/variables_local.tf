@@ -25,6 +25,10 @@ variable "use_private_endpoint" {
   default = false
 }
 
+variable "configure" {
+  default = false
+}
+
 // Set defaults
 locals {
 
