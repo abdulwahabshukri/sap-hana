@@ -3,7 +3,7 @@
 - name:                                "BOM: {{ bom_name }} Check File {{ item.archive }}"
   ansible.builtin.uri:
     url:                               "{{ sapbits_location_base_path }}/{{ sapbits_bom_files }}/archives/{{ item.archive }}{% if sapbits_sas_token is not undefined %}{{ sapbits_sas_token }}{% endif %}"
-    status_code:                       [200, 404]
+    status_code:                       [200, 403, 404]
     method:                            HEAD
   register:                            blob_exists
   when:                                dont_check_storage_account is not defined 
@@ -15,7 +15,7 @@
 
 - name:                                "BOM: {{ bom_name }} Set Fact  {{ item.archive }}"
   ansible.builtin.set_fact: 
-    proceed:                           "{% if dont_check_storage_account is not defined %}blob_exists.status==404{% else %}true{% endif %}"
+    proceed:                           "{% if dont_check_storage_account is not defined %}blob_exists.status==404 or blob_exists.status==403{% else %}true{% endif %}"
   tags:
     - skip_ansible_lint
 

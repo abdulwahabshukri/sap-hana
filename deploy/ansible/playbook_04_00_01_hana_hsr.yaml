@@ -11,27 +11,31 @@
   vars_files:
     - vars/ansible-input-api.yaml      # API Input template with defaults
   tasks:
-    - name:                            Initialize facts
-      set_fact:
-        tier:                          fencing
 
-    - name:                            Run the misc/password role
-      include_role:
-        name:                          roles-misc/0.1-passwords
-        public:                        true
-      tags:
-        - 0.1-passwords
-
-    - name:                            Run the keyvault role
-      include_role:
-        name:                          roles-misc/0.2-kv-secrets
-      tags:
-        - kv-secrets
-
-    - name:                            Ensure step file is removed
-      ansible.builtin.file:
-        path:                          "{{ _workspace_directory }}/.step401"
-        state:                         absent
+    - name:                            Initialization
+      block: 
+        - name:                            Initialize facts
+          set_fact:
+            tier:                          fencing
+    
+        - name:                            Run the misc/password role
+          include_role:
+            name:                          roles-misc/0.1-passwords
+            public:                        true
+          tags:
+            - 0.1-passwords
+    
+        - name:                            Run the keyvault role
+          include_role:
+            name:                          roles-misc/0.2-kv-secrets
+          tags:
+            - kv-secrets
+    
+        - name:                            Ensure step file is removed
+          ansible.builtin.file:
+            path:                          "{{ _workspace_directory }}/.step401"
+            state:                         absent
+      when:                            db_high_availability
 
 
 # Steps:
@@ -77,6 +81,7 @@
                 name:                  roles-db/4.0.1-hdb-hsr
           tags:
             - 4.0.1-hdb-hsr
+      when:                            db_high_availability
 
     - name:                            "Install HANA Pacemaker resources"
       block:
@@ -122,6 +127,8 @@
         path:                          "{{ _workspace_directory }}/.step401"
         state:                         touch
         mode:                          0755
+      when:                            db_high_availability
+
 
 ...
 # /*----------------------------------------------------------------------------8
