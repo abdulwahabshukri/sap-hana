@@ -35,10 +35,10 @@
 - name:                                Enable OS profile for SAP-Netweaver
   ansible.builtin.command:             "{{ item.osCommand }}"
   changed_when:                        false
-  register:                            saphanaprofile
+  register:                            sapnwprofile
   loop:
     - { osFamily: "REDHAT", osCommand: "tuned-adm profile sap-netweaver" }
-    - { osFamily: "SUSE"  , osCommand: "saptune solution apply netweaver"}
+    - { osFamily: "SUSE"  , osCommand: "saptune solution apply NETWEAVER"}
   when:
     - node_tier == "scs"
     - distro_family == item.osFamily
@@ -46,7 +46,7 @@
 
 - name:                                "tuned HANA profile results"
   ansible.builtin.debug:
-    var:                               saphanaprofile
+    var:                               sapnwprofile
 ...
 # /*----------------------------------------------------------------------------8
 # |                                    END                                      |

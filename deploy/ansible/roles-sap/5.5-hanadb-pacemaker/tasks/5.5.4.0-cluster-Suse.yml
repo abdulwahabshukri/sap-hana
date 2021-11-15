@@ -61,7 +61,7 @@
                                        InstanceNumber="{{ hdb_instance_number }}"
                                        PREFER_SITE_TAKEOVER="true"
                                        DUPLICATE_PRIMARY_TIMEOUT="7200"
-                                       AUTOMATED_REGISTER="false"
+                                       AUTOMATED_REGISTER="true"
       register:                        sap_hana_topology_rsc
       failed_when:                     sap_hana_topology_rsc.rc > 1
 

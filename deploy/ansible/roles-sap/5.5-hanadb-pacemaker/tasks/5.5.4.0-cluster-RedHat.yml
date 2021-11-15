@@ -33,7 +33,7 @@
                                        pcs resource create SAPHana_{{ db_sid | upper }}_{{ hdb_instance_number }} SAPHana
                                        SID={{ db_sid | upper }} InstanceNumber={{ hdb_instance_number }}
                                        PREFER_SITE_TAKEOVER=true DUPLICATE_PRIMARY_TIMEOUT=7200
-                                       AUTOMATED_REGISTER=false
+                                       AUTOMATED_REGISTER=true
                                        op start timeout={{ cluster_sap_hana_timeouts.start }}
                                        op stop timeout={{ cluster_sap_hana_timeouts.stop }}
                                        op monitor interval=59 role="Master" timeout={{ cluster_sap_hana_timeouts.monitor_master }}
