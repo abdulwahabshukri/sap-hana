@@ -18,7 +18,7 @@
   changed_when: false
 
 - name:                                Enable OS profile for SAP-HANA
-  ansible.builtin.command:             "{{ item.os_command }}"
+  ansible.builtin.command:             "{{ item.osCommand }}"
   changed_when:                        false
   register:                            saphanaprofile
   loop:
@@ -32,8 +32,8 @@
   ansible.builtin.debug:
     var:                               saphanaprofile
 
-- name:                                Enable OS profile for SAP-HANA
-  ansible.builtin.command:             "{{ item.os_command }}"
+- name:                                Enable OS profile for SAP-Netweaver
+  ansible.builtin.command:             "{{ item.osCommand }}"
   changed_when:                        false
   register:                            saphanaprofile
   loop:
