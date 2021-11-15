@@ -328,7 +328,6 @@ then
     
 fi
 
-
 # Checking for valid az session
 az account show > stdout.az 2>&1
 temp=$(grep "az login" stdout.az)
@@ -451,7 +450,6 @@ else
         load_config_vars "${workload_config_information}" "tfstate_resource_id"
 
     fi
-
 fi
 if [ -n "$keyvault" ]
 then
@@ -465,7 +463,7 @@ then
 
         if [ ! -z "$spn_secret" ]
         then
-            allParams=$(printf " --workload --environment %s --region %s --vault %s --spn_secret %s --subscription %s" ${environment} ${region} ${keyvault} ${spn_secret} ${subscription})
+            allParams=$(printf " --workload --environment %s --region %s --vault %s --spn_secret %s --subscription %s" "${environment}" "${region}" "${keyvault}" "${spn_secret}" "${subscription}")
                 
             "${DEPLOYMENT_REPO_PATH}"/deploy/scripts/set_secrets.sh $allParams 
             if [ $? -eq 255 ]
