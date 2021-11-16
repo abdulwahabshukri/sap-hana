@@ -139,7 +139,7 @@ locals {
 
   }
 
-  app_zones_temp = [] #distinct(concat(var.application_server_zones, try(var.application.app_zones, [])))
+  app_zones_temp = distinct(concat(var.application_server_zones, try(var.application.app_zones, [])))
   scs_zones_temp = distinct(concat(var.scs_server_zones, try(var.application.scs_zones, [])))
   web_zones_temp = distinct(concat(var.webdispatcher_server_zones, try(var.application.web_zones, [])))
 
@@ -181,7 +181,7 @@ locals {
   }
 
   sap = {
-#    name          = try(coalesce(var.network_name, try(var.infrastructure.vnets.sap.name, "")), "")
+    #    name          = try(coalesce(var.network_name, try(var.infrastructure.vnets.sap.name, "")), "")
     logical_name  = try(coalesce(var.network_logical_name, try(var.infrastructure.vnets.sap.logical_name, "")), "")
     arm_id        = try(coalesce(var.network_arm_id, try(var.infrastructure.vnets.sap.arm_id, "")), "")
     address_space = try(coalesce(var.network_address_space, try(var.infrastructure.vnets.sap.address_space, "")), "")

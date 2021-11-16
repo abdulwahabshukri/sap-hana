@@ -63,7 +63,10 @@ module "hdb_node" {
     azurerm.main     = azurerm
     azurerm.deployer = azurerm.deployer
   }
-  depends_on                                   = [module.common_infrastructure]
+  depends_on = [module.common_infrastructure]
+  order_deployment = local.db_zonal_deployment ? (
+    module.app_tier.scs_vm_ids[0]
+  ) : (null)
   databases                                    = local.databases
   infrastructure                               = local.infrastructure
   options                                      = local.options
@@ -105,7 +108,11 @@ module "app_tier" {
     azurerm.main     = azurerm
     azurerm.deployer = azurerm.deployer
   }
-  depends_on                                   = [module.hdb_node, module.anydb_node]
+  order_deployment = local.db_zonal_deployment ? (
+    "") : (
+    coalesce(try(module.hdb_node.hdb_vms[0], ""), try(module.anydb_node.anydb_vms[0], ""))
+  )
+
   application                                  = local.application
   infrastructure                               = local.infrastructure
   options                                      = local.options
@@ -139,7 +146,10 @@ module "anydb_node" {
     azurerm.main     = azurerm
     azurerm.deployer = azurerm.deployer
   }
-  depends_on                                   = [module.common_infrastructure]
+  depends_on = [module.common_infrastructure]
+  order_deployment = local.db_zonal_deployment ? (
+    module.app_tier.scs_vm_ids[0]
+  ) : (null)
   databases                                    = local.databases
   infrastructure                               = local.infrastructure
   options                                      = local.options
