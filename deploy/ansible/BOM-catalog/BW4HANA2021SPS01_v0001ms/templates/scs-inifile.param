@@ -1,10 +1,9 @@
-##########################################################################################################################################
-#                                                                                                                                        #
-# Installation service 'Generic Options > SAP Web Dispatcher > SAP Web Dispatcher (Unicode)', product id 'NW_Webdispatcher:NW750.IND.PD' #
-#                                                                                                                                        #
-##########################################################################################################################################
-
-
+#########################################################################################################################################################################################################################
+#                                                                                                                                                                                                                       #
+# Installation service 'SAP BW/4HANA 2021 > SAP BW/4HANA Server > SAP HANA Database > Installation > Application Server ABAP > Distributed System > ASCS Instance', product id 'NW_ABAP_ASCS:BW4HANA2021.CORE.HDB.ABAP' #
+#                                                                                                                                                                                                                       #
+#########################################################################################################################################################################################################################
+# 
 # Password for the Diagnostics Agent specific <dasid>adm user. Provided value may be encoded.
 # DiagnosticsAgent.dasidAdmPassword =
 
@@ -39,7 +38,34 @@ NW_GetSidNoProfiles.sid = X00
 # NW_GetSidNoProfiles.unicode = true
 
 # DEPRECATED, DO NOT USE!
-# NW_SAPCrypto.SAPCryptoFile = /usr/sap/install/download_basket/SAPWEBDISP_SP_121-70005393.SAR
+NW_SAPCrypto.SAPCryptoFile = /usr/sap/install/downloads/SAPEXE_50-80005374.SAR
+
+# Add gateway process in the (A)SCS instance
+# NW_SCS_Instance.ascsInstallGateway = false
+
+# Add Web Dispatcher process in the (A)SCS instance
+# NW_SCS_Instance.ascsInstallWebDispatcher = false
+
+# Dual stack only: Specify the ASCS instance number. Leave empty for default.
+# NW_SCS_Instance.ascsInstanceNumber =
+
+# Specify whether a 'prxyinfo(.DAT)' file is to be created in the 'global' directory if this file does not yet exist and that the 'gw/prxy_info' in the 'DEFAULT' profile is to be set accordingly. Default is false.
+# NW_SCS_Instance.createGlobalProxyInfoFile = false
+
+# Specify whether a 'reginfo(.DAT)' file is to be created in the 'global' directory. Default is 'false'.
+# NW_SCS_Instance.createGlobalRegInfoFile = false
+
+# The instance number of the (A)SCS instance.  Leave this value empty if you want to use the default instance number or if you want to specify two different numbers for ASCS and SCS instance.
+NW_SCS_Instance.instanceNumber = 00
+
+# Dual stack only: The SCS instance number. Leave empty for default.
+# NW_SCS_Instance.scsInstanceNumber =
+
+# The (A)SCS message server port. Leave empty for default.
+# NW_SCS_Instance.scsMSPort =
+
+# You can specify a virtual host name for the ASCS instance. Leave empty for default.
+NW_SCS_Instance.scsVirtualHostname = x00scs00l839
 
 # SAP INTERNAL USE ONLY
 # NW_System.installSAPHostAgent = true
@@ -57,19 +83,13 @@ NW_GetSidNoProfiles.sid = X00
 # NW_Unpack.sapExeDbSar =
 
 # DEPRECATED, DO NOT USE!
-# NW_Unpack.sapExeSar =
+NW_Unpack.sapExeSar = /usr/sap/install/downloads/SAPEXE_50-80005374.SAR
 
 # DEPRECATED, DO NOT USE!
 # NW_Unpack.sapJvmSar =
 
 # DEPRECATED, DO NOT USE!
 # NW_Unpack.xs2Sar =
-
-# If  this parameter is set to 'true' the message server is configured, that is parameters 'msHost', 'backEndSID', and 'msHTTPPost' are mandatory.
-# NW_Webdispatcher_Instance.configureSystemConnectivity = true
-
-# SAP Web Dispatcher instance number. Leave empty for default.
-NW_Webdispatcher_Instance.wdInstanceNumber = 00
 
 # SAP offers the option to skip setting of security profile parameters (NOT recommended) only for compatibility reasons. Set to true and the file with recommended security settings will not be taken into consideration. See SAP Note 2714839 for security recommendations.
 # NW_adaptProfile.skipSecurityProfileSettings = false
@@ -78,7 +98,7 @@ NW_Webdispatcher_Instance.wdInstanceNumber = 00
 # NW_adaptProfile.templateFiles =
 
 # The FQDN of the system
-# NW_getFQDN.FQDN =
+NW_getFQDN.FQDN = sap.com
 
 # SAP INTERNAL USE ONLY
 # NW_getFQDN.resolve = true
@@ -86,57 +106,12 @@ NW_Webdispatcher_Instance.wdInstanceNumber = 00
 # Specify whether you want to set FQDN for the system.
 # NW_getFQDN.setFQDN = true
 
-# Activate Internet Connection Framework (ICF) nodes
-NW_webdispatcher_Instance.activateICF = false
-
-# Back-end SAP system ID. Mandatory if 'NW_Webdispatcher_Instance.configureSystemConnectivity' is set to 'true'.
-NW_webdispatcher_Instance.backEndSID = X00
-
-# There are three types of encryption modes: 'Always' (default), 'depending on the incoming protocol', 'Never'
-# NW_webdispatcher_Instance.encryptionMode = Always
-
-# Back-end message server HTTP port. Mandatory if 'NW_Webdispatcher_Instance.configureSystemConnectivity' is set to 'true'
-NW_webdispatcher_Instance.msHTTPPort = 8100
-
-# Back-end message server host. Mandatory if 'NW_Webdispatcher_Instance.configureSystemConnectivity' is set to 'true'.
-NW_webdispatcher_Instance.msHost = x00scs01l8ad
-
-# SAP System Client. Mandatory if 'NW_Webdispatcher_Instance.activateICF' is set to 'true'
-# NW_webdispatcher_Instance.rfcClient = 000
-
-# Application Server Instance Host. Mandatory if 'NW_Webdispatcher_Instance.activateICF' is set to 'true'
-NW_webdispatcher_Instance.rfcHost = x00scs01l8ad
-
-# Application Server Instance Number. Mandatory if 'NW_Webdispatcher_Instance.activateICF' is set to 'true'
-# NW_webdispatcher_Instance.rfcInstance =
-
-# Password of RFC User. Mandatory if 'NW_Webdispatcher_Instance.activateICF' is set to 'true'
-# NW_webdispatcher_Instance.rfcPassword =
-
-# RFC User. Mandatory if 'NW_Webdispatcher_Instance.activateICF' is set to 'true'
-# NW_webdispatcher_Instance.rfcUser = DDIC
-
-# Operating systems have restrictions for maximum number of open 'file handles' (sockets) for each process. Default is 2048. Provide a much higher value for  scenarios with heavy workload.
-NW_webdispatcher_Instance.scenarioSize = 500
-
-# Set this parameter to 'true' if the SAP Web Dispatcher HTTP Port is to be used.
-# NW_webdispatcher_Instance.useWdHTTPPort = false
-
-# HTTP Port of SAP Web Dispatcher. You can only specify this parameter if 'NW_webdispatcher_Instance.useWdHTTPPort' is set to 'true'.
-NW_webdispatcher_Instance.wdHTTPPort = 8000
-
-# HTTPS Port of SAP Web Dispatcher.
-NW_webdispatcher_Instance.wdHTTPSPort = 44300
-
-# Virtual host name for the SAP Web Dispatcher instance. Leave empty if you want to use the default physical host name. The virtual host name must already be bound to a local network interface.
-NW_webdispatcher_Instance.wdVirtualHostname = x00web01l8ad
-
 # The ASP device name where the SAP system will be in installed. The property is IBM i only.
 # Values from 1 to 256 can be specified. The default is 1, the System ASP.
 # OS4.DestinationASP =
 
 # The folder containing all archives that have been downloaded from http://support.sap.com/swdc and are supposed to be used in this procedure
-archives.downloadBasket = /usr/sap/install/download_basket/SAPWEBDISP_SP_121-70005393.SAR
+archives.downloadBasket = /usr/sap/install/downloads
 
 # Windows only: The domain of the SAP Host Agent user
 # hostAgent.domain =
