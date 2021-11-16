@@ -90,7 +90,7 @@
 - name:                                "BOM: Set Python version {{ distro_id }}"
   ansible.builtin.set_fact:
     python_version:                    'python3'
-  when:                                distro_id in ['suse15']
+  when:                                distro_id in ['suse15', 'redhat82']
 
 
 #   04) Download media from bom
