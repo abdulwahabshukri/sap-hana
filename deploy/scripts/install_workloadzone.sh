@@ -463,7 +463,7 @@ then
 
         if [ ! -z "$spn_secret" ]
         then
-            allParams=$(printf " --workload --environment %s --region %s --vault %s --spn_secret %s --subscription %s" "${environment}" "${region}" "${keyvault}" "${spn_secret}" "${subscription}")
+            allParams=$(printf " --workload --environment %s --region %s --vault %s --spn_secret %s --subscription %s --spn_id %s " "${environment}" "${region}" "${keyvault}" "${spn_secret}" "${subscription}" "${client_id}" )
                 
             "${DEPLOYMENT_REPO_PATH}"/deploy/scripts/set_secrets.sh $allParams 
             if [ $? -eq 255 ]
@@ -474,7 +474,7 @@ then
             read -p "Do you want to specify the Workload SPN Details Y/N?"  ans
             answer=${ans^^}
             if [ $answer == 'Y' ]; then
-                allParams=$(printf " --workload --environment %s --region %s --vault %s --subscription %s " "${environment}" "${region}" "${keyvault}" "${subscription}" )
+                allParams=$(printf " --workload --environment %s --region %s --vault %s --subscription %s  --spn_id %s " "${environment}" "${region}" "${keyvault}" "${subscription}" "${client_id}" )
                 
                 "${DEPLOYMENT_REPO_PATH}"/deploy/scripts/set_secrets.sh ${allParams}
                 if [ $? -eq 255 ]

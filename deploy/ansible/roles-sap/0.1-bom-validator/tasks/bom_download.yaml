@@ -6,7 +6,7 @@
     status_code:                       [200, 403, 404]
     method:                            HEAD
   register:                            blob_exists
-  when:                                dont_check_storage_account is not defined 
+  when:                                check_storage_account
 
 - name:                                "BOM: Debug {{ bom_name }} Download File {{ item.archive }} result"
   ansible.builtin.debug: 
@@ -15,9 +15,14 @@
 
 - name:                                "BOM: {{ bom_name }} Set Fact  {{ item.archive }}"
   ansible.builtin.set_fact: 
-    proceed:                           "{% if dont_check_storage_account is not defined %}blob_exists.status==404{% else %}true{% endif %} | bool"
-  tags:
-    - skip_ansible_lint
+    proceed:                           "{{ blob_exists.status==404 | bool }}"
+  when:                                check_storage_account
+
+- name:                                "BOM: {{ bom_name }} Set Fact  {{ item.archive }}"
+  ansible.builtin.set_fact: 
+    proceed:                           true
+  when:                                not check_storage_account
+
 
 - name:                                "BOM: Debug {{ bom_name }} Download File {{ item.archive }}"
   ansible.builtin.debug: 
@@ -111,7 +116,7 @@
         - azresult.stderr is defined
         - azresult.stderr.find("BlobAlreadyExists") == -1
 
-  when: proceed | bool
+  when: proceed
 
 
 ...
