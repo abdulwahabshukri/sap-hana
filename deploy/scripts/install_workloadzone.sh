@@ -458,7 +458,7 @@ then
 
         if [ ! -z "$spn_secret" ]
         then
-            allParams=$(printf " --workload --environment %s --region %s --vault %s --spn_secret %s --subscription %s" ${environment} ${region} ${keyvault} ${spn_secret} ${subscription})
+            allParams=$(printf " --workload --environment %s --region %s --vault %s --spn_secret %s --subscription %s" "${environment}" "${region}" "${keyvault}" "${spn_secret}" "${subscription}")
                 
             "${DEPLOYMENT_REPO_PATH}"/deploy/scripts/set_secrets.sh $allParams 
             if [ $? -eq 255 ]
