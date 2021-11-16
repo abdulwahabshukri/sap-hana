@@ -8,7 +8,7 @@ Description:
 // Prepare deployer with pre-installed softwares if pip is created
 resource "null_resource" "prepare-deployer" {
   depends_on = [azurerm_linux_virtual_machine.deployer]
-  count      = local.enable_deployer_public_ip ? length(local.deployers) : 0
+  count      = local.enable_deployer_public_ip && var.configure ? length(local.deployers) : 0
 
   connection {
     type        = "ssh"
@@ -21,7 +21,7 @@ resource "null_resource" "prepare-deployer" {
 
   provisioner "file" {
     content = templatefile(format("%s/templates/configure_deployer.sh.tmpl", path.module), {
-      tfversion       = "0.14.7",
+      tfversion       = "1.0.8",
       rg_name         = local.rg_name,
       client_id       = azurerm_user_assigned_identity.deployer.client_id,
       subscription_id = data.azurerm_subscription.primary.subscription_id,

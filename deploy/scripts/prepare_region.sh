@@ -236,7 +236,6 @@ if [ $force == 1 ]; then
     if [ -f "${deployer_config_information}" ]; then
         rm "${deployer_config_information}"
     fi
-    rm -Rf .terraform terraform.tfstate*
     
 fi
 
@@ -341,7 +340,7 @@ fi
 
 #setting the user environment variables
 
-if [ $step -gt 1 ]; then
+if [ 3 == $step ]; then
   spn_secret="none"
 fi
 
@@ -373,7 +372,11 @@ if [ 0 == $step ]; then
     allParams=$(printf " -p %s %s" "${deployer_file_parametername}" "${approveparam}")
     
     cd "${deployer_dirname}" || exit
-    
+
+    if [ $force == 1 ]; then
+        rm -Rf .terraform terraform.tfstate*
+    fi
+
     "${DEPLOYMENT_REPO_PATH}"/deploy/scripts/install_deployer.sh $allParams
     if (($? > 0)); then
         exit $?

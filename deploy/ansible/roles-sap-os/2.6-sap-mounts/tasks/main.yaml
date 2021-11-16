@@ -31,9 +31,24 @@
     nfs_server:                        "{{ query('inventory_hostnames', '{{ sap_sid|upper }}_SCS') | first }}"
 
 # Mount Filesystems
+- name:                                Mount local sapmnt (scs)
+  ansible.builtin.mount:
+    src:                               "{{ item.src }}"
+    path:                              "{{ item.path }}"
+    fstype:                            "{{ item.type }}"
+    opts:                              defaults
+    state:                             mounted
+  loop:
+    - { type: 'xfs',  src: '/dev/vg_sap/lv_sapmnt',  path: '/sapmnt/{{ sap_sid|upper }}' }
+  when:
+    - tier == 'sapos'
+    - sap_mnt is undefined
+    - node_tier == 'scs'
+
+# Mount Filesystems
 - name:                                Mount Filesystems block
   block:
-    - name:                            Mount Filesystems when not using ANF (app & pas)
+    - name:                            Mount Filesystems when not using ANF (all app tier)
       ansible.builtin.mount:
         src:                           "{{ item.src }}"
         path:                          "{{ item.path }}"
@@ -44,7 +59,7 @@
         - { type: 'nfs4',  src: '{{ nfs_server }}:/sapmnt/{{ sap_sid|upper }}',  path: '/sapmnt/{{ sap_sid|upper }}' }
       when:
         - tier == 'sapos'
-        - node_tier in ['pas', 'app']
+        - node_tier in ['pas', 'app', 'ers']
         - sap_mnt is undefined
   rescue:
     - name:                            Re-mount Filesystems when not using ANF (app & pas)
@@ -61,40 +76,7 @@
         - { type: 'nfs4',  src: '{{ nfs_server }}:/sapmnt/{{ sap_sid|upper }}',  path: '/sapmnt/{{ sap_sid|upper }}' }
       when:
         - tier == 'sapos'
-        - node_tier in ['pas', 'app']
-        - sap_mnt is undefined
-
-# Mount Filesystems
-- name:                                Re-mount Filesystems block
-  block:
-    - name:                            Mount Filesystems when not using ANF
-      ansible.builtin.mount:
-        src:                           "{{ item.src }}"
-        path:                          "{{ item.path }}"
-        fstype:                        "{{ item.type }}"
-        opts:                          defaults
-        state:                         remounted
-      loop:
-        - { type: 'nfs4',  src: '{{ nfs_server }}:/sapmnt/{{ sap_sid|upper }}',  path: '/sapmnt/{{ sap_sid|upper }}' }
-      when:
-        - node_tier in ['pas', 'app', 'scs', 'ers']
-        - sap_mnt is undefined
-  rescue:
-    - name:                            Re-mount Filesystems when not using ANF (app & pas)
-      ansible.builtin.debug:
-        msg:                           "Trying to remount"
-    - name:                            Re-mount Filesystems when not using ANF (app & pas)
-      ansible.builtin.mount:
-        src:                           "{{ item.src }}"
-        path:                          "{{ item.path }}"
-        fstype:                        "{{ item.type }}"
-        opts:                          defaults
-        state:                         remounted
-      loop:
-        - { type: 'nfs4',  src: '{{ nfs_server }}:/sapmnt/{{ sap_sid|upper }}',  path: '/sapmnt/{{ sap_sid|upper }}' }
-      when:
-        - tier == 'sapos'
-        - node_tier in ['pas', 'app']
+        - node_tier in ['pas', 'app', 'ers']
         - sap_mnt is undefined
 
 
@@ -111,21 +93,6 @@
   when:
     - tier == 'sapos'
     - node_tier != 'scs'
-
-# Mount Filesystems
-- name:                                Mount local sapmnt (scs)
-  ansible.builtin.mount:
-    src:                               "{{ item.src }}"
-    path:                              "{{ item.path }}"
-    fstype:                            "{{ item.type }}"
-    opts:                              defaults
-    state:                             mounted
-  loop:
-    - { type: 'xfs',  src: '/dev/vg_sap/lv_sapmnt',  path: '/sapmnt/{{ sap_sid|upper }}' }
-  when:
-    - tier == 'sapos'
-    - sap_mnt is undefined
-    - node_tier == 'scs'
 
 # Import this task only if the sap_mnt is defined, i.e. ANF is used
 - name:                                Show sap_mnt
