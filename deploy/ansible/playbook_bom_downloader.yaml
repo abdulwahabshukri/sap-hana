@@ -10,13 +10,13 @@
 #
 
 
-- hosts:          localhost
+- hosts:                               localhost
 
-  name:           BOM Downloader
-  gather_facts:   false
-  connection:     local
-  become:         false
-  become_user:    root
+  name:                                BOM Downloader
+  gather_facts:                        false
+  connection:                          local
+  become:                              false
+  become_user:                         root
 
   vars_files:
     - vars/ansible-input-api.yaml                               # API Input template with defaults
@@ -30,37 +30,38 @@
 # -------------------------------------+---------------------------------------8
 
     - block:
-        - name: Set the bom tier
+        - name:                        Set the bom tier
           ansible.builtin.set_fact:
-            tier:     bom
+            tier:                      bom
 
     - block:
-        - name: Load the keyvault secrets
+        - name:                        Load the keyvault secrets
           include_role:
-            name:     roles-misc/0.2-kv-secrets
-            public:   true
+            name:                      roles-misc/0.2-kv-secrets
+            public:                    true
       tags:
         - 0.2-kv-secrets
 
     - block:
-        - name: Load the storage account details
+        - name:                        Load the storage account details
           include_role:
-            name:     roles-misc/0.3.sap-installation-media-storage-details
-            public:   true
+            name:                      roles-misc/0.3.sap-installation-media-storage-details
+            public:                    true
       tags:
         - 0.3.sap-installation-media-storage-details
 
-    - name: Set the preparation tier
+    - name:                            Set the preparation tier
       ansible.builtin.set_fact:
-        tier:     preparation
+        tier:                          preparation
 
     - block:
-        - name: Run the bom-validator
+        - name:                        Run the bom-validator
           include_role:
-            name:     roles-sap/0.1-bom-validator
+            name:                      roles-sap/0.1-bom-validator
       vars:
-        sapbits_location_base_path: "{{ hostvars.localhost.sapbits-location-base-path }}"
-        sapbits_sas_token:          "{{ hostvars.localhost.sapbits_sas_token }}"
+        sapbits_location_base_path:    "{{ hostvars.localhost.sapbits-location-base-path }}"
+        sapbits_sas_token:             "{{ hostvars.localhost.sapbits_sas_token }}"
+        check_storage_account:         "{{ check_storage_account }}" 
       tags:
         - 0.1-bom-validator
 ...
