@@ -13,8 +13,8 @@
 # - deployer_tfstate_key is the state file name for the deployer
 # These are required parameters, if using the deployment scripts they will be auto populated otherwise they need to be entered
 
-tfstate_resource_id   = null
-deployer_tfstate_key  = null
+#tfstate_resource_id   = null
+#deployer_tfstate_key  = null
 
 #########################################################################################
 #                                                                                       #
