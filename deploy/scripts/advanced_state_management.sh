@@ -21,7 +21,7 @@ function showhelp {
     echo "#   This file contains the logic to reimport an Azure artifact to the Terraform state file                       #"
     echo "#   The script experts the following exports:                                                                    #"
     echo "#                                                                                                                #"
-    echo "#     DEPLOYMENT_REPO_PATH the path to the folder containing the cloned sap-hana                                 #"
+    echo "#     DEPLOYMENT_REPO_PATH the path to the folder containing the cloned sap-automation                                 #"
     echo "#                                                                                                                #"
     echo "#                                                                                                                #"
     echo "#                                                                                                                #"
@@ -211,6 +211,8 @@ fail_if_null tfstate_resource_id
 resource_group_name=$(echo $tfstate_resource_id | cut -d/ -f5 | tr -d \" | xargs)
 
 directory=$(pwd)/.terraform
+
+echo $DEPLOYMENT_REPO_PATH
 
 module_dir=$DEPLOYMENT_REPO_PATH/deploy/terraform/run/${type}
 var_file=~/Azure_SAP_Automated_Deployment/WORKSPACES/DEPLOYER/PERM-WEEU-DEP01-INFRASTRUCTURE/PERM-WEEU-DEP01-INFRASTRUCTURE.tfvars
