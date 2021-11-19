@@ -96,6 +96,8 @@
   register:                            vgscreated
   when:
     - tier == "sapos"
+    
+  
 
 - name:                                "Filter the vg name from vgscreated results"
   ansible.builtin.set_fact:
@@ -118,6 +120,7 @@
     verbosity:                         2
   when:
     - tier == "sapos"
+
 
 
 # Debug testing end of line 
