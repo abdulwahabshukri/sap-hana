@@ -101,6 +101,7 @@ resource "azurerm_storage_share" "fileshare_sapbits" {
   count                = (local.sa_sapbits_file_share_enable && !local.sa_sapbits_file_share_exists) ? 1 : 0
   name                 = local.sa_sapbits_file_share_name
   storage_account_name = local.sa_sapbits_exists ? data.azurerm_storage_account.storage_sapbits[0].name : azurerm_storage_account.storage_sapbits[0].name
+  quota                = 200
 }
 
 /* 
