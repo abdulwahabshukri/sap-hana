@@ -20,7 +20,7 @@ resource "azurerm_storage_account" "storage_tfstate" {
   account_tier              = local.sa_tfstate_account_tier
   account_kind              = local.sa_tfstate_account_kind
   enable_https_traffic_only = local.sa_tfstate_enable_secure_transfer
-  allow_blob_public_access  = true
+  
   blob_properties {
     delete_retention_policy {
       days = 7
@@ -77,7 +77,7 @@ resource "azurerm_storage_account" "storage_sapbits" {
   account_kind              = local.sa_sapbits_account_kind
   enable_https_traffic_only = local.sa_sapbits_enable_secure_transfer
   // To support all access levels 'Blob' 'Private' and 'Container'
-  allow_blob_public_access = true
+  
   // TODO: soft delete for file share
 }
 
